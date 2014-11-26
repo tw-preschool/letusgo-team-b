@@ -1,26 +1,19 @@
 
 .navbar-brand{
     font-size: 30px;
-    /*padding-bottom: 50px;*/
 }
 
-div h1{
-    /*margin: 20px auto 0 auto;*/
+.welcome-message h1{
     text-align: center;
-    /*position: fixed;*/
 }
 
-div p{
+.welcome-message p{
     width: 80%;
     margin: 15px auto 0 auto;
 }
 
 .welcome-message{
-    background: url("imgs/bingo2.jpg") top center no-repeat;
+    background: url("imgs/bingo3.jpeg") top center no-repeat;
+    background-clip:border-box;
     padding-bottom: 500px;
-}
-
-.bingo-logo{
-    margin-left: 100px;
-    padding-left: 100px;
 }
