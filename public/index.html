@@ -11,26 +11,32 @@
 
 <body>
 
-<nav class="nav-bar">
-    <!--<h3 class="text-center">-->
-        <!--Let‘s go！-->
-    <!--</h3>-->
-    <ul class="breadcrumb">
-        <li>
-            <a href="index.html">Let's go</a>
-        </li>
-        <li>
-            <a href="index.html">主页</a>
-        </li>
-        <li>
-            <a href="views/items.html">商品列表</a>
-        </li>
-        <li class="active"><a href="views/cart.html">购物车</a>
-        </li>
-    </ul>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Let's go!</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">主页</a></li>
+                <li><a href="views/items.html">商品列表</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="views/cart.html">购物车</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
 </nav>
 
-<div>
+
+<div class="welcome-message">
   <h1>Welcome to Let's Go!</h1>
   <p>
     商店里进行购物结算时会使用收银机（POS）系统，这台收银机会在结算时根据 客户的购物车（Cart）中的商品（Item）和商店正在进行的优惠活动（Promotion）进行结算和打印购物清单。
