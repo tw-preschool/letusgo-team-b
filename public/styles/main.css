@@ -17,3 +17,8 @@
     background-clip:border-box;
     padding-bottom: 500px;
 }
+
+button{
+    margin-top: 15px;
+    margin-left: 10%;
+}
