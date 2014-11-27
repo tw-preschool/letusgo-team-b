@@ -12,7 +12,7 @@
 <body>
 
 <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
+    <div class="container-fluid" id="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -27,8 +27,14 @@
                 <li><a href="#">主页</a></li>
                 <li><a href="views/items.html">商品列表</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="views/items.html">购物车</a></li>
+
+            <ul class="nav navbar-nav navbar-right " id="cartTextAndLosg">
+                <li>
+                    <span class="glyphicon glyphicon-shopping-cart" id="cart-logo"></span>
+                </li>
+                <li>
+                <a href="views/cart.html">购物车</a>
+                </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
@@ -41,7 +47,7 @@
     已知该商店正在对部分商品进行”买二赠一“的优惠活动。我们需要实现一个名为printInventory函数，该函数能够将指定格式的数据作为参数 输入，然后在浏览器的控制台中输出结算清单的文本。
   </p>
   <a href="views/items.html">
-  <button type="button" class="btn btn-primary btn-c" >Let's go</button>
+  <button type="button" class="btn btn-primary btn-c" id="let-button">Let's go</button>
   </a>
 
 </div>

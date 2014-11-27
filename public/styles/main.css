@@ -18,7 +18,26 @@
     padding-bottom: 500px;
 }
 
-button{
+#let-button{
     margin-top: 15px;
     margin-left: 10%;
 }
+
+#container-fluid a:hover{
+    color: #ffffff;
+}
+
+#container-fluid{
+    background: #282828;
+}
+
+#container-fluid a{
+    color: #ec971f;
+}
+
+#cart-logo{
+    margin-top: 17px;
+    color: #ec971f;
+    margin-right: -8px;
+}
+
