@@ -3,4 +3,5 @@ db/*.sqlite3
 script.rb
 product.json
 npm-debug.log
-
+.idea/
+letusgo-team-b.iml
