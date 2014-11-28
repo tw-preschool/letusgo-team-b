@@ -7,7 +7,7 @@ require './models/product'
 
 class POSApplication < Sinatra::Base
     dbconfig = YAML.load(File.open("config/database.yml").read)
-    
+
     configure :development do
         require 'sqlite3'
         ActiveRecord::Base.establish_connection(dbconfig['development'])
@@ -59,9 +59,11 @@ class POSApplication < Sinatra::Base
             halt 500, {:message => "create product failed"}.to_json
         end
     end
-
+    get '/add' do
+        content_type :html
+        File.open('public/views/add.html').read
+    end
     after do
         ActiveRecord::Base.connection.close
     end
 end
-

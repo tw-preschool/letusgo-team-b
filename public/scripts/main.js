@@ -28,4 +28,3 @@ $(document).ready(function () {
     feature.init();
     feature.printDate();
 });
-
