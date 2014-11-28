@@ -31,12 +31,6 @@
     color: #ec971f;
 }
 
-#cart-logo{
-    margin-top: 17px;
-    color: #ec971f;
-    margin-right: -8px;
-}
-
 .div-table-heard {
 
 }
@@ -59,13 +53,15 @@
     text-decoration:none;
     color:#fff;
 }
-/*nav.navbar-nav li.active a{*/
-    /*text-decoration:none;*/
-    /*color:#fff;*/
-    /*background: #282828;*/
-/*}*/
+
 #container-fluid ul li.active a{
     text-decoration:none;
     color:#fff;
     background: #282828;
+}
+#cart-logo{
+    /*display: inline;*/
+    float: left;
+    margin-top: 17px;
+    color: #ec971f;
 }
