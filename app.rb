@@ -7,7 +7,7 @@ require './models/product'
 
 class POSApplication < Sinatra::Base
     dbconfig = YAML.load(File.open("config/database.yml").read)
-    
+
     configure :development do
         require 'sqlite3'
         ActiveRecord::Base.establish_connection(dbconfig['development'])
@@ -64,4 +64,3 @@ class POSApplication < Sinatra::Base
         ActiveRecord::Base.connection.close
     end
 end
-
