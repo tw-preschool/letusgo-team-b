@@ -23,10 +23,6 @@
     margin-left: 10%;
 }
 
-#container-fluid a:hover{
-    color: #ffffff;
-}
-
 #container-fluid{
     background: #282828;
 }
@@ -57,4 +53,15 @@
 
 .flow-right {
   float:right;
+}
+
+#container-fluid ul li a:hover {
+    text-decoration:none;
+    color:#fff;
+}
+
+#container-fluid ul li.active a{
+    text-decoration:none;
+    color:#fff;
+    background: #282828;
 }
