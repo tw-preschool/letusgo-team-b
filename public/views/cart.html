@@ -37,11 +37,13 @@
     </div><!--/.container-fluid -->
 </nav>
 
-<div>
-  <h4>购物清单</h4>
-  <table>
+<div class="div-table">
+  <div class="div-table-heard">
+    <h4>购物清单</h4>
+  </div>
+  <table class="table table-hover">
     <thead>
-    <tr>
+    <tr class="active">
       <th>名称</th>
       <th>单价(元)</th>
       <th>单位</th>
@@ -54,24 +56,33 @@
       <td>可口可乐</td>
       <td>3</td>
       <td>瓶</td>
-      <td>1</td>
+      <td>
+        <button type="button">-</button>
+        <label>1</label>
+        <button type="button">+</button>
+      </td>
       <td>3</td>
     </tr>
     <tr>
       <td>雪碧</td>
       <td>3</td>
       <td>瓶</td>
-      <td>1</td>
+      <td><button type="button">-</button>
+        <label>1</label>
+        <button type="button">+</button></td>
       <td>3</td>
     </tr>
     </tbody>
   </table>
+  <div class="div-table-footer">
+    <p class="text-right">总计：<span>6.00元</span></p>
+    <div class="flow-right">
+      <a href="./payment.html" class="btn btn-primary btn-lg active" role="button">付 款</a>
+    </div>
+  </div>
 </div>
 
-<div>
-  <p>总计：<span>6.00元</span></p>
-  <a href="./payment.html">付款</a>
-</div>
+
 
 <script type="text/javascript" src="../lib/jquery-2.1.1/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="../lib/bootstrap-3.2.0-dist/js/bootstrap.js"></script>
