@@ -38,12 +38,14 @@
     </div><!--/.container-fluid -->
 </nav>
 
-<div>
-    <h4>购物清单</h4>
+<div class="div-table">
+    <div class="div-table-heard">
+      <h4>购物清单</h4>
+    </div>
     <div id="pay-date"></div>
-    <table>
+    <table class="table table-hover">
       <thead>
-      <tr>
+      <tr class="active">
         <th>名称</th>
         <th>单价(元)</th>
         <th>单位</th>
@@ -69,10 +71,12 @@
       </tbody>
     </table>
 
-    <h4>赠送商品</h4>
-    <table>
+    <div class="div-table-heard">
+      <h4>赠送商品</h4>
+    </div>
+    <table class="table table-hover">
       <thead>
-      <tr>
+      <tr class="active">
         <th>分类</th>
         <th>名称</th>
         <th>数量</th>
@@ -82,10 +86,12 @@
       </tbody>
     </table>
 
-    <div>
-      <p>总计：<span>0.00元</span></p>
-      <p>节约：<span>0.00元</span></p>
-      <a href="items.html">确认</a>
+    <div class="div-table-footer">
+      <p class="text-right">总计：<span>0.00元</span></p>
+      <p class="text-right">节约：<span>0.00元</span></p>
+      <div class="flow-right">
+        <a href="items.html" class="btn btn-primary btn-lg active" role="button">确 认</a>
+      </div>
     </div>
 </div>
 
