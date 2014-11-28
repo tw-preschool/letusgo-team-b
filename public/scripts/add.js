@@ -3,7 +3,6 @@ $(document).ready(function(){
     var name = $(".iName").val();
     var price = $(".iPrice").val();
     var unit = $(".iUnit").val();
-    alert(name+price+unit);
     $.ajax({
       type : "POST",
       url : "/products",
