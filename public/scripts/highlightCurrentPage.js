@@ -7,27 +7,15 @@ $(document).ready(function(){
         var url = window.location.href;
 
         // passes on every "a" tag
-        $(".container-fluid a").each(function() {
+        $("#container-fluid a").each(function() {
             // checks if its the same on the address bar
             if (url == (this.href)) {
                 $(this).closest("li").addClass("active");
-//                $(this).addClass("active");
 
             }
         });
     }
 
     highlightCurrentPage();
-//    $(function() {
-//        // this will get the full URL at the address bar
-//        var url = window.location.href;
-//
-//        // passes on every "a" tag
-//        $(".container-fluid a").each(function() {
-//            // checks if its the same on the address bar
-//            if (url == (this.href)) {
-//                $(this).closest("li").addClass("active");
-//            }
-//        });
-//    });
+
 });

@@ -59,7 +59,11 @@
     text-decoration:none;
     color:#fff;
 }
-
+/*nav.navbar-nav li.active a{*/
+    /*text-decoration:none;*/
+    /*color:#fff;*/
+    /*background: #282828;*/
+/*}*/
 #container-fluid ul li.active a{
     text-decoration:none;
     color:#fff;
