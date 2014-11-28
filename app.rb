@@ -59,7 +59,10 @@ class POSApplication < Sinatra::Base
             halt 500, {:message => "create product failed"}.to_json
         end
     end
-
+    get '/add' do
+        content_type :html
+        File.open('public/views/add.html').read
+    end
     after do
         ActiveRecord::Base.connection.close
     end
