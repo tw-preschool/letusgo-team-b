@@ -14,8 +14,8 @@ $(document).ready(function(){
       for(var i=0;i<data.length;i++){
           var tr = $('<tr' + ' id=' + '\"' + i +'\"' + '>\
                         <td>' + data[i].name + '</td>\
-                        <td>' + data[i].unit + '</td>\
                         <td>' + data[i].price + '</td>\
+                        <td>' + data[i].unit + '</td>\
                         <td class=' + '\"'+'text-center'+'\"' + '>' +
                         '<button '+'id='+'\"'+i+'\"'+' type=' +'\"'+'button'+'\"'+' class='+'\"'+'btn btn-primary'+'\">'+'加入购物车'+'</button>'+'</td>\
                       </tr>');
