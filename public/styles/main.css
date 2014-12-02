@@ -65,3 +65,18 @@
   margin-top: 17px;
   color: #ec971f;
 }
+
+.div-login {
+  margin: 60px auto;
+  width: 40%;
+  max-width: 40%;
+}
+
+.message-danger {
+  margin: 0 0 20px 0;
+}
+
+.message-danger p{
+  padding: 15px;
+  display: none;
+}
