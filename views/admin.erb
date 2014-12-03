@@ -1,0 +1,24 @@
+<div class="product-table">
+  <table class="table table-bordered table-items">
+    <caption class="product-table-title">商品列表</caption>
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>单价(元)</th>
+        <th>单位</th>
+        <th>操作</th>
+      </tr>
+      <% @products.each do |item| %>
+      <tr>
+        <th><%=item.name%></th>
+        <th><%=item.price%></th>
+        <th><%=item.unit%></th>
+        <td><button type="button" class="btn btn-primary item-edit">修改</button><button type="button" class="btn btn-primary item-delete">删除</button></td>
+      </tr>
+      <%end%>
+    </thead>
+    <tbody id="product-table-list">
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript" src="../scripts/admin_item_list.js"></script>

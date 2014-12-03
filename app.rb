@@ -63,6 +63,16 @@ class POSApplication < Sinatra::Base
         content_type :html
         File.open('public/views/add.html').read
     end
+    get '/admin' do
+      content_type :html
+      begin
+          @products = Product.all || []
+          @products.to_json
+          erb :admin
+      rescue ActiveRecord::RecordNotFound => e
+            [404, {:message => e.message}.to_json]
+      end
+    end
     after do
         ActiveRecord::Base.connection.close
     end
