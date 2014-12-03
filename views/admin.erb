@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="styles/admin.css"/>
 <div class="product-table">
   <table class="table table-bordered table-items">
     <caption class="product-table-title">商品列表</caption>
@@ -6,14 +7,18 @@
         <th>名称</th>
         <th>单价(元)</th>
         <th>单位</th>
-        <th>操作</th>
+        <th>促销</th>
+        <th>修改</th>
+        <th>删除</th>
       </tr>
       <% @products.each do |item| %>
       <tr>
         <th><%=item.name%></th>
         <th><%=item.price%></th>
         <th><%=item.unit%></th>
-        <td><button type="button" class="btn btn-primary item-edit">修改</button><button type="button" class="btn btn-primary item-delete">删除</button></td>
+        <td><button type="button" class="btn btn-primary item-promotion">促销</button></td>
+        <td><button type="button" class="btn btn-primary item-edit">修改</button></td>
+        <td><button type="button" class="btn btn-primary item-delete">删除</button></td>
       </tr>
       <%end%>
     </thead>
@@ -21,4 +26,16 @@
     </tbody>
   </table>
 </div>
-<script type="text/javascript" src="../scripts/admin_item_list.js"></script>
+<div class = "add-sheet">
+  <h3 class = "add-entry">additem>>>></h2>
+  <div class = "add-info">
+    <label for = "itemName" >name</label>
+    <input type = "text" class = "iName">
+    <label for = "itemPrice" >price</label>
+    <input type = "number" class = "iPrice">
+    <label for = "itemUnit">unit</label>
+    <input type = "text" class = "iUnit">
+    <button class = "btn btn-primary addbutton">submit</button>
+  </div>
+</div>
+<script type="text/javascript" src="../scripts/admin.js"></script>

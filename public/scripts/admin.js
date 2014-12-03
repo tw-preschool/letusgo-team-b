@@ -13,4 +13,7 @@ $(document).ready(function(){
       }
     });
   });
+  $(".add-entry").on("click",function(){
+    $(this).parent().find(".add-info").toggle();
+  });
 });

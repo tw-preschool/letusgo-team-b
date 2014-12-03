@@ -80,3 +80,9 @@
   padding: 15px;
   display: none;
 }
+.add-info {
+  display:none;
+}
+.add-entry {
+  text-decoration:underline;
+}
