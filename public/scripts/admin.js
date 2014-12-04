@@ -16,4 +16,20 @@ $(document).ready(function(){
   $(".add-entry").on("click",function(){
     $(this).parent().find(".add-info").toggle();
   });
+  $(".item-edit").on("click",editItem);
+  function editItem(){
+    return 1;
+  }
+  $(".item-delete").on("click",function(){
+    var name = $(this).closest("tr").find(".item-name").text();
+    $.ajax({
+      type : "POST",
+      url : "/item-delete",
+      data : {"name" : name},
+      dataType : "json",
+      success : function(data){
+        alert("successfully adding item");
+      }
+    });
+  });
 });

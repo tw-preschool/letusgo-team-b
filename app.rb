@@ -73,6 +73,9 @@ class POSApplication < Sinatra::Base
             [404, {:message => e.message}.to_json]
       end
     end
+    post '/item-delete' do
+      Product.where(name: params[:name]).first.destroy
+    end
     after do
         ActiveRecord::Base.connection.close
     end
