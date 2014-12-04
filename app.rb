@@ -26,7 +26,7 @@ class POSApplication < Sinatra::Base
 
     get '/' do
         content_type :html
-        File.open('public/index.html').read
+        erb :index
     end
 
     get '/products' do
