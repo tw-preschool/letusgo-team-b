@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody id="product-table-list">
-      <% @products.each do |item| %>
+      <% Product.all.each do |item| %>
       <tr>
         <td class = "item-id"><%=item.id%></td>
         <td><%=item.name%></td>
@@ -29,14 +29,14 @@
   </table>
 </div>
 <div class = "add-sheet">
-  <h3 class = "add-entry">additem>>>></h2>
+  <h3 class = "add-entry label-primary">additem>>>></h3>
   <div class = "add-info">
-    <label for = "itemName" >name</label>
-    <input type = "text" class = "iName">
-    <label for = "itemPrice" >price</label>
-    <input type = "number" class = "iPrice">
-    <label for = "itemUnit">unit</label>
-    <input type = "text" class = "iUnit">
+    <label for = "itemName" class = "label-info">name</label>
+    <input type = "text" class = "iName form-control" placeholder = "item name" autofocus required>
+    <label for = "itemPrice" class = "label-info">price</label>
+    <input type = "number" class = "iPrice form-control" placeholder = "item price" required>
+    <label for = "itemUnit" class = "label-info">unit</label>
+    <input type = "text" class = "iUnit form-control" placeholder = "item unit" required>
     <button class = "btn btn-primary addbutton">submit</button>
   </div>
 </div>

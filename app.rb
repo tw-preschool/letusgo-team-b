@@ -66,8 +66,6 @@ class POSApplication < Sinatra::Base
     get '/admin' do
       content_type :html
       begin
-          @products = Product.all || []
-          @products.to_json
           erb :admin
       rescue ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
