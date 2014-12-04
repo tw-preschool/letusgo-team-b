@@ -24,11 +24,14 @@ class POSApplication < Sinatra::Base
         content_type :json
     end
 
-    get '/' do
+    get '/index.html' do
         content_type :html
         erb :index
     end
-
+    get '/' do
+      content_type :html
+      erb :index
+    end
     get '/products' do
         begin
             products = Product.all || []
