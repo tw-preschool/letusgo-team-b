@@ -2,8 +2,9 @@
 <div class="product-table">
   <table class="table table-bordered table-items">
     <caption class="product-table-title">商品列表</caption>
-    <thead>
+    <thead class "item-info">
       <tr>
+        <th>编号</th>
         <th>名称</th>
         <th>单价(元)</th>
         <th>单位</th>
@@ -11,18 +12,19 @@
         <th>修改</th>
         <th>删除</th>
       </tr>
+    </thead>
+    <tbody id="product-table-list">
       <% @products.each do |item| %>
       <tr>
-        <th class = "item-name"><%=item.name%></th>
-        <th><%=item.price%></th>
-        <th><%=item.unit%></th>
+        <td class = "item-id"><%=item.id%></td>
+        <td><%=item.name%></td>
+        <td><%=item.price%></td>
+        <td><%=item.unit%></td>
         <td><button type="button" class="btn btn-primary item-promotion">促销</button></td>
         <td><button type="button" class="btn btn-primary item-edit">修改</button></td>
         <td><button type="button" class="btn btn-primary item-delete">删除</button></td>
       </tr>
       <%end%>
-    </thead>
-    <tbody id="product-table-list">
     </tbody>
   </table>
 </div>

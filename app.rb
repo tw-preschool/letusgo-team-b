@@ -54,7 +54,7 @@ class POSApplication < Sinatra::Base
                             :unit => params[:unit])
 
         if product.save
-            [201, {:message => "products/#{product.id}"}.to_json]
+            [201, {:message => "products/#{product.id}",:id => product.id }.to_json]
         else
             halt 500, {:message => "create product failed"}.to_json
         end
@@ -74,7 +74,8 @@ class POSApplication < Sinatra::Base
       end
     end
     post '/item-delete' do
-      Product.where(name: params[:name]).first.destroy
+      Product.find(params[:id]).destroy
+      [201, {:message => "delete"}.to_json]
     end
     after do
         ActiveRecord::Base.connection.close
