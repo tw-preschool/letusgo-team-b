@@ -33,15 +33,17 @@ $(document).ready(function(){
   }
   $("#product-table-list").on("click",".item-delete",function(){
     var item = $(this).closest("tr");
-    alert(parseInt(item.find(".item-id").text(),10));
-    $.ajax({
-      type : "POST",
-      url : "/item-delete",
-      data : {"id" : parseInt(item.find(".item-id").text(),10)},
-      dataType : "json",
-      success : function(data){
-        item.remove();
+    if(confirm("确定要删除该商品?"))
+      {
+        $.ajax({
+          type : "POST",
+          url : "/item-delete",
+          data : {"id" : parseInt(item.find(".item-id").text(),10)},
+          dataType : "json",
+          success : function(data){
+            item.remove();
+          }
+        });
       }
-    });
   });
 });
