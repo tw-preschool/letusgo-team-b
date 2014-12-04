@@ -26,11 +26,12 @@ $(document).ready(function(){
   $(".add-entry").on("click",function(){
     $(this).parent().find(".add-info").toggle();
   });
-  $(".item-edit").on("click",editItem);
+  $("#product-table-list").on("click",".item-edit",editItem);
   function editItem(){
+    alert("1");
     return 1;
   }
-  $(".item-delete").on("click",function(){
+  $("#product-table-list").on("click",".item-delete",function(){
     var item = $(this).closest("tr");
     alert(parseInt(item.find(".item-id").text(),10));
     $.ajax({
