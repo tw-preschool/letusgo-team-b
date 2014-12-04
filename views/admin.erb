@@ -28,6 +28,9 @@
     </tbody>
   </table>
 </div>
+<% if Product.count == 0 %>
+  <p id = "alert-msg">no item yet</p>
+<% end %>
 <div class = "add-sheet">
   <h3 class = "add-entry label-primary">additem>>>></h3>
   <div class = "add-info">

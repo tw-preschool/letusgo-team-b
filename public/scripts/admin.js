@@ -9,17 +9,17 @@ $(document).ready(function(){
       data : {"name" : name , "price" : price  , "unit" : unit},
       dataType : "json",
       success : function(data){
-        alert(data.message);
         var tr = $('<tr>\
                       <td class = \"item-id\">' + data.id + '</td>\
                       <td>' + name + '</td>\
                       <td>' + price + '</td>\
                       <td>' + unit + '</td>\
-                      <td><button type=\"button\" class=\"btn btn-primary item-promotion\">促销</button></td>\
-                      <td><button type=\"button\" class=\"btn btn-primary item-edit\">修改</button></td>\
-                      <td><button type=\"button\" class=\"btn btn-primary item-delete\">删除</button></td>\
+                      <td><button class=\"btn btn-primary item-promotion\">促销</button></td>\
+                      <td><button class=\"btn btn-primary item-edit\">修改</button></td>\
+                      <td><button class=\"btn btn-primary item-delete\">删除</button></td>\
                       </tr>');
         $("#product-table-list").append(tr);
+        $("#alert-msg").remove();
       }
     });
   });
@@ -32,6 +32,7 @@ $(document).ready(function(){
   }
   $(".item-delete").on("click",function(){
     var item = $(this).closest("tr");
+    alert(parseInt(item.find(".item-id").text(),10));
     $.ajax({
       type : "POST",
       url : "/item-delete",
