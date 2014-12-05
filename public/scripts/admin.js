@@ -9,27 +9,41 @@ $(document).ready(function(){
       data : {"name" : name , "price" : price  , "unit" : unit},
       dataType : "json",
       success : function(data){
-        alert("successfully adding item");
+        var tr = $('<tr>\
+                      <td class = \"item-id\">' + data.id + '</td>\
+                      <td>' + name + '</td>\
+                      <td>' + price + '</td>\
+                      <td>' + unit + '</td>\
+                      <td><button class=\"btn btn-primary item-promotion\">促销</button></td>\
+                      <td><button class=\"btn btn-primary item-edit\">修改</button></td>\
+                      <td><button class=\"btn btn-primary item-delete\">删除</button></td>\
+                      </tr>');
+        $("#product-table-list").append(tr);
+        $("#alert-msg").remove();
       }
     });
   });
   $(".add-entry").on("click",function(){
     $(this).parent().find(".add-info").toggle();
   });
-  $(".item-edit").on("click",editItem);
+  $("#product-table-list").on("click",".item-edit",editItem);
   function editItem(){
+    alert("1");
     return 1;
   }
-  $(".item-delete").on("click",function(){
-    var name = $(this).closest("tr").find(".item-name").text();
-    $.ajax({
-      type : "POST",
-      url : "/item-delete",
-      data : {"name" : name},
-      dataType : "json",
-      success : function(data){
-        alert("successfully adding item");
+  $("#product-table-list").on("click",".item-delete",function(){
+    var item = $(this).closest("tr");
+    if(confirm("确定要删除该商品?"))
+      {
+        $.ajax({
+          type : "POST",
+          url : "/item-delete",
+          data : {"id" : parseInt(item.find(".item-id").text(),10)},
+          dataType : "json",
+          success : function(data){
+            item.remove();
+          }
+        });
       }
-    });
   });
 });

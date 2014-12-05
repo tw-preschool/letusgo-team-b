@@ -2,8 +2,9 @@
 <div class="product-table">
   <table class="table table-bordered table-items">
     <caption class="product-table-title">商品列表</caption>
-    <thead>
+    <thead class "item-info">
       <tr>
+        <th>编号</th>
         <th>名称</th>
         <th>单价(元)</th>
         <th>单位</th>
@@ -11,30 +12,34 @@
         <th>修改</th>
         <th>删除</th>
       </tr>
-      <% @products.each do |item| %>
+    </thead>
+    <tbody id="product-table-list">
+      <% Product.all.each do |item| %>
       <tr>
-        <th class = "item-name"><%=item.name%></th>
-        <th><%=item.price%></th>
-        <th><%=item.unit%></th>
+        <td class = "item-id"><%=item.id%></td>
+        <td><%=item.name%></td>
+        <td><%=item.price%></td>
+        <td><%=item.unit%></td>
         <td><button type="button" class="btn btn-primary item-promotion">促销</button></td>
         <td><button type="button" class="btn btn-primary item-edit">修改</button></td>
         <td><button type="button" class="btn btn-primary item-delete">删除</button></td>
       </tr>
       <%end%>
-    </thead>
-    <tbody id="product-table-list">
     </tbody>
   </table>
 </div>
+<% if Product.count == 0 %>
+  <p id = "alert-msg">no item yet</p>
+<% end %>
 <div class = "add-sheet">
-  <h3 class = "add-entry">additem>>>></h2>
+  <h3 class = "add-entry label-primary">additem>>>></h3>
   <div class = "add-info">
-    <label for = "itemName" >name</label>
-    <input type = "text" class = "iName">
-    <label for = "itemPrice" >price</label>
-    <input type = "number" class = "iPrice">
-    <label for = "itemUnit">unit</label>
-    <input type = "text" class = "iUnit">
+    <label for = "itemName" class = "label-info">name</label>
+    <input type = "text" class = "iName form-control" placeholder = "item name" autofocus required>
+    <label for = "itemPrice" class = "label-info">price</label>
+    <input type = "number" class = "iPrice form-control" placeholder = "item price" required>
+    <label for = "itemUnit" class = "label-info">unit</label>
+    <input type = "text" class = "iUnit form-control" placeholder = "item unit" required>
     <button class = "btn btn-primary addbutton">submit</button>
   </div>
 </div>
