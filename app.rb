@@ -4,8 +4,32 @@ require 'active_record'
 require 'json'
 
 require './models/product'
+class LoginHandle < Sinatra::Base
+
+  configure do
+    use Rack::Session::Pool, :expire_after => 60*60*24*7
+    set :username, 'admin'
+    set :password, 'admin'
+  end
+
+  get '/login' do
+    content_type :html
+    erb :login
+  end
+
+  post '/login' do
+    if params[:name] == settings.username && params[:password] == settings.password
+      session[:user] = true
+      return session[:user].to_json
+    else
+      erb :login
+      return session[:user].to_json
+    end
+  end
+end
 
 class POSApplication < Sinatra::Base
+    use LoginHandle
     dbconfig = YAML.load(File.open("config/database.yml").read)
 
     configure :development do
@@ -30,7 +54,11 @@ class POSApplication < Sinatra::Base
     end
     get '/' do
       content_type :html
-      erb :index
+      if session[:user] == true
+        erb :index
+      else
+        erb :login
+      end
     end
     get '/products' do
       content_type :html
