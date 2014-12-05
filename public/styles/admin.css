@@ -3,12 +3,15 @@
 .add-info input {
   display : block;
   margin : 10px auto;
-  width: 60%;
+  width: 30%;
 }
 
 .add-info label { font-size: 25px; }
 
-.addbutton { margin : 20px 20%; }
+.addbutton {
+   margin : 20px 35%;
+   width : 30%;
+}
 
 .add-info { display:none; }
 
