@@ -55,7 +55,6 @@ class POSApplication < Sinatra::Base
         product = Product.create(:name => params[:name],
                             :price => params[:price],
                             :unit => params[:unit])
-
         if product.save
             [201, {:message => "products/#{product.id}",:id => product.id }.to_json]
         else
