@@ -4,8 +4,7 @@ $(document).ready(function(){
     var name = $('#inputUsername').val();
     var password = $('#inputPassword').val();
     if(name.length === 0 || password.length === 0){
-      alert("用户名或密码不能为空");
-      return;
+      $(".message-danger > p").show();
     }
     $.ajax({
       type : "POST",
