@@ -142,4 +142,12 @@ class POSApplication < Sinatra::Base
       ActiveRecord::Base.connection.close
     end
 
+    get '/payment' do
+      content_type :html
+      erb :payment
+    end
+    after do
+      ActiveRecord::Base.connection.close
+    end
+
 end
