@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
   $.ajax({
       type: "GET",
       url: "/products",
@@ -7,7 +6,6 @@ $(document).ready(function(){
       dataType: "json",
       success: function(data){
                   appendTr(data);
-                  bindClickEvent();
               }
     });
     function appendTr(data){
@@ -21,10 +19,5 @@ $(document).ready(function(){
                       </tr>');
           $('#body-list').append(tr);
       }
-    }
-    function bindClickEvent(){
-        $('#body-list button').click(function(){
-            alert('successfully adding in the shopping cart!');
-        });
     }
 });

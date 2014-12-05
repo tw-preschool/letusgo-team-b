@@ -33,12 +33,14 @@ class POSApplication < Sinatra::Base
       erb :index
     end
     get '/products' do
+      content_type :html
         begin
-            products = Product.all || []
-            products.to_json
+            @products = Product.all || []
+            @products.to_json
         rescue ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
         end
+        erb :items
     end
 
 
