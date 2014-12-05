@@ -128,4 +128,12 @@ class POSApplication < Sinatra::Base
         ActiveRecord::Base.connection.close
     end
 
+    get '/cart' do
+      content_type :html
+      erb :cart
+    end
+    after do
+      ActiveRecord::Base.connection.close
+    end
+
 end
