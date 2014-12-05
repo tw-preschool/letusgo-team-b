@@ -20,7 +20,7 @@
 .edit-link {
   text-align: center;
   text-decoration: underline;
-  font-size: 20px;
+  font-size: 19px;
 }
 
 .product-table {
@@ -29,4 +29,19 @@
 
 .add-entry {
   padding-left: 10%;
+}
+
+.div-split {
+  margin: 5px auto;
+}
+
+.bs-callout-info {
+  border-left-color: #5bc0de;
+}
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
 }

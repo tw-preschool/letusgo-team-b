@@ -6,7 +6,7 @@
   width: 30%;
 }
 
-.edit-info label { font-size: 25px; }
+.edit-info label { font-size: 18px; }
 
 .save-btn {
   margin : 20px 20px 20px 35%;
@@ -14,6 +14,6 @@
 }
 
 .back {
-  font-size : 25px;
+  font-size : 18px;
   text-decoration : underline;
 }

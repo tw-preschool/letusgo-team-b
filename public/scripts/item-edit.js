@@ -1,9 +1,9 @@
 $(document).ready(function(){
-    $(".save-btn").on("click",function(){
-      var nos = parseInt($(".iNo").text().split(":")[1],10);
-      var name = $(".iName").val();
-      var price = $(".iPrice").val();
-      var unit = $(".iUnit").val();
+    $("#save-btn").on("click",function(){
+      var nos = parseInt($("#iNo").text().split(":")[1],10);
+      var name = $("#iName").val();
+      var price = $("#iPrice").val();
+      var unit = $("#iUnit").val();
       $.ajax({
         type : "POST",
         url : "/item-edit",
@@ -11,7 +11,7 @@ $(document).ready(function(){
         dataType : "json",
         success : function(data){
           alert("successfully change item");
-          location.href = "/admin"
+          location.href = "/admin";
         }
       });
     });
