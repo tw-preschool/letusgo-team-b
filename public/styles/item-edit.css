@@ -1,0 +1,16 @@
+
+.edit-info label,
+.edit-info input {
+  display : block;
+  margin : 10px auto;
+  width: 60%;
+}
+
+.edit-info label { font-size: 25px; }
+
+.save-btn { margin : 20px 20px 20px 20%; }
+
+.back {
+  font-size : 25px;
+  text-decoration : underline;
+}

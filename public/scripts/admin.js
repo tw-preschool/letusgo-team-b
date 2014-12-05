@@ -16,7 +16,7 @@ $(document).ready(function(){
                       <td>' + price + '</td>\
                       <td>' + unit + '</td>\
                       <td><input type="checkbox" class=\"btn btn-primary item-promotion\" value="促销"></td>\
-                      <td><button class=\"btn btn-primary item-edit\">修改</button></td>\
+                      <td><a href=\"/item-edit/'+data.id+'\" class = \"edit-link\">修改</a></td>\
                       <td><button class=\"btn btn-primary item-delete\">删除</button></td>\
                       </tr>');
         $("#product-table-list").append(tr);
@@ -31,13 +31,8 @@ $(document).ready(function(){
     if (this.checked == true)
       alert("add promotion");
     else if (this.checked == false)
-      alert("delete promotion")
+      alert("delete promotion");
   });
-  $("#product-table-list").on("click",".item-edit",editItem);
-  function editItem(){
-    alert("1");
-    return 1;
-  }
   $("#product-table-list").on("click",".item-delete",function(){
     var item = $(this).closest("tr");
     if(confirm("确定要删除该商品?"))

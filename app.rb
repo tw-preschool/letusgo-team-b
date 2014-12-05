@@ -40,7 +40,7 @@ class POSApplication < Sinatra::Base
         rescue ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
         end
-        erb :items
+
     end
 
 
@@ -77,6 +77,16 @@ class POSApplication < Sinatra::Base
     end
     post '/item-delete' do
       Product.find(params[:id]).destroy
+      [201, {:message => "delete"}.to_json]
+    end
+    get '/item-edit/:id' do
+      content_type :html
+      @id = params[:id]
+      erb :'item-edit'
+    end
+    post '/item-edit' do
+      product = Product.find(params[:id])
+      product.update(params[:"item-info"] )
       [201, {:message => "delete"}.to_json]
     end
     after do

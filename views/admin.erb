@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="styles/admin.css"/>
+<link rel="stylesheet" href="../styles/admin.css"/>
 <div class="product-table">
   <table class="table table-bordered table-items">
     <caption class="product-table-title">商品列表</caption>
@@ -20,8 +20,8 @@
         <td><%=item.name%></td>
         <td><%=item.price%></td>
         <td><%=item.unit%></td>
-        <td><button type="button" class="btn btn-primary item-promotion">促销</button></td>
-        <td><button type="button" class="btn btn-primary item-edit">修改</button></td>
+        <td><input type="checkbox" class="btn btn-primary item-promotion" value = "促销"></td>
+        <td><a href="/item-edit/<%=item.id%>" class = "edit-link">修改</a></td>
         <td><button type="button" class="btn btn-primary item-delete">删除</button></td>
       </tr>
       <%end%>
@@ -34,11 +34,11 @@
 <div class = "add-sheet">
   <h3 class = "add-entry label-primary">additem>>>></h3>
   <div class = "add-info">
-    <label for = "itemName" class = "label-info">name</label>
+    <label for = "itemName">name</label>
     <input type = "text" class = "iName form-control" placeholder = "item name" autofocus required>
-    <label for = "itemPrice" class = "label-info">price</label>
+    <label for = "itemPrice">price</label>
     <input type = "number" class = "iPrice form-control" placeholder = "item price" required>
-    <label for = "itemUnit" class = "label-info">unit</label>
+    <label for = "itemUnit">unit</label>
     <input type = "text" class = "iUnit form-control" placeholder = "item unit" required>
     <button class = "btn btn-primary addbutton">submit</button>
   </div>
