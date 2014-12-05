@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../styles/item-edit.css"/>
 <div class = "edit-info">
-    <label for = "item-no" class = "iNo">商品编号:<%= @id%></label>
+    <label for = "item-no" class = "iNo">barcode:<%= @id%></label>
     <label for = "itemName">name</label>
     <% @item = Product.find(@id) %>
     <input type = "text" class = "iName form-control" value = <%= @item.name %> autofocus required>
