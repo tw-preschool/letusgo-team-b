@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="../styles/item-edit.css"/>
+<div class = "edit-info">
+    <label for = "item-no" class = "iNo">商品编号:<%= @id%></label>
+    <label for = "itemName">name</label>
+    <% @item = Product.find(@id) %>
+    <input type = "text" class = "iName form-control" value = <%= @item.name %> autofocus required>
+    <label for = "itemPrice">price</label>
+    <input type = "number" class = "iPrice form-control" value = "<%= @item.price%>" required>
+    <label for = "itemUnit">unit</label>
+    <input type = "text" class = "iUnit form-control" value = <%= @item.unit%> required>
+    <button class = "btn btn-primary save-btn">save</button>
+    <a href = "/admin" class = "back">back</a>
+</div>
+<script type="text/javascript" src="../scripts/item-edit.js"></script>

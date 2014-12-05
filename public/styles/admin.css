@@ -1,6 +1,29 @@
-.add-info label, .add-info input{
+
+.add-info label,
+.add-info input {
   display : block;
   margin : 10px auto;
   width: 60%;
 }
-.addbutton {margin : 20px 20%;}
+
+.add-info label { font-size: 25px; }
+
+.addbutton { margin : 20px 20%; }
+
+.add-info { display:none; }
+
+.add-sheet .add-entry { text-decoration:underline; }
+
+.edit-link {
+  text-align: center;
+  text-decoration: underline;
+  font-size: 20px;
+}
+
+.product-table {
+  margin: 20px 10% 20px 10%;
+}
+
+.add-entry {
+  padding-left: 10%;
+}
