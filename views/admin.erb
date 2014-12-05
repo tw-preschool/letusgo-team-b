@@ -1,14 +1,38 @@
 <link rel="stylesheet" href="../styles/admin.css"/>
-<div class="product-table">
-  <table class="table table-bordered table-items">
-    <caption class="product-table-title"><h2>商品列表</h2></caption>
-    <thead class "item-info">
-      <tr>
+
+<div class="div-table">
+  <div class="div-table-heard">
+    <h3>添加商品</h3>
+  </div>
+  <div class="form-inline" role="form">
+    <div class="form-group">
+      <label for="iName">商品名称：</label>
+      <input class="form-control" id="iName" placeholder="请输入商品名称">
+    </div>
+    <div class="form-group">
+      <label for="iPrice">价格：</label>
+      <input class="form-control" id="iPrice" placeholder="请输入价格">
+    </div>
+    <div class="form-group">
+      <label for="iUnit">单位：</label>
+      <input class="form-control" id="iUnit" placeholder="请输入单位">
+    </div>
+    <button class="btn btn-default" id="addbutton">添加商品</button>
+  </div>
+</div>
+
+<div class="div-table">
+  <div class="div-table-heard">
+    <h3>商品列表</h3>
+  </div>
+  <table id="item-table" class="table table-hover">
+    <thead>
+      <tr class="active">
         <th>条形码</th>
         <th>名称</th>
         <th>单价(元)</th>
         <th>单位</th>
-        <th>促销</th>
+        <th>买二送一</th>
         <th>修改</th>
         <th>删除</th>
       </tr>
@@ -29,18 +53,6 @@
   </table>
 </div>
 <% if Product.count == 0 %>
-  <p id = "alert-msg">no item yet</p>
+
 <% end %>
-<div class = "add-sheet">
-  <h3 class = "add-entry label-primary">additem>>>></h3>
-  <div class = "add-info">
-    <label for = "itemName">name</label>
-    <input type = "text" class = "iName form-control" placeholder = "item name" autofocus required>
-    <label for = "itemPrice">price</label>
-    <input type = "number" class = "iPrice form-control" placeholder = "item price" required>
-    <label for = "itemUnit">unit</label>
-    <input type = "text" class = "iUnit form-control" placeholder = "item unit" required>
-    <button class = "btn btn-primary addbutton">submit</button>
-  </div>
-</div>
 <script type="text/javascript" src="../scripts/admin.js"></script>

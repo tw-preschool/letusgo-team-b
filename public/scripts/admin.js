@@ -1,8 +1,8 @@
 $(document).ready(function(){
-  $(".addbutton").on("click",function(){
-    var name = $(".iName").val();
-    var price = $(".iPrice").val();
-    var unit = $(".iUnit").val();
+  $("#addbutton").on("click",function(){
+    var name = $("#iName").val();
+    var price = $("#iPrice").val();
+    var unit = $("#iUnit").val();
     //var promotion = false;
     $.ajax({
       type : "POST",
@@ -20,7 +20,7 @@ $(document).ready(function(){
                       <td><button class=\"btn btn-primary item-delete\">删除</button></td>\
                       </tr>');
         $("#product-table-list").append(tr);
-        $("#alert-msg").remove();
+        //$("#alert-msg").remove();
       }
     });
   });
