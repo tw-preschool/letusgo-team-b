@@ -18,7 +18,6 @@ $(document).ready(function(){
 
 				}else{
 					$(".message-danger > p").show();
-
 				}
 			}
 

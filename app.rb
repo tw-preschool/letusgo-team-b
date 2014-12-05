@@ -22,7 +22,7 @@ class LoginHandle < Sinatra::Base
       session[:user] = true
       return session[:user].to_json
     else
-      erb :login
+      session[:user] = false
       return session[:user].to_json
     end
   end
@@ -54,11 +54,7 @@ class POSApplication < Sinatra::Base
     end
     get '/' do
       content_type :html
-      if session[:user] == true
-        erb :index
-      else
-        erb :login
-      end
+      erb :index
     end
     get '/products' do
       content_type :html
@@ -95,9 +91,10 @@ class POSApplication < Sinatra::Base
         File.open('public/views/add.html').read
     end
     get '/admin' do
+      redirect '/login' unless session[:user].to_json
       content_type :html
       begin
-          erb :admin
+        erb :admin
       rescue ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
       end
@@ -119,6 +116,11 @@ class POSApplication < Sinatra::Base
     get '/items' do
       content_type :html
       erb :items
+    end
+
+    get '/logout' do
+      session[:user] = false.to_json
+      redirect '/login'
     end
     after do
         ActiveRecord::Base.connection.close
