@@ -2,8 +2,8 @@ require 'sinatra'
 require 'rack/contrib'
 require 'active_record'
 require 'json'
-
 require './models/product'
+
 class LoginHandle < Sinatra::Base
 
   configure do
@@ -26,9 +26,11 @@ class LoginHandle < Sinatra::Base
       return session[:user].to_json
     end
   end
+
 end
 
 class POSApplication < Sinatra::Base
+
     use LoginHandle
     dbconfig = YAML.load(File.open("config/database.yml").read)
 
@@ -52,10 +54,12 @@ class POSApplication < Sinatra::Base
         content_type :html
         erb :index
     end
+
     get '/' do
       content_type :html
       erb :index
     end
+
     get '/products' do
       content_type :html
         begin
@@ -63,9 +67,7 @@ class POSApplication < Sinatra::Base
         rescue ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
         end
-
     end
-
 
     get '/products/:id' do
         begin
@@ -86,10 +88,12 @@ class POSApplication < Sinatra::Base
             halt 500, {:message => "create product failed"}.to_json
         end
     end
+
     get '/add' do
         content_type :html
         File.open('public/views/add.html').read
     end
+
     get '/admin' do
       redirect '/login' unless session[:user].to_json
       content_type :html
@@ -99,20 +103,24 @@ class POSApplication < Sinatra::Base
             [404, {:message => e.message}.to_json]
       end
     end
+
     post '/item-delete' do
       Product.find(params[:id]).destroy
       [201, {:message => "delete"}.to_json]
     end
+
     get '/item-edit/:id' do
       content_type :html
       @id = params[:id]
       erb :'item-edit'
     end
+
     post '/item-edit' do
       product = Product.find(params[:id])
       product.update(params[:"item-info"] )
       [201, {:message => "delete"}.to_json]
     end
+
     get '/items' do
       content_type :html
       erb :items
@@ -125,4 +133,13 @@ class POSApplication < Sinatra::Base
     after do
         ActiveRecord::Base.connection.close
     end
+
+    get '/cart' do
+      content_type :html
+      erb :cart
+    end
+    after do
+      ActiveRecord::Base.connection.close
+    end
+
 end
