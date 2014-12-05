@@ -12,7 +12,7 @@
     </tr>
     </thead>
     <tbody id="body-list">
-      <% @products.each do |item| %>
+      <% Product.all.each do |item| %>
       <tr>
         <td class = "item-name"><%=item.name%></td>
         <td><%=item.price%></td>
@@ -24,4 +24,4 @@
       <%end%>
     </tbody>
   </table>
-</div>
+  <script type="text/javascript" src="../scripts/model/item.js"></script>

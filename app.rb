@@ -89,6 +89,10 @@ class POSApplication < Sinatra::Base
       product.update(params[:"item-info"] )
       [201, {:message => "delete"}.to_json]
     end
+    get '/items' do
+      content_type :html
+      erb :items
+    end
     after do
         ActiveRecord::Base.connection.close
     end
