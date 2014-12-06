@@ -7,14 +7,18 @@ require './models/product'
 class LoginHandle < Sinatra::Base
 
   configure do
-    use Rack::Session::Pool, :expire_after => 60*60*24*7
+    use Rack::Session::Pool, :expire_after => 5#60*60*24*7
     set :username, 'admin'
     set :password, 'admin'
   end
 
   get '/login' do
-    content_type :html
-    erb :login
+    if session[:user] = true
+      redirect '/admin'
+    else
+      content_type :html
+      erb :login
+    end
   end
 
   post '/login' do
@@ -95,12 +99,15 @@ class POSApplication < Sinatra::Base
     end
 
     get '/admin' do
-      redirect '/login' unless session[:user].to_json
-      content_type :html
-      begin
-        erb :admin
-      rescue ActiveRecord::RecordNotFound => e
-            [404, {:message => e.message}.to_json]
+      if session[:user] = false
+        redirect '/login'
+      else
+        content_type :html
+        begin
+          erb :admin
+        rescue ActiveRecord::RecordNotFound => e
+          [404, {:message => e.message}.to_json]
+        end
       end
     end
 
@@ -127,7 +134,7 @@ class POSApplication < Sinatra::Base
     end
 
     get '/logout' do
-      session[:user] = false.to_json
+      session[:user] = false
       redirect '/login'
     end
     after do
