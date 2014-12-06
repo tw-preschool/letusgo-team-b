@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("#save-btn").on("click",function(){
+    $(".save-btn").on("click",function(){
       var nos = parseInt($("#iNo").text().split(":")[1],10);
       var name = $("#iName").val();
       var price = $("#iPrice").val();

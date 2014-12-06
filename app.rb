@@ -109,17 +109,19 @@ class POSApplication < Sinatra::Base
       [201, {:message => "delete"}.to_json]
     end
 
+    post '/item-edit' do
+      product = Product.find(params[:id])
+      product.update(params[:"item-info"] )
+      [201, {:message => "edit"}.to_json]
+    end
+
     get '/item-edit/:id' do
       content_type :html
       @id = params[:id]
       erb :'item-edit'
     end
 
-    post '/item-edit' do
-      product = Product.find(params[:id])
-      product.update(params[:"item-info"] )
-      [201, {:message => "delete"}.to_json]
-    end
+
 
     get '/items' do
       content_type :html
