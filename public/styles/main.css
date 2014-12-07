@@ -80,3 +80,7 @@
   padding: 15px;
   display: none;
 }
+
+.hide {
+  display: none;
+}

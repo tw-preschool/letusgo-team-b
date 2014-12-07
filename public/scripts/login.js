@@ -14,12 +14,10 @@ $(document).ready(function(){
       success : function(result){
         if(result === true){
           window.location.href = '/admin';
-
         }else{
           $(".message-danger > p").show();
         }
       }
-
     });
   });
 });

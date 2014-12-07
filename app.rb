@@ -7,13 +7,13 @@ require './models/product'
 class LoginHandle < Sinatra::Base
 
   configure do
-    use Rack::Session::Pool, :expire_after => 5#60*60*24*7
+    use Rack::Session::Pool, :expire_after => 60*60*24*7
     set :username, 'admin'
     set :password, 'admin'
   end
 
   get '/login' do
-    if session[:user] = true
+    if session[:isLogin] === true
       redirect '/admin'
     else
       content_type :html
@@ -23,12 +23,17 @@ class LoginHandle < Sinatra::Base
 
   post '/login' do
     if params[:name] == settings.username && params[:password] == settings.password
-      session[:user] = true
-      return session[:user].to_json
+      session[:isLogin] = true
+      return session[:isLogin].to_json
     else
-      session[:user] = false
-      return session[:user].to_json
+      session[:isLogin] = false
+      return session[:isLogin].to_json
     end
+  end
+
+  get '/logout' do
+    session[:isLogin] = false
+    redirect '/login'
   end
 
 end
@@ -54,12 +59,8 @@ class POSApplication < Sinatra::Base
         content_type :json
     end
 
-    get '/index.html' do
-        content_type :html
-        erb :index
-    end
-
     get '/' do
+      session[:isLogin] = false
       content_type :html
       erb :index
     end
@@ -93,13 +94,8 @@ class POSApplication < Sinatra::Base
         end
     end
 
-    get '/add' do
-        content_type :html
-        File.open('public/views/add.html').read
-    end
-
     get '/admin' do
-      if session[:user] = false
+      if session[:isLogin] === false
         redirect '/login'
       else
         content_type :html
@@ -128,35 +124,19 @@ class POSApplication < Sinatra::Base
       erb :'item-edit'
     end
 
-
-
     get '/items' do
       content_type :html
       erb :items
-    end
-
-    get '/logout' do
-      session[:user] = false
-      redirect '/login'
-    end
-    after do
-        ActiveRecord::Base.connection.close
     end
 
     get '/cart' do
       content_type :html
       erb :cart
     end
-    after do
-      ActiveRecord::Base.connection.close
-    end
 
     get '/payment' do
       content_type :html
       erb :payment
-    end
-    after do
-      ActiveRecord::Base.connection.close
     end
 
 end
