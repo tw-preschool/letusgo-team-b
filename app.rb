@@ -3,6 +3,7 @@ require 'rack/contrib'
 require 'active_record'
 require 'json'
 require './models/product'
+require './models/promotion_item'
 
 class LoginHandle < Sinatra::Base
 
