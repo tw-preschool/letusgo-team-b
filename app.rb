@@ -141,15 +141,19 @@ class POSApplication < Sinatra::Base
     end
 
     post '/item-promotion' do
-      # if params[:checkFlag] === true
-      #   promo_item = PromotionItem.create(:barcode => params[:barcode])
-      # else
-      #   promo_item_del = PromotionItem.find_by(barcode=params[:barcode])
-      #   promo_item_del.destroy
-      #   # PromotionItem.find(barcode=params[:barcode])
-      # end
-      promo_item = PromotionItem.create(:barcode => params[:barcode])
-      [201, {:message => "add promotion"}.to_json]
+      if params[:checkFlag] === 'true'
+        promo_item = PromotionItem.create(:barcode => params[:barcode])
+      end
+      if params[:checkFlag] === 'false'
+        promo_item_del = PromotionItem.find_by!(:barcode=>params[:barcode])
+        # promo_item_del = PromotionItem.find_by barcode: params[:barcode]
+        # promo_item_del = PromotionItem.where(barcode: params[:barcode]).take
+        # promo_item_del = PromotionItem.first
+        promo_item_del.destroy
+        # PromotionItem.find(barcode=params[:barcode])
+      end
+      # promo_item = PromotionItem.create(:barcode => params[:barcode])
+      # [201, {:message => "add promotion"}.to_json]
 
       # [201, {:message => "delete"}.to_json]
       # if promoItem.save
