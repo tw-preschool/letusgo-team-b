@@ -1,5 +1,5 @@
 require 'active_record'
 
 class PromotionItem < ActiveRecord::Base
-  attr_accessible :barcode
+  validates :barcode, presence: true
 end
