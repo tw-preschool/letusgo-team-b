@@ -140,4 +140,25 @@ class POSApplication < Sinatra::Base
       erb :payment
     end
 
+    post '/item-promotion' do
+      # if params[:checkFlag] === true
+      #   promo_item = PromotionItem.create(:barcode => params[:barcode])
+      # else
+      #   promo_item_del = PromotionItem.find_by(barcode=params[:barcode])
+      #   promo_item_del.destroy
+      #   # PromotionItem.find(barcode=params[:barcode])
+      # end
+      promo_item = PromotionItem.create(:barcode => params[:barcode])
+      [201, {:message => "add promotion"}.to_json]
+
+      # [201, {:message => "delete"}.to_json]
+      # if promoItem.save
+      #   return true
+      # else
+      #   return false
+      # # else
+      # #   halt 500, {:message => "create product failed"}.to_json
+      # #
+      # end
+    end
 end

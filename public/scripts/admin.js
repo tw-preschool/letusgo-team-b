@@ -27,12 +27,24 @@ $(document).ready(function(){
   $(".add-entry").on("click",function(){
     $(this).parent().find(".add-info").toggle();
   });
+
   $("#product-table-list").on("click",".item-promotion",function(){
-    if (this.checked == true)
-      alert("add promotion");
+    var item = $(this).closest("tr");
+    if (this.checked == true){
+        $.ajax({
+            type : "POST",
+            url : "/item-promotion",
+            data : {"barcode": parseInt(item.find(".item-id").text(),10), "checkFlag": this.checked},
+            dataType : "json",
+            success : function(data){
+                alert("add promotion");
+            }
+        });
+    }
     else if (this.checked == false)
       alert("delete promotion");
   });
+
   $("#product-table-list").on("click",".item-delete",function(){
     var item = $(this).closest("tr");
     if(confirm("确定要删除该商品?"))
