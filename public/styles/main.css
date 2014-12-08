@@ -1,6 +1,26 @@
-h4,h5 {
+h1,h2,h3,h4,h5 {
   display: block;
   font-weight: bold;
+}
+
+.width-forty-percent {
+  width: 40%;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+
+.margin-left {
+  margin-left: 20px;
 }
 
 .button {
@@ -72,7 +92,7 @@ h4,h5 {
 .div-table {
   margin: 0 auto;
   width: 80%;
-  max-width: 80%;
+  max-width: 90%;
 }
 
 .div-table-footer {
@@ -167,4 +187,29 @@ h4,h5 {
   font-size: 18px;
   font-family: 'UnitedItalicRgBk', Arial, Helvetica, sans-serif;
   font-weight: normal;
+}
+
+.shop-cart {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 20px 30px;
+  box-shadow: 4px 4px 1px #eee;
+  margin-bottom: 20px;
+}
+
+.cart-summary {
+  width:60%;
+  float:right;
+}
+
+.cart-summary-button-dir {
+  border-top: 2px solid #eee;
+  margin-top: 5px;
+  padding-top: 20px;
+  width: 80%;
+  float:right;
+}
+
+.shop-cart table input {
+  width: 40px;
 }
