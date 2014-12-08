@@ -63,7 +63,6 @@ class POSApplication < Sinatra::Base
     end
 
     get '/' do
-    #  session[:isLogin] = false
       content_type :html
       erb :index
     end
@@ -98,7 +97,7 @@ class POSApplication < Sinatra::Base
     end
 
     get '/admin' do
-      if session[:isLogin] === false
+      if !(session[:isLogin] === true)
         redirect '/login'
       else
         content_type :html
