@@ -1,6 +1,40 @@
+h4,h5 {
+  display: block;
+  font-weight: bold;
+}
+
+.button {
+  font-family: 'UnitedItalicRgBk', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 0 25px 0 10px;
+  height:39px;
+  width: auto;
+  line-height:39px;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  position: relative;
+  margin: 0;
+  border: #000 solid 1px;
+  color: #000;
+  background: #f6d046 0 center repeat-x;
+}
+
+.button span {
+  position: absolute;
+  top:12px;
+  right: 5px;
+  border-bottom: 8px solid transparent;
+  border-top: 8px solid transparent;
+  border-left: 9px solid #000;
+}
 
 .navbar-brand{
-  font-size: 30px;
+  width: 150px;
+  background: url("imgs/logo.png")  top 12px left 10px no-repeat;
 }
 
 .welcome-message h1{
@@ -28,7 +62,7 @@
 }
 
 #container-fluid a{
-  color: #ec971f;
+  color: #F6D046;
 }
 
 .div-table-heard {
@@ -62,14 +96,14 @@
 #cart-logo{
   /*display: inline;*/
   float: left;
-  margin-top: 17px;
-  color: #ec971f;
+  margin-top: 18px;
+  color: #F6D046;
 }
 
 .div-login {
   margin: 60px auto;
-  width: 40%;
-  max-width: 40%;
+  width: 50%;
+  max-width: 50%;
 }
 
 .message-danger {
@@ -83,4 +117,54 @@
 
 .hide {
   display: none;
+}
+
+/*--------------------------------------*/
+.div-login h1 {
+  color: #0A263C;
+  font-weight: normal;
+  font-size: 20px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #ccc;
+  margin: 0 0 20px;
+  text-transform: capitalize;
+}
+
+.err-msg {
+  color: #EB340A;
+  border: 1px dashed #faa;
+  background-color: #fee;
+  margin-bottom: 20px;
+  padding: 10px;
+  display: none;
+}
+
+.err-msg h5 {
+  font-size: 14px;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.err-msg ul {
+  list-style: disc inside;
+  margin: 0;
+  padding: 0;
+}
+
+.login-home {
+  background: url("imgs/box_bg.gif") top left repeat-x;
+  border: 1px solid #bbb6a5;
+}
+
+.login-home {
+  padding: 25px;
+}
+
+.login-home h4 {
+  color: #f6d046;
+  background: #000002;
+  padding: 8px;
+  font-size: 18px;
+  font-family: 'UnitedItalicRgBk', Arial, Helvetica, sans-serif;
+  font-weight: normal;
 }
