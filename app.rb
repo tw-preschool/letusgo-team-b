@@ -4,6 +4,7 @@ require 'active_record'
 require 'json'
 require './models/product'
 require './models/promotion_item'
+require './models/promotion'
 
 class LoginHandle < Sinatra::Base
 
@@ -89,7 +90,9 @@ class POSApplication < Sinatra::Base
         product = Product.create(:name => params[:name],
                             :price => params[:price],
                             :unit => params[:unit])
-        if product.save
+        promotion = Promotion.create(:name => params[:name],
+                                     :promotionStatus => params[:promotionStatus])
+        if product.save && promotion.save
             [201, {:message => "products/#{product.id}",:id => product.id }.to_json]
         else
             halt 500, {:message => "create product failed"}.to_json
@@ -111,6 +114,7 @@ class POSApplication < Sinatra::Base
 
     post '/item-delete' do
       Product.find(params[:id]).destroy
+      Promotion.find_by_name(params[:name]).destroy
       [201, {:message => "delete"}.to_json]
     end
 
@@ -142,12 +146,8 @@ class POSApplication < Sinatra::Base
     end
 
     post '/item-promotion' do
-      if params[:checkFlag] === 'true'
-        promo_item = PromotionItem.create(:barcode => params[:barcode])
-      end
-      if params[:checkFlag] === 'false'
-        promo_item_del = PromotionItem.find_by_barcode(params[:barcode])
-        promo_item_del.destroy
-      end
+      promotion = Promotion.find_by_name(params[:name])
+      promotion.update(:promotionStatus => params[:promotionStatus])
+      [201, {:message => "update promotion"}.to_json]
     end
 end

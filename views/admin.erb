@@ -39,12 +39,17 @@
     </thead>
     <tbody id="product-table-list">
       <% Product.all.each do |item| %>
+      <% promotion = Promotion.find_by_name(item.name)%>
       <tr>
         <td class = "item-id"><%=item.id%></td>
-        <td><%=item.name%></td>
+        <td class = "item-name"><%=item.name%></td>
         <td><%=item.price%></td>
         <td><%=item.unit%></td>
-        <td><input type="checkbox" class="btn btn-primary item-promotion" value = "促销"></td>
+        <%if promotion.promotionStatus === "true"%>
+        <td><input type="checkbox" class="item-promotion" value = "促销" checked></td>
+        <%else%>
+        <td><input type="checkbox" class="item-promotion" value = "促销"></td>
+        <%end%>
         <td><a href="/item-edit/<%=item.id%>" class = "edit-link">修改</a></td>
         <td><button type="button" class="btn btn-primary item-delete">删除</button></td>
       </tr>
