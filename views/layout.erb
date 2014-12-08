@@ -19,7 +19,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Let's go!</a>
+                <a class="navbar-brand" href="/"></a>
+                <!--<img class="navbar-brand" src="../styles/imgs/logo.png">-->
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -29,12 +30,15 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right " id="cartTextAndLosg">
-                    <li id="logName"><a href="#">admin，欢迎！</a></li>
-                    <li id="signIn"><a href="/login">登录</a></li>
-                    <li id="logout"><a href="/logout">退出</a></li>
+                    <% if @isLogin === true%>
+                      <li id="logName"><a href="#"><%=@user %>,欢迎</a></li>
+                      <li id="logout"><a href="/logout">退出</a></li>
+                    <%else%>
+                      <li hidden="hidden" id="signIn"><a href="/login">登录</a></li>
+                    <%end%>
                     <li>
                       <span class="glyphicon glyphicon-shopping-cart" id="cart-logo"></span>
-                      <a href="/cart">购物车(<span id="count">2</span>)</a>
+                      <a href="/cart">(<span id="count">2</span>)</a>
                     </li>
                 </ul>
             </div><!--/.nav-collapse -->

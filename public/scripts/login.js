@@ -4,7 +4,7 @@ $(document).ready(function(){
     var name = $('#inputUsername').val();
     var password = $('#inputPassword').val();
     if(name.length === 0 || password.length === 0){
-      $(".message-danger > p").show();
+      $("#err-msg").show();
     }
     $.ajax({
       type : "POST",
@@ -15,7 +15,7 @@ $(document).ready(function(){
         if(result === true){
           window.location.href = '/admin';
         }else{
-          $(".message-danger > p").show();
+          $("#err-msg").show();
         }
       }
     });
