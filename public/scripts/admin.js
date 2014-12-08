@@ -29,21 +29,6 @@ $(document).ready(function(){
   });
 
   $("#product-table-list").on("click",".item-promotion",function(){
-//    var item = $(this).closest("tr");
-//    if (this.checked == true){
-//        $.ajax({
-//            type : "POST",
-//            url : "/item-promotion",
-//            data : {"barcode": parseInt(item.find(".item-id").text(),10), "checkFlag": this.checked},
-//            dataType : "json",
-//            success : function(data){
-//                alert("add promotion");
-//            }
-//        });
-//    }
-//    else if (this.checked == false)
-//      alert("delete promotion");
-
     var item = $(this).closest("tr");
       $.ajax({
           type : "POST",
