@@ -6,6 +6,11 @@
   width: 30%;
 }
 
+.edit-info textarea {
+  margin: 10px auto;
+  width:30%;
+}
+
 .edit-info label { font-size: 18px; }
 
 .save-btn {

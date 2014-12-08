@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../styles/item-edit.css"/>
 <div class = "edit-info">
-    <label for = "item-no" class = "iNo" id = "iNo">商品编号:<%= @id%></label>
+    <label for = "item-no" class = "iNo hide" id = "iNo">商品编号:<%= @id%></label>
     <label for = "itemName">商品名称：</label>
     <% @item = Product.find(@id) %>
     <input type = "text" class = "iName form-control" id = "iName" value = <%= @item.name %> autofocus required>
@@ -8,6 +8,10 @@
     <input type = "number" class = "iPrice form-control" id = "iPrice" value = "<%= @item.price%>" required>
     <label for = "itemUnit">单位：</label>
     <input type = "text" class = "iUnit form-control" id = "iUnit" value = <%= @item.unit%> required>
+    <label for = "">数量：</label>
+    <input type = "number" class = "form-control" required>
+    <label for="iDescribe">描述信息：</label>
+    <textarea class="form-control" rows="3"></textarea>
     <button class = "btn btn-primary save-btn">提交</button>
     <a href = "/admin" class = "back">返回</a>
 </div>

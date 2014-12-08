@@ -38,7 +38,7 @@ $(document).ready(function(){
           success : function(data){
               alert("add promotion");
           }
-      })
+      });
   });
 
   $("#product-table-list").on("click",".item-delete",function(){
