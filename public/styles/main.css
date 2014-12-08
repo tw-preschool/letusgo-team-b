@@ -7,6 +7,10 @@ h1,h2,h3,h4,h5 {
   width: 40%;
 }
 
+.font-color-red {
+  color: red;
+}
+
 .clearfix:before,
 .clearfix:after {
   content: "";
@@ -212,4 +216,8 @@ h1,h2,h3,h4,h5 {
 
 .shop-cart table input {
   width: 40px;
+}
+
+.shop-cart table td button {
+  width: 25px;
 }
