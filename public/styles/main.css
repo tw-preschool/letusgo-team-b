@@ -7,6 +7,10 @@ h1,h2,h3,h4,h5 {
   width: 40%;
 }
 
+.width-ten-percent {
+  width: 50px;%;
+}
+
 .font-color-red {
   color: red;
 }

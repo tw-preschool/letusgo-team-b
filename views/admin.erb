@@ -2,22 +2,30 @@
 
 <div class="div-table">
   <div class="bs-callout bs-callout-info">
-  <div class="form-inline" role="form">
-    <div class="form-group">
-      <label for="iName">商品名称：</label>
-      <input class="form-control" id="iName" placeholder="请输入商品名称">
+    <div class="form-inline" role="form">
+      <div class="form-group">
+        <label for="iName">商品名称：</label>
+        <input class="form-control" id="iName" placeholder="请输入商品名称">
+      </div>
+      <div class="form-group">
+        <label for="iPrice">价格：</label>
+        <input type = "number" class="form-control" id="iPrice" placeholder="请输入价格">
+      </div>
+      <div class="form-group">
+        <label for="iUnit">单位：</label>
+        <input class="form-control" id="iUnit" placeholder="请输入单位">
+      </div>
+      <div class="form-group">
+        <label for="iNumber">库存：</label>
+        <input type = "number" class="form-control" placeholder="请输入库存">
+      </div>
+      <div class="form-group">
+        <label for="iDescribe">描述信息：</label>
+        <textarea class="form-control" rows="3"></textarea>
+      </div>
+      <button class="btn btn-default" id="addbutton">添加商品</button>
     </div>
-    <div class="form-group">
-      <label for="iPrice">价格：</label>
-      <input type = "number" class="form-control" id="iPrice" placeholder="请输入价格">
-    </div>
-    <div class="form-group">
-      <label for="iUnit">单位：</label>
-      <input class="form-control" id="iUnit" placeholder="请输入单位">
-    </div>
-    <button class="btn btn-default" id="addbutton">添加商品</button>
   </div>
-</div>
 </div>
 <div class="div-split">
 </div>
@@ -28,10 +36,11 @@
   <table id="item-table" class="table table-hover">
     <thead>
       <tr class="active">
-        <th>商品编号</th>
+        <th class="hide">商品编号</th>
         <th>名称</th>
         <th>单价(元)</th>
         <th>单位</th>
+        <th>库存</th>
         <th>买二送一</th>
         <th>修改</th>
         <th>删除</th>
@@ -41,10 +50,16 @@
       <% Product.all.each do |item| %>
       <% promotion = Promotion.find_by_name(item.name)%>
       <tr>
-        <td class = "item-id"><%=item.id%></td>
-        <td class = "item-name"><%=item.name%></td>
+        <td class = "item-id hide"><%=item.id%></td>
+        <td class = "item-col-name">
+          <dl>
+            <dt><%=item.name%></dt>
+            <dd>商品描述</dd>
+          </dl>
+        </td>
         <td><%=item.price%></td>
         <td><%=item.unit%></td>
+        <td>0</td>
         <%if promotion.promotionStatus === "true"%>
         <td><input type="checkbox" class="item-promotion" value = "促销" checked></td>
         <%else%>

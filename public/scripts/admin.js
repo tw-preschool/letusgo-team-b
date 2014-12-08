@@ -36,11 +36,11 @@ $(document).ready(function(){
           url : "/item-promotion",
           data : {"name" : name , "promotionStatus": result},
           dataType : "json",
-          success : function(data){
-            if (promotionStatus == "true")
-              alert("已为"+name+"增加优惠");
-          }
-      })
+          //success : function(data){
+            //if (promotionStatus == "true")
+            //  alert("已为"+name+"增加优惠");
+          //}
+      });
   });
 
   $("#product-table-list").on("click",".item-delete",function(){
