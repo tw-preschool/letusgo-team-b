@@ -58,10 +58,12 @@ class POSApplication < Sinatra::Base
 
     before do
         content_type :json
+        @isLogin = session[:isLogin]
+        @user = 'admin'
     end
 
     get '/' do
-      session[:isLogin] = false
+    #  session[:isLogin] = false
       content_type :html
       erb :index
     end
