@@ -221,3 +221,7 @@ h1,h2,h3,h4,h5 {
 .shop-cart table td button {
   width: 25px;
 }
+
+.item-col-name {
+  width: 40%;
+}
