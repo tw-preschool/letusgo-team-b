@@ -4,10 +4,15 @@ $(document).ready(function(){
       var name = $("#iName").val();
       var price = $("#iPrice").val();
       var unit = $("#iUnit").val();
+      var promotion = $("#iPromotion").val();
+      var number = $("#iNumber").val();
+      var description = $("#iDescription").val();
       $.ajax({
         type : "POST",
         url : "/item-edit",
-        data : {"id" : nos,"item-info" :{"name" : name , "price" : price  , "unit" : unit}},
+        data : {"id" : nos,"item-info" :{"name" : name , "price" : price  ,
+                "unit" : unit , "promotion" : promotion , "number" : number ,
+                "description" : description}},
         dataType : "json",
         success : function(data){
           alert("successfully change item");

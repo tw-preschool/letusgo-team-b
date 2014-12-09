@@ -17,11 +17,11 @@
       </div>
       <div class="form-group">
         <label for="iNumber">库存：</label>
-        <input type = "number" class="form-control" placeholder="请输入库存">
+        <input type = "number" class="form-control" id="iNumber" placeholder="请输入库存">
       </div>
       <div class="form-group">
-        <label for="iDescribe">描述信息：</label>
-        <textarea class="form-control" rows="3"></textarea>
+        <label for="iDescription">描述信息：</label>
+        <textarea class="form-control" rows="3" id="iDescription"></textarea>
       </div>
       <button class="btn btn-default" id="addbutton">添加商品</button>
     </div>
@@ -48,22 +48,21 @@
     </thead>
     <tbody id="product-table-list">
       <% Product.all.each do |item| %>
-      <% promotion = Promotion.find_by_name(item.name)%>
       <tr>
         <td class = "item-id hide"><%=item.id%></td>
         <td class = "item-col-name">
           <dl>
             <dt class = "item-name"><%=item.name%></dt>
-            <dd>商品描述</dd>
+            <dd><%=item.description%></dd>
           </dl>
         </td>
         <td><%=item.price%></td>
         <td><%=item.unit%></td>
-        <td>0</td>
-        <%if promotion.promotionStatus === "true"%>
-        <td><input type="checkbox" class="item-promotion" value = "促销" checked></td>
+        <td><%=item.number%></td>
+        <%if item.promotion == "false" %>
+        <td><input type="checkbox" class="item-promotion"></td>
         <%else%>
-        <td><input type="checkbox" class="item-promotion" value = "促销"></td>
+        <td><input type="checkbox" class="item-promotion" checked></td>
         <%end%>
         <td>
           <a href="/item-edit/<%=item.id%>" class = "edit-link"><span aria-hidden="true" class="icon-pen"> 编辑</span></a>

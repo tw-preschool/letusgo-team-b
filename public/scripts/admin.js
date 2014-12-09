@@ -3,29 +3,35 @@ $(document).ready(function(){
     var name = $("#iName").val();
     var price = $("#iPrice").val();
     var unit = $("#iUnit").val();
-    var promotion = false;
+    var promotion = "true";
+    var number = $("#iNumber").val();
+    var description = $("#iDescription").val();
     $.ajax({
       type : "POST",
       url : "/products",
-      data : {"name" : name , "price" : price  , "unit" : unit , "promotionStatus" : promotion},
+      data : {"name" : name , "price" : price  , "unit" : unit ,
+              "promotion" : promotion , "number" : number ,
+              "description" : description},
       dataType : "json",
       success : function(data){
         var tr = $('<tr>\
-                      <td class = \"item-id\">' + data.id + '</td>\
-                      <td class = \"item-name\">' + name + '</td>\
+                      <td class = \"item-id hide\">' + data.id + '</td>\
+                      <td class = \"item-col-name\">\
+                      <dl>\
+                      <dt class = \"item-name\">' + name + '</dt>\
+                      <dd>' + description+ '</dd>\
+                      </td>\
+                      </dl>\
                       <td>' + price + '</td>\
                       <td>' + unit + '</td>\
-                      <td><input type="checkbox" class=\"item-promotion\" value="促销"></td>\
-                      <td><a href=\"/item-edit/'+data.id+'\" class = \"edit-link\">修改</a></td>\
-                      <td><button class=\"btn btn-primary item-delete\">删除</button></td>\
+                      <td>' + number + '</td>\
+                      <td><input type="checkbox" class=\"item-promotion\"></td>\
+                      <td><a href=\"/item-edit/'+data.id+'\" class = \"edit-link\"><span aria-hidden=\"true\" class=\"icon-pen\"> 修改</a></td>\
+                      <td><button class=\"btn btn-primary item-delete\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
                       </tr>');
         $("#product-table-list").append(tr);
-        //$("#alert-msg").remove();
       }
     });
-  });
-  $(".add-entry").on("click",function(){
-    $(this).parent().find(".add-info").toggle();
   });
 
   $("#product-table-list").on("click",".item-promotion",function(){
@@ -37,9 +43,9 @@ $(document).ready(function(){
       data : {"name" : name , "promotionStatus": result},
       dataType : "json",
       success : function(){
-        if (result == true)
+        if (result == "true")
           alert("已为"+name+"添加买二送一优惠!");
-        else if (result == false)
+        else if (result == "false")
           alert("已取消"+name+"的买二送一优惠!");
       }
     });
