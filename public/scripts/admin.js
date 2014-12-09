@@ -12,7 +12,7 @@ $(document).ready(function(){
       success : function(data){
         var tr = $('<tr>\
                       <td class = \"item-id\">' + data.id + '</td>\
-                      <td>' + name + '</td>\
+                      <td class = \"item-name\">' + name + '</td>\
                       <td>' + price + '</td>\
                       <td>' + unit + '</td>\
                       <td><input type="checkbox" class=\"item-promotion\" value="促销"></td>\
@@ -31,32 +31,34 @@ $(document).ready(function(){
   $("#product-table-list").on("click",".item-promotion",function(){
     var name = $(this).closest("tr").find(".item-name").text();
     var result = this.checked;
-      $.ajax({
-          type : "POST",
-          url : "/item-promotion",
-          data : {"name" : name , "promotionStatus": result},
-          dataType : "json",
-          //success : function(data){
-            //if (promotionStatus == "true")
-            //  alert("已为"+name+"增加优惠");
-          //}
-      });
+    $.ajax({
+      type : "POST",
+      url : "/item-promotion",
+      data : {"name" : name , "promotionStatus": result},
+      dataType : "json",
+      success : function(){
+        if (result == true)
+          alert("已为"+name+"添加买二送一优惠!");
+        else if (result == false)
+          alert("已取消"+name+"的买二送一优惠!");
+      }
+    });
   });
 
   $("#product-table-list").on("click",".item-delete",function(){
     var item = $(this).closest("tr");
     var name = item.find(".item-name").text();
     if(confirm("确定要删除该商品?"))
-      {
-        $.ajax({
-          type : "POST",
-          url : "/item-delete",
-          data : {"id" : parseInt(item.find(".item-id").text(),10) , "name" : name},
-          dataType : "json",
-          success : function(data){
-            item.remove();
-          }
-        });
-      }
+    {
+      $.ajax({
+        type : "POST",
+        url : "/item-delete",
+        data : {"id" : parseInt(item.find(".item-id").text(),10) , "name" : name},
+        dataType : "json",
+        success : function(data){
+          item.remove();
+        }
+      });
+    }
   });
 });
