@@ -31,14 +31,17 @@
 
                 <ul class="nav navbar-nav navbar-right " id="cartTextAndLosg">
                     <% if @isLogin === true%>
-                      <li id="logName"><a href="#"><%=@user %>,欢迎</a></li>
-                      <li id="logout"><a href="/logout">退出</a></li>
+                      <li id="logName"><a href="#"><span aria-hidden="true" class="icon-users"> <%=@user %></span></a></li>
+                      <li id="logout">
+                        <a href="/logout"><span aria-hidden="true" class="icon-exit"> 退出</span></a>
+                      </li>
                     <%else%>
-                      <li hidden="hidden" id="signIn"><a href="/login">登录</a></li>
+                      <li hidden="hidden" id="signIn">
+                        <a href="/login"><span aria-hidden="true" class="icon-users"> 登录</span></a>
+                      </li>
                     <%end%>
                     <li>
-                      <span class="glyphicon glyphicon-shopping-cart" id="cart-logo"></span>
-                      <a href="/cart">(<span id="count">2</span>)</a>
+                      <a href="/cart"><span aria-hidden="true" class="icon-cart"> 购物车(<span id="count">2</span>)</span></a>
                     </li>
                 </ul>
             </div><!--/.nav-collapse -->
