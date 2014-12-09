@@ -60,13 +60,17 @@
         <td><%=item.price%></td>
         <td><%=item.unit%></td>
         <td>0</td>
-        <%if promotion.promotionStatus === "true"%>
-        <td><input type="checkbox" class="item-promotion" value = "促销" checked></td>
-        <%else%>
+        <%if promotion == nil %>
         <td><input type="checkbox" class="item-promotion" value = "促销"></td>
+        <%else%>
+        <td><input type="checkbox" class="item-promotion" value = "促销" checked></td>
         <%end%>
-        <td><a href="/item-edit/<%=item.id%>" class = "edit-link">修改</a></td>
-        <td><button type="button" class="btn btn-primary item-delete">删除</button></td>
+        <td>
+          <a href="/item-edit/<%=item.id%>" class = "edit-link"><span aria-hidden="true" class="icon-pen"> 编辑</span></a>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary item-delete"><span aria-hidden="true" class="icon-trash"> 删除</span></button>
+        </td>
       </tr>
       <%end%>
     </tbody>
