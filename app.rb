@@ -144,8 +144,10 @@ class POSApplication < Sinatra::Base
     end
 
     post '/item-promotion' do
-      promotion = Promotion.find_by_name(params[:name])
-      promotion.update(:promotionStatus => params[:promotionStatus])
-      [201, {:message => "update promotion"}.to_json]
+      product = Product.find(params[:id])
+      product.update(:promotion => params[:promotion])
+      #promotion = Promotion.find_by_name(params[:name])
+      #promotion.update(:promotionStatus => params[:promotionStatus])
+      [201, {:message => "update"}.to_json]
     end
 end

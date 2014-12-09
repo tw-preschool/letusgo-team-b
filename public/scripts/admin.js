@@ -3,7 +3,7 @@ $(document).ready(function(){
     var name = $("#iName").val();
     var price = $("#iPrice").val();
     var unit = $("#iUnit").val();
-    var promotion = "true";
+    var promotion = "false";
     var number = $("#iNumber").val();
     var description = $("#iDescription").val();
     $.ajax({
@@ -35,17 +35,19 @@ $(document).ready(function(){
   });
 
   $("#product-table-list").on("click",".item-promotion",function(){
-    var name = $(this).closest("tr").find(".item-name").text();
-    var result = this.checked;
+    var item = $(this).closest("tr");
+    var name = item.find(".item-name").text();
+    var isChecked = this.checked;
     $.ajax({
       type : "POST",
       url : "/item-promotion",
-      data : {"name" : name , "promotionStatus": result},
+      data : {"id" : parseInt(item.find(".item-id").text(),10) ,
+              "name" : name , "promotion": isChecked},
       dataType : "json",
-      success : function(){
-        if (result == "true")
+      success : function(data){
+        if (isChecked === true)
           alert("已为"+name+"添加买二送一优惠!");
-        else if (result == "false")
+        else if (isChecked === false)
           alert("已取消"+name+"的买二送一优惠!");
       }
     });

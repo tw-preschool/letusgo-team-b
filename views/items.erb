@@ -20,13 +20,17 @@
           <td class = "item-col-name">
             <dl>
               <dt><%=item.name%></dt>
-              <dd>商品描述</dd>
+              <dd><%=item.description%></dd>
             </dl>
           </td>
           <td><%=item.price%></td>
           <td><%=item.unit%></td>
-          <td>3</td>
+          <td><%=item.number%></td>
+          <%if item.promotion == "true" %>
           <td class="font-color-red">买二送一</td>
+          <%else%>
+          <td class="font-color-red"></td>
+          <%end%>
           <td class="text-center">
             <button type="button" class="btn btn-primary">加入购物车</button>
           </td>
