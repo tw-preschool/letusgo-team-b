@@ -1,23 +1,40 @@
 $(document).ready(function(){
-  $.ajax({
-      type: "GET",
-      url: "/products",
-      data: null,
-      dataType: "json",
-      success: function(data){
-                  appendTr(data);
-              }
-    });
-    function appendTr(data){
-      for(var i=0;i<data.length;i++){
-          var tr = $('<tr' + ' id=' + '\"' + i +'\"' + '>\
-                        <td>' + data[i].name + '</td>\
-                        <td>' + data[i].price + '</td>\
-                        <td>' + data[i].unit + '</td>\
-                        <td class=' + '\"'+'text-center'+'\"' + '>' +
-                        '<button '+'id='+'\"'+i+'\"'+' type=' +'\"'+'button'+'\"'+' class='+'\"'+'btn btn-primary'+'\">'+'加入购物车'+'</button>'+'</td>\
-                      </tr>');
-          $('#body-list').append(tr);
+  var shopCart = [];
+  var cartCount;
+
+  if (sessionStorage.getItem("cartCount")) {
+    cartCount = sessionStorage.getItem("cartCount");
+  } else {
+    cartCount = 0;
+    sessionStorage.setItem("cartCount", cartCount);
+  }
+
+  $("#body-list").on("click","#add-cart",function(){
+    var item = $(this).closest("tr");
+    var name = item.find(".item-name").text();
+    var id = parseInt(item.find(".item-id").text(),10);
+    var num = 1;
+    // alert(id + ',' + num + ',' + shopCart.length + '!');
+    var i = 0;
+
+    for (; i < shopCart.length; i ++) {
+      if (shopCart[i].id == id) {
+        shopCart[i].num ++;
+        cartCount ++;
+        sessionStorage.setItem("cartCount", cartCount);
+        break;
       }
     }
+    if (i == shopCart.length) {
+      shopCart[i] = {"id":id, "num":num};
+      cartCount ++;
+      sessionStorage.setItem("cartCount", cartCount);
+    }
+
+    $('#count').text(sessionStorage.getItem("cartCount"));
+
+    // alert(shopCart.length);
+
+    });
+
 });

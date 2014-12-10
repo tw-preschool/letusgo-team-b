@@ -146,8 +146,11 @@ class POSApplication < Sinatra::Base
     post '/item-promotion' do
       product = Product.find(params[:id])
       product.update(:promotion => params[:promotion])
-      #promotion = Promotion.find_by_name(params[:name])
-      #promotion.update(:promotionStatus => params[:promotionStatus])
       [201, {:message => "update"}.to_json]
     end
+
+    after do
+      ActiveRecord::Base.connection.close
+    end
+
 end
