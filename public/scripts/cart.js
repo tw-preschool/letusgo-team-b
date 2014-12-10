@@ -6,9 +6,9 @@ $(document).ready(function(){
                   <td>' + item.price + '</td>\
                   <td>' + item.unit + '</td>\
                   <td>\
-                    <button type=\"button\">-</button>\
+                    <button type=\"button\" class=\"reduce-cart\">-</button>\
                     <input value='+cartHandle.getCount(item.name+"num")+'>\
-                    <button type=\"button\" class="add-cart">+</button>\
+                    <button type=\"button\" class=\"add-cart\">+</button>\
                   </td>\
                   <td class=\"font-color-red\" id=\"item-promotion\">买二送一</td>\
                   <td id = \"item-num\">3</td>\
@@ -48,5 +48,16 @@ $(document).ready(function(){
       cartHandle.addItem(name,pro);
       pro.setProCount(cartHandle.getCount(name+"num"));
       window.location.href='/products';
+  });
+
+  $(".reduce-cart").on('click',function(){
+        var id = $(this).parent().siblings()[0].innerHTML;
+        var name = $(this).parent().siblings()[1].innerHTML;
+        var price = $(this).parent().siblings()[2].innerHTML;
+        var unit = $(this).parent().siblings()[3].innerHTML;
+        var pro = new product(name,price,unit);
+        cartHandle.reduceItem(name);
+        pro.setProCount(cartHandle.getCount(name+"num"));
+        window.location.href='/cart';
   });
 });
