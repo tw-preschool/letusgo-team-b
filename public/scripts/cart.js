@@ -39,4 +39,14 @@ $(document).ready(function(){
       pro.setProCount(cartHandle.getCount(name+"num"));
       window.location.href='/cart';
   });
+  $(".btn.btn-primary").on('click',function(){
+      var id = $(this).parent().siblings()[0].innerHTML;
+      var name = $(this).parent().siblings().find("dt").text();
+      var price = $(this).parent().siblings()[2].innerHTML;
+      var unit = $(this).parent().siblings()[3].innerHTML;
+      var pro = new product(name,price,unit);
+      cartHandle.addItem(name,pro);
+      pro.setProCount(cartHandle.getCount(name+"num"));
+      window.location.href='/products';
+  });
 });
