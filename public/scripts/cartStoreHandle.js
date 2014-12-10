@@ -21,10 +21,9 @@ var cartHandle = (function(){
       this.addCount(key+"num");
     },
     reduceItem: function(key){
-      if(sessionStorage[key+"num"] == 1){
+      this.reduceCount(key+"num");
+      if(sessionStorage[key+"num"] == 0){
         sessionStorage.removeItem(key);
-      }else{
-        this.reduceCount(key+"num");
       }
     },
     getCartCount: function(){
