@@ -30,7 +30,6 @@ var cartHandle = (function(){
       for(var i=0;i<storage.length;i++){
         var key = storage.key(i);
         count += this.getCount(key+"num");
-        console.log(key);
       }
       return count;
     },

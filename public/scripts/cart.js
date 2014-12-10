@@ -1,8 +1,9 @@
 $(document).ready(function(){
   $(".add-cart").on('click',function(){
     var id = $(this).parent().siblings()[0].innerHTML;
-    console.log(id);
+    console.log("id"+id);
       var name = $(this).parent().siblings()[1].innerHTML;
+      console.log("name"+name);
       var price = $(this).parent().siblings()[2].innerHTML;
       var unit = $(this).parent().siblings()[3].innerHTML;
       var pro = new product(name,price,unit);

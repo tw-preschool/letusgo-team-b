@@ -139,7 +139,7 @@ class POSApplication < Sinatra::Base
     end
 
     post '/cart' do
-    [201, {:message => "cart"}.to_json]
+      [201, {:message => "cart"}.to_json]
     end
 
     get '/payment' do
