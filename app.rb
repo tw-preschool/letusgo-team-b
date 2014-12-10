@@ -138,10 +138,6 @@ class POSApplication < Sinatra::Base
       erb :cart
     end
 
-    post '/cart' do
-      [201, {:message => "cart"}.to_json]
-    end
-
     get '/payment' do
       content_type :html
       erb :payment
