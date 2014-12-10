@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
   var shopCart = [];
   var cartCount;
 
@@ -37,4 +37,4 @@ $(document).ready(function(){
 
     });
 
-});
+});*/
