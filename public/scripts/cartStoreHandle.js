@@ -40,9 +40,6 @@ var cartHandle = (function(){
       }
       return count;
     },
-    clearCart:function(){
-      sessionStorage.clear();
-    },
     calculateSubtotal: function(name){
         var item = this.getItem(name);
         var number = this.getCount(name+"num");
@@ -89,6 +86,9 @@ var cartHandle = (function(){
       }else{
         return "";
       }
+    },
+    clearCart:function(){
+      sessionStorage.clear();
     }
   };
 })();
