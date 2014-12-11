@@ -7,11 +7,12 @@ $(document).ready(function(){
                   <td>' + data.unit + '</td>\
                   <td>\
                     <button type=\"button\" class=\"reduce-cart\">-</button>\
-                    <input value='+cartHandle.getCount(data.name+"num")+'>\
+                    <input value='+cartHandle.getCount(data.id+"num")+' type="text" class="productNum" maxlength=15 id="'+data.id+'" onKeyUp="keypress('+data.id+')"/>\
+                    <!--<font color="gray"><label id="name"></label></font>-->\
                     <button type=\"button\" class=\"add-cart\">+</button>\
                   </td>\
                   <td class=\"font-color-red\" id=\"item-promotion\">'+ data.promotion +'</td>\
-                  <td id = \"item-num\">'+cartHandle.calculateSubtotal(data.name).toFixed(2)+'</td>\
+                  <td id = \"item-num\">'+cartHandle.calculateSubtotal(data.id).toFixed(2)+'</td>\
                   <td><button class=\"btn btn-warning\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
                   </tr>');
     $("#cart-table").append(tr);
@@ -31,9 +32,7 @@ $(document).ready(function(){
 
   showCartItem();
   $(".add-cart").on('click',function(){
-    console.log("id");
       var id = $(this).parent().siblings()[0].innerHTML;
-      console.log(id);
       $.ajax({
         type : "POST",
         url : "/cart",
@@ -41,7 +40,7 @@ $(document).ready(function(){
         dataType : "json",
         success: function(data){
           var pro = new product(id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion));
-          cartHandle.addItem(data.name,pro);
+          cartHandle.addItem(id,pro);
           window.location.href='/cart';
         }
       });
@@ -55,7 +54,7 @@ $(document).ready(function(){
         dataType : "json",
         success: function(data){
           var pro = new product(id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion));
-          cartHandle.addItem(data.name,pro);
+          cartHandle.addItem(id,pro);
           window.location.href='/products';
         }
       });
@@ -69,7 +68,7 @@ $(".reduce-cart").on('click',function(){
         data :{"id": id},
         dataType : "json",
         success: function(data){
-          cartHandle.reduceItem(data.name);
+          cartHandle.reduceItem(id);
           window.location.href='/cart';
         }
       });
@@ -83,7 +82,7 @@ $(".reduce-cart").on('click',function(){
            data :{"id": id},
            dataType : "json",
            success: function(data){
-             cartHandle.deleteItem(data.name);
+             cartHandle.deleteItem(id);
              window.location.href='/cart';
            }
          });

@@ -5,9 +5,9 @@ $(document).ready(function(){
                   <td>' + data.name + '</td>\
                   <td>' + data.price.toFixed(2) + '</td>\
                   <td>' + data.unit + '</td>\
-                  <td>'+cartHandle.getCount(data.name+"num")+'</td>\
+                  <td>'+cartHandle.getCount(data.id+"num")+'</td>\
                   <td class=\"font-color-red\">'+ data.promotion +'</td>\
-                  <td>'+cartHandle.calculateSubtotal(data.name).toFixed(2)+'</td>\
+                  <td>'+cartHandle.calculateSubtotal(data.id).toFixed(2)+'</td>\
                   </tr>');
     $("#cart").append(tr);
   };
@@ -17,7 +17,7 @@ $(document).ready(function(){
                   <td id=\"item-id\" hidden>' + data.id + '</td>\
                   <td class=\"font-color-red\">'+ data.promotion +'</td>\
                   <td>' + data.name + '</td>\
-                  <td>' + cartHandle.getFreeNum(data.name) + '</td>\
+                  <td>' + cartHandle.getFreeNum(data.id) + '</td>\
                   </tr>');
     $("#free-table").append(tr);
   };
@@ -28,8 +28,6 @@ $(document).ready(function(){
             if(key.indexOf("num") < 0){
                 var item = cartHandle.getItem(key);
                 appendCart(item);
-                console.log(item);
-                console.log(item.promotion);
                 if(item.promotion != ""){
                   appendFree(item);
                 }

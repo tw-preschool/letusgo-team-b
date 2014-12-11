@@ -4,6 +4,9 @@ var cartHandle = (function(){
     getCount: function(num){
       return parseInt(sessionStorage[num]) || 0 ;
     },
+    setCount: function(num, count){
+      sessionStorage[num] = count.toString();
+    },
     addCount: function(num){
       sessionStorage[num] = (this.getCount(num) + 1).toString();
     },
