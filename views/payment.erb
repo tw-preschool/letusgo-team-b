@@ -1,56 +1,94 @@
 <div class="div-table">
   <div class="div-table-heard">
-    <h4>购物清单</h4>
+    <h3>购物清单</h3>
   </div>
-  <div id="pay-date"></div>
-  <table class="table table-hover">
-    <thead>
-      <tr class="active">
-        <th>名称</th>
-        <th>单价(元)</th>
-        <th>单位</th>
-        <th>数量</th>
-        <th>小计</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>可口可乐</td>
-        <td>3</td>
-        <td>瓶</td>
-        <td>1</td>
-        <td>3</td>
-      </tr>
-      <tr>
-        <td>雪碧</td>
-        <td>3</td>
-        <td>瓶</td>
-        <td>1</td>
-        <td>3</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="div-table-heard">
-    <h4>赠送商品</h4>
+  <div class="shop-cart" id="pay-date">
+    <table class="table table-hover">
+      <thead>
+        <tr class="active">
+          <th>名称</th>
+          <th>单价(元)</th>
+          <th>单位</th>
+          <th>数量</th>
+          <th>促销</th>
+          <th>小计</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>可口可乐</td>
+          <td>3</td>
+          <td>瓶</td>
+          <td>3</td>
+          <td class="font-color-red">买二送一</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>雪碧</td>
+          <td>3</td>
+          <td>瓶</td>
+          <td>1</td>
+          <td></td>
+          <td>3</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table class="table table-hover">
-    <thead>
-      <tr class="active">
-        <th>分类</th>
-        <th>名称</th>
-        <th>数量</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-
-  <div class="div-table-footer">
-    <p class="text-right">总计：<span>0.00元</span></p>
-    <p class="text-right">节约：<span>0.00元</span></p>
-    <div class="flow-right">
-      <a href="items.html" class="btn btn-primary btn-lg active" role="button">确 认</a>
+  <div class="cart-save-item">
+    <div class="div-table-heard">
+      <h4>赠送商品</h4>
+    </div>
+    <div class="shop-cart">
+      <table class="table table-hover">
+        <thead>
+          <tr class="active">
+            <th>分类</th>
+            <th>名称</th>
+            <th>数量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-color-red">买二送一</td>
+            <td>可口可乐</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="payment-summary">
+    <div class="div-table-heard">
+      <h4>购物金额</h4>
+    </div>
+    <div class="shop-cart clearfix">
+      <div class="clearfix">
+        <div class="flow-right">
+          <h5 class="text-right width-fifty-percent">元</h5>
+        </div>
+        <div class="flow-right">
+          <h5 class="text-right width-fix-eighty-px">2.00</h5>
+        </div>
+        <div class="flow-right">
+          <h5 class="text-right">节约：</h5>
+        </div>
+      </div>
+      <div class="clearfix car-border-top car-summary-width">
+        <div class="flow-right">
+          <h4 class="text-right width-fifty-percent">元</h4>
+        </div>
+        <div class="flow-right">
+          <h4 class="text-right width-fix-eighty-px">9.00</h4>
+        </div>
+        <div class="flow-right">
+          <h4 class="text-right">总计：</h4>
+        </div>
+      </div>
+      <div class="clearfix cart-summary-button-dir car-border-top">
+        <div class="width-forty-percent flow-right margin-left">
+          <a href="/payment" class="btn btn-warning btn-block flow-right" role="button">去付款</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
