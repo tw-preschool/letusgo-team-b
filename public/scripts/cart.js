@@ -11,7 +11,6 @@ $(document).ready(function(){
                   <td>\
                     <button type=\"button\" class=\"reduce-cart\">-</button>\
                     <input value='+cartHandle.getCount(data.id+"num")+' type="text" maxlength=15 id="'+data.id+'" onKeyUp="keypress('+data.id+')"/>\
-                    <!--<font color="gray"><label id="name"></label></font>-->\
                     <button type=\"button\" class=\"add-cart\">+</button>\
                   </td>\
                   <td class=\"font-color-red\" id=\"item-promotion\">'+ data.promotion +'</td>\
@@ -46,17 +45,18 @@ $(document).ready(function(){
   showCartItem();
    $(".add-cart").on('click',function(){
         var id = $(this).parent().siblings()[0].innerHTML;
-        addToSession(id, '/cart');
+        addToSession(id);
     });
   $(".btn.btn-primary").on('click',function(){
       var id = $(this).parent().siblings()[0].innerHTML;
-      addToSession(id, '/products');
+      addToSession(id);
   });
 
    $(".reduce-cart").on('click',function(){
        var id = $(this).parent().siblings()[0].innerHTML;
        cartHandle.reduceItem(id);
-       window.location.href='/cart';
+       document.getElementById(id).value = cartHandle.getCount(id+"num");
+       refreshAll();
      });
 
   $(".btn.btn-warning").on('click',function(){
@@ -65,7 +65,7 @@ $(document).ready(function(){
       window.location.href='/cart';
   });
 
-  var addToSession = function(id, href){
+  var addToSession = function(id){
     $.ajax({
       type : "POST",
       url : "/cart",
@@ -79,7 +79,9 @@ $(document).ready(function(){
           $("#excced-msg").show();
         }else{
           cartHandle.addItem(id,pro);
-          window.location.href = href;
+          var number = cartHandle.getCount(id+"num");
+          document.getElementById(id).value = cartHandle.getCount(id+"num");
+          refreshAll();
         }
 
       }
