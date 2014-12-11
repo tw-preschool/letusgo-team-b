@@ -10,8 +10,8 @@ $(document).ready(function(){
                     <input value='+cartHandle.getCount(item.name+"num")+'>\
                     <button type=\"button\" class=\"add-cart\">+</button>\
                   </td>\
-                  <td class=\"font-color-red\" id=\"item-promotion\">买二送一</td>\
-                  <td id = \"item-num\">3</td>\
+                  <td class=\"font-color-red\" id=\"item-promotion\">'+ item.promotion +'</td>\
+                  <td id = \"item-num\">'+cartHandle.calculateSubtotal(item.name)+'</td>\
                   </tr>');
     $("#cart-table").append(tr);
   };
@@ -20,8 +20,8 @@ $(document).ready(function(){
         for(var i=0 ; i<storage.length;i++){
             var key = storage.key(i);
             if(key.indexOf("num") < 0){
-                console.log(key);
                 var item = cartHandle.getItem(key);
+                console.log(item);
                 appendCart(item, i);
             }
         }
@@ -34,8 +34,9 @@ $(document).ready(function(){
       var name = $(this).parent().siblings()[1].innerHTML;
       var price = $(this).parent().siblings()[2].innerHTML;
       var unit = $(this).parent().siblings()[3].innerHTML;
+      var promotion = $(this).parent().siblings()[4].innerHTML;
       var pro = new product(name,price,unit);
-      cartHandle.addItem(name,pro);
+      cartHandle.addItem(name,pro,promotion);
       pro.setProCount(cartHandle.getCount(name+"num"));
       window.location.href='/cart';
   });
@@ -44,7 +45,8 @@ $(document).ready(function(){
       var name = $(this).parent().siblings().find("dt").text();
       var price = $(this).parent().siblings()[2].innerHTML;
       var unit = $(this).parent().siblings()[3].innerHTML;
-      var pro = new product(name,price,unit);
+      var promotion = $(this).parent().siblings()[5].innerHTML;
+      var pro = new product(name,price,unit,promotion);
       cartHandle.addItem(name,pro);
       pro.setProCount(cartHandle.getCount(name+"num"));
       window.location.href='/products';
@@ -55,7 +57,9 @@ $(document).ready(function(){
         var name = $(this).parent().siblings()[1].innerHTML;
         var price = $(this).parent().siblings()[2].innerHTML;
         var unit = $(this).parent().siblings()[3].innerHTML;
-        var pro = new product(name,price,unit);
+        var promotion = $(this).parent().siblings()[4].innerHTML;
+        var pro = new product(name,price,unit,promotion);
+        pro.setSubtotal();
         cartHandle.reduceItem(name);
         pro.setProCount(cartHandle.getCount(name+"num"));
         window.location.href='/cart';

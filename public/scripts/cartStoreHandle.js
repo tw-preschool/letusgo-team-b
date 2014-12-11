@@ -37,6 +37,28 @@ var cartHandle = (function(){
     },
     clearCart:function(){
       sessionStorage.clear();
+    },
+    calculateSubtotal: function(name){
+        var item = this.getItem(name);
+        var number = this.getCount(name+"num");
+        var price = item.price;
+        if(item.promotion != "" && number>2){
+          return price*(Math.ceil(number/3))*2;
+        }
+        else{
+          return price*number;
+        }
+    },
+    calculateTotal: function(){
+        var total = 0;
+        var storage = window.sessionStorage;
+        for(var i=0;i<storage.length;i++){
+          var key = storage.key(i);
+          if(key.indexOf("num") < 0 ){
+            total += parseFloat(this.calculateSubtotal(key).toString());
+          }
+        }
+      return total;
     }
   };
 })();
