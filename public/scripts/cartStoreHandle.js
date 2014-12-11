@@ -14,7 +14,7 @@ var cartHandle = (function(){
        return JSON.parse(sessionStorage.getItem(key)) || "";
      },
      addItem: function(key,product){
-       if(this.getItem(key).name != product.name){
+       if(this.getItem(key).id != product.id){
          sessionStorage.setItem(key,JSON.stringify(product));
        }
        this.addCount(key+"num");
@@ -59,6 +59,24 @@ var cartHandle = (function(){
         }
       return total;
     },
+    getFreeNum: function(name){
+      var item = this.getItem(name);
+      var number = this.getCount(name+"num");
+      return parseInt(number/3);
+    },
+    calculateFree: function(){
+      var total = 0;
+      var storage = window.sessionStorage;
+      for(var i=0;i<storage.length;i++){
+        var key = storage.key(i);
+        var item = this.getItem(key);
+        if(key.indexOf("num") < 0 && item.promotion != ""){
+          total += parseFloat(item.price * this.getFreeNum(key));
+        }
+      }
+    return total;
+    },
+
     addPromotionType: function(promotion){
       if(promotion == 'true'){
         return "买二送一";

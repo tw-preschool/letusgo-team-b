@@ -14,23 +14,8 @@
           <th>小计</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>可口可乐</td>
-          <td>3</td>
-          <td>瓶</td>
-          <td>3</td>
-          <td class="font-color-red">买二送一</td>
-          <td>6</td>
-        </tr>
-        <tr>
-          <td>雪碧</td>
-          <td>3</td>
-          <td>瓶</td>
-          <td>1</td>
-          <td></td>
-          <td>3</td>
-        </tr>
+      <tbody id="cart">
+
       </tbody>
     </table>
   </div>
@@ -47,12 +32,7 @@
             <th>数量</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td class="font-color-red">买二送一</td>
-            <td>可口可乐</td>
-            <td>1</td>
-          </tr>
+        <tbody id="free-table">
         </tbody>
       </table>
     </div>
@@ -67,7 +47,7 @@
           <h5 class="text-right width-fifty-percent">元</h5>
         </div>
         <div class="flow-right">
-          <h5 class="text-right width-fix-eighty-px">2.00</h5>
+          <h5 class="text-right width-fix-eighty-px" id="freeTotal"></h5>
         </div>
         <div class="flow-right">
           <h5 class="text-right">节约：</h5>
@@ -78,7 +58,7 @@
           <h4 class="text-right width-fifty-percent">元</h4>
         </div>
         <div class="flow-right">
-          <h4 class="text-right width-fix-eighty-px">9.00</h4>
+          <h4 class="text-right width-fix-eighty-px" id="totalPrice"></h4>
         </div>
         <div class="flow-right">
           <h4 class="text-right">总计：</h4>
@@ -93,7 +73,7 @@
   </div>
 </div>
 
-<script type="text/javascript" src="../spec/fixtures.js"></script>
 <script type="text/javascript" src="../scripts/model/item.js"></script>
 <script type="text/javascript" src="../scripts/model/promotion.js"></script>
 <script type="text/javascript" src="../scripts/main.js"></script>
+<script type="text/javascript" src="../scripts/payment.js"></script>
