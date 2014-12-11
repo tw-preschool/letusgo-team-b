@@ -22,7 +22,7 @@ $(document).ready(function(){
             var key = storage.key(i);
             if(key.indexOf("num") < 0){
                 var item = cartHandle.getItem(key);
-                console.log(item);
+                console.log(item.id);
                 appendCart(item);
             }
         }
@@ -30,6 +30,7 @@ $(document).ready(function(){
 
   showCartItem();
   $(".add-cart").on('click',function(){
+    console.log("id");
       var id = $(this).parent().siblings()[0].innerHTML;
       console.log(id);
       $.ajax({
