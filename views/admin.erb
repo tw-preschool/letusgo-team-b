@@ -48,7 +48,7 @@
     </thead>
     <tbody id="product-table-list">
       <% Product.all.each do |item| %>
-      <tr>
+      <tr data-id = "<%=item.id%>">
         <td class = "item-id hide"><%=item.id%></td>
         <td class = "item-col-name">
           <dl>
@@ -65,7 +65,7 @@
         <td><input type="checkbox" class="item-promotion" checked></td>
         <%end%>
         <td>
-          <a href="/item-edit/<%=item.id%>" class = "edit-link"><span aria-hidden="true" class="icon-pen"> 编辑</span></a>
+          <button class = "edit-link"><span aria-hidden="true" class="icon-pen"> 编辑</span></button>
         </td>
         <td>
           <button type="button" class="btn btn-warning item-delete"><span aria-hidden="true" class="icon-trash"> 删除</span></button>
@@ -75,6 +75,24 @@
     </tbody>
   </table>
 </div>
+<span id = "cover" class = "cover-on">
+  <div class = "edit-info">
+      <label>商品编号:<span id = "iNo"></span></label>
+      <label for = "itemName">商品名称：</label>
+      <input type = "text" class = "iName form-control" id = "iName" autofocus required>
+      <label for = "itemPrice">价格：</label>
+      <input type = "number" class = "iPrice form-control" id = "iPrice" required>
+      <label for = "itemUnit">单位：</label>
+      <input type = "text" class = "iUnit form-control" id = "iUnit" required>
+      <label class = "hide" id = "iPromotion"></label>
+      <label for = "">数量：</label>
+      <input type = "number" class = "form-control" id = "iNumber" required>
+      <label for="iDescribe">描述信息：</label>
+      <textarea class="form-control" rows="3" id = "iDescription"></textarea>
+      <button class = "btn btn-primary save-btn">提交</button>
+      <button class = "back">返回</button>
+  </div>
+</span>
 <% if Product.count == 0 %>
 
 <% end %>

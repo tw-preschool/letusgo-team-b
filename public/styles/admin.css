@@ -44,3 +44,43 @@
   border-left-width: 5px;
   border-radius: 3px;
 }
+.cover-on{
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  opacity: 0.8;
+  display: "";
+}
+#cover {
+  display: none;
+}
+.edit-info label,
+.edit-info input {
+  display : block;
+  margin : 10px auto;
+  width: 30%;
+}
+
+.edit-info textarea {
+  margin: 10px auto;
+  width:30%;
+}
+
+.edit-info label {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.save-btn {
+  margin : 20px 20px 20px 35%;
+  width: 20%;
+}
+
+.back {
+  font-size : 18px;
+  text-decoration : underline;
+}
+.edit-info {margin-top: 50px;}
