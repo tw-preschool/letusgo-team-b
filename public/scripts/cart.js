@@ -59,7 +59,6 @@ $(document).ready(function(){
         var unit = $(this).parent().siblings()[3].innerHTML;
         var promotion = $(this).parent().siblings()[4].innerHTML;
         var pro = new product(name,price,unit,promotion);
-        pro.setSubtotal();
         cartHandle.reduceItem(name);
         pro.setProCount(cartHandle.getCount(name+"num"));
         window.location.href='/cart';
