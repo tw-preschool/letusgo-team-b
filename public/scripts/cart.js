@@ -3,7 +3,7 @@ $(document).ready(function(){
     var tr = $('<tr>\
                   <td id=\"item-id\" hidden>' + data.id + '</td>\
                   <td>' + data.name + '</td>\
-                  <td>' + data.price + '</td>\
+                  <td>' + data.price.toFixed(2) + '</td>\
                   <td>' + data.unit + '</td>\
                   <td>\
                     <button type=\"button\" class=\"reduce-cart\">-</button>\
@@ -11,7 +11,7 @@ $(document).ready(function(){
                     <button type=\"button\" class=\"add-cart\">+</button>\
                   </td>\
                   <td class=\"font-color-red\" id=\"item-promotion\">'+ data.promotion +'</td>\
-                  <td id = \"item-num\">'+cartHandle.calculateSubtotal(data.name)+'</td>\
+                  <td id = \"item-num\">'+cartHandle.calculateSubtotal(data.name).toFixed(2)+'</td>\
                   </tr>');
     $("#cart-table").append(tr);
 

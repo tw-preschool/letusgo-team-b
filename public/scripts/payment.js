@@ -3,11 +3,11 @@ $(document).ready(function(){
     var tr = $('<tr>\
                   <td id=\"item-id\" hidden>' + data.id + '</td>\
                   <td>' + data.name + '</td>\
-                  <td>' + data.price + '</td>\
+                  <td>' + data.price.toFixed(2) + '</td>\
                   <td>' + data.unit + '</td>\
                   <td>'+cartHandle.getCount(data.name+"num")+'</td>\
                   <td class=\"font-color-red\">'+ data.promotion +'</td>\
-                  <td>'+cartHandle.calculateSubtotal(data.name)+'</td>\
+                  <td>'+cartHandle.calculateSubtotal(data.name).toFixed(2)+'</td>\
                   </tr>');
     $("#cart").append(tr);
   };
