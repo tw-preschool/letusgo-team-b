@@ -61,17 +61,31 @@ $(document).ready(function(){
       });
   });
 
-  $(".reduce-cart").on('click',function(){
+$(".reduce-cart").on('click',function(){
+      var id = $(this).parent().siblings()[0].innerHTML;
+      $.ajax({
+        type : "POST",
+        url : "/cart",
+        data :{"id": id},
+        dataType : "json",
+        success: function(data){
+          cartHandle.reduceItem(data.name);
+          window.location.href='/cart';
+        }
+      });
+});
+
+  $(".btn.btn-warning").on('click',function(){
         var id = $(this).parent().siblings()[0].innerHTML;
-        $.ajax({
-          type : "POST",
-          url : "/cart",
-          data :{"id": id},
-          dataType : "json",
-          success: function(data){
-            cartHandle.reduceItem(data.name);
-            window.location.href='/cart';
-          }
-        });
+         $.ajax({
+           type : "POST",
+           url : "/cart",
+           data :{"id": id},
+           dataType : "json",
+           success: function(data){
+             cartHandle.deleteItem(data.name);
+             window.location.href='/cart';
+           }
+         });
   });
 });

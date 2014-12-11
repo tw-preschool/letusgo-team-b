@@ -25,6 +25,9 @@ var cartHandle = (function(){
         sessionStorage.removeItem(key);
       }
     },
+    deleteItem: function(key){
+      sessionStorage.removeItem(key);
+    },
     getCartCount: function(){
       var count = 0;
       var storage = window.sessionStorage;
