@@ -5,7 +5,7 @@ class CreateProducts < ActiveRecord::Migration
             t.float :price
             t.string :unit
             t.string :promotion
-            t.interger :number
+            t.integer :number
             t.string :description
             t.timestamps
         end
