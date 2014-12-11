@@ -21,7 +21,7 @@ $(document).ready(function(){
                       <dd>' + description+ '</dd>\
                       </td>\
                       </dl>\
-                      <td>' + price + '</td>\
+                      <td>' + price.toFixed(2) + '</td>\
                       <td>' + unit + '</td>\
                       <td>' + number + '</td>\
                       <td><input type="checkbox" class=\"item-promotion\"></td>\
@@ -81,7 +81,7 @@ $(document).ready(function(){
     var cover = $("#cover");
     $.getJSON("/products/"+iNo,function(data){
       cover.find("#iName").val(data.name);
-      cover.find("#iPrice").val(data.price);
+      cover.find("#iPrice").val(data.price.toFixed(2));
       cover.find("#iUnit").val(data.unit);
       cover.find("#iPromotion").val(data.promotion);
       cover.find("#iNumber").val(data.number);

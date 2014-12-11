@@ -15,7 +15,7 @@ $(document).ready(function(){
                   </td>\
                   <td class=\"font-color-red\" id=\"item-promotion\">'+ data.promotion +'</td>\
                   <td id = \"item-num\">'+cartHandle.calculateSubtotal(data.id).toFixed(2)+'</td>\
-                  <td><button class=\"btn btn-warning\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
+                  <td><button class=\"btn btn-xs btn-warning\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
                   </tr>');
     $("#cart-table").append(tr);
 

@@ -1,79 +1,83 @@
 <link rel="stylesheet" href="../styles/admin.css"/>
 
 <div class="div-table">
-  <div class="bs-callout bs-callout-info">
+  <div class="bs-callout">
     <div class="form-inline" role="form">
       <div class="form-group">
         <label for="iName">商品名称：</label>
-        <input class="form-control" id="iName" placeholder="请输入商品名称">
+        <input class="form-control input-width-addname" id="iName" placeholder="请输入商品名称">
       </div>
       <div class="form-group">
         <label for="iPrice">价格：</label>
-        <input type = "number" class="form-control" id="iPrice" placeholder="请输入价格">
+        <input type = "number" class="form-control input-width-addshort" id="iPrice" placeholder="请输入价格">
       </div>
       <div class="form-group">
         <label for="iUnit">单位：</label>
-        <input class="form-control" id="iUnit" placeholder="请输入单位">
+        <input class="form-control input-width-addshort" id="iUnit" placeholder="请输入单位">
       </div>
       <div class="form-group">
         <label for="iNumber">库存：</label>
-        <input type = "number" class="form-control" id="iNumber" placeholder="请输入库存">
+        <input type = "number" class="form-control input-width-addshort" id="iNumber" placeholder="请输入库存">
       </div>
-      <div class="form-group">
-        <label for="iDescription">描述信息：</label>
-        <textarea class="form-control" rows="3" id="iDescription"></textarea>
+      <div>
+        <div class="form-group">
+          <label for="iDescription">描述信息：</label>
+          <textarea class="form-control" rows="3" id="iDescription" placeholder="请输入商品描述信息"></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-warning btn-default" id="addbutton">添加商品</button>
+          <button class="btn btn-default margin-left" id="cleanbutton">清空</button>
+        </div>
       </div>
-      <button class="btn btn-warning btn-default" id="addbutton">添加商品</button>
     </div>
   </div>
 </div>
 <div class="div-split">
 </div>
 <div class="div-table">
-  <div class="div-table-heard">
-    <h3>商品列表</h3>
-  </div>
-  <table id="item-table" class="table table-hover">
-    <thead>
-      <tr class="active">
-        <th class="hide">商品编号</th>
-        <th>名称</th>
-        <th>单价(元)</th>
-        <th>单位</th>
-        <th>库存</th>
-        <th>买二送一</th>
-        <th>修改</th>
-        <th>删除</th>
-      </tr>
-    </thead>
-    <tbody id="product-table-list">
-      <% Product.all.each do |item| %>
-      <tr data-id = "<%=item.id%>">
-        <td class = "item-id hide"><%=item.id%></td>
-        <td class = "item-col-name">
-          <dl>
-            <dt class = "item-name"><%=item.name%></dt>
-            <dd><%=item.description%></dd>
-          </dl>
-        </td>
-        <td><%=item.price%></td>
-        <td><%=item.unit%></td>
-        <td><%=item.number%></td>
-        <%if item.promotion == "false" %>
-        <td><input type="checkbox" class="item-promotion"></td>
-        <%else%>
-        <td><input type="checkbox" class="item-promotion" checked></td>
+  <div class="item-list">
+    <table id="item-table" class="table table-hover">
+      <thead>
+        <tr class="table-th">
+          <th class="hide">商品编号</th>
+          <th>名称</th>
+          <th>单价(元)</th>
+          <th>单位</th>
+          <th>库存</th>
+          <th>买二送一</th>
+          <th>修改</th>
+          <th>删除</th>
+        </tr>
+      </thead>
+      <tbody id="product-table-list">
+        <% Product.all.each do |item| %>
+        <tr data-id = "<%=item.id%>">
+          <td class = "item-id hide"><%=item.id%></td>
+          <td class = "item-col-name">
+            <dl>
+              <dt class = "item-name"><%=item.name%></dt>
+              <dd><%=item.description%></dd>
+            </dl>
+          </td>
+          <td><%= format("%0.2f",item.price)%></td>
+          <td><%=item.unit%></td>
+          <td><%=item.number%></td>
+          <%if item.promotion == "false" %>
+          <td><input type="checkbox" class="item-promotion"></td>
+          <%else%>
+          <td><input type="checkbox" class="item-promotion" checked></td>
+          <%end%>
+          <td>
+            <button class = "edit-link"><span aria-hidden="true" class="icon-pen"> 编辑</span></button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-warning item-delete"><span aria-hidden="true" class="icon-trash"> 删除</span></button>
+          </td>
+        </tr>
         <%end%>
-        <td>
-          <button class = "edit-link"><span aria-hidden="true" class="icon-pen"> 编辑</span></button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-warning item-delete"><span aria-hidden="true" class="icon-trash"> 删除</span></button>
-        </td>
-      </tr>
-      <%end%>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 <span id = "cover" class = "cover-on">
   <div class = "edit-info">

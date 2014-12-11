@@ -7,6 +7,10 @@ h1,h2,h3,h4,h5 {
   margin-bottom: 50px;
 }
 
+.margin-left {
+  margin-left: 20px;
+}
+
 .width-forty-percent {
   width: 40%;
 }
@@ -39,9 +43,7 @@ h1,h2,h3,h4,h5 {
   zoom: 1;
 }
 
-.margin-left {
-  margin-left: 20px;
-}
+
 
 .button {
   font-family: 'UnitedItalicRgBk', Arial, Helvetica, sans-serif;
@@ -122,6 +124,13 @@ h1,h2,h3,h4,h5 {
   float: left;
   margin-top: 18px;
   color: #F6D046;
+}
+
+.item-list {
+  border: 1px solid #ddd;/*#ffcc33;*/
+  border-radius: 3px;
+  padding: 20px 20px;
+  box-shadow: 4px 4px 1px #eee;/*#f6d046;*/
 }
 
 .message-danger {
@@ -250,8 +259,20 @@ h1,h2,h3,h4,h5 {
   width: 25px;
 }
 
+.shop-cart .btn-xs {
+  width:auto;
+}
+
 .item-col-name {
   width: 40%;
+}
+
+.item-col-num {
+  width: 15%;
+}
+
+.item-col-button {
+  width: 15%;
 }
 
 /*--index banner-------------*/

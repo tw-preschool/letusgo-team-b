@@ -5,7 +5,7 @@
   <div class="err-msg" id="excced-msg">
     <h5>库存不足，亲,你不能够继续添加了！</h5>
   </div>
-  <div>
+  <div class="item-list">
     <table id="item-table" class="table table-hover">
       <thead>
       <tr class="table-th">
@@ -28,7 +28,7 @@
                 <dd><%=item.description%></dd>
               </dl>
             </td>
-            <td><%=item.price%></td>
+            <td><%=format("%0.2f",item.price)%></td>
             <td><%=item.unit%></td>
             <td><%=item.number%></td>
             <%if item.promotion == "true" %>
@@ -46,4 +46,5 @@
     </table>
   </div>
   <script type="text/javascript" src="../scripts/items.js"></script>
+  <script type="text/javascript" src="../scripts/cart.js"></script>
   <script type="text/javascript" src="../scripts/model/product.js"></script>

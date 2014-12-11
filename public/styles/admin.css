@@ -1,22 +1,4 @@
 
-.add-info label,
-.add-info input {
-  display : block;
-  margin : 10px auto;
-  width: 30%;
-}
-
-.add-info label { font-size: 25px; }
-
-.addbutton {
-   margin : 20px 35%;
-   width : 30%;
-}
-
-.add-info { display:none; }
-
-.add-sheet .add-entry { text-decoration:underline; }
-
 .edit-link {
   text-align: center;
   font-size: 19px;
@@ -34,15 +16,14 @@
   margin: 5px auto;
 }
 
-.bs-callout-info {
-  border-left-color: #5bc0de;
-}
 .bs-callout {
-  padding: 20px;
+  padding: 20px 10px 0 30px;
   margin: 20px 0;
-  border: 1px solid #eee;
+  border: 1px solid #ffcc33;
+  border-left-color: #f0ad4e;
   border-left-width: 5px;
   border-radius: 3px;
+  background-color: #ffffdd;
 }
 .cover-on{
   width: 100%;
@@ -84,3 +65,20 @@
   text-decoration : underline;
 }
 .edit-info {margin-top: 50px;}
+
+.form-inline .input-width-addname {
+  width: 300px;
+}
+
+.form-inline .input-width-addshort {
+  width: 120px;
+}
+
+.form-inline .form-group {
+  margin: 0 20px 20px 0;
+}
+
+.form-inline .form-group textarea {
+  resize:none;
+  width:680px;
+}
