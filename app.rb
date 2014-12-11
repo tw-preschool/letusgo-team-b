@@ -138,6 +138,12 @@ class POSApplication < Sinatra::Base
       erb :cart
     end
 
+    post '/cart' do
+      if params[:id]
+        product = Product.find(params[:id])
+        return product.to_json
+      end
+    end
     get '/payment' do
       content_type :html
       erb :payment

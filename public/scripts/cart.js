@@ -1,19 +1,20 @@
 $(document).ready(function(){
-  var appendCart = function(item,i){
+  var appendCart = function(data){
     var tr = $('<tr>\
-                  <td id=\"item-id\" hidden>' + (++i) + '</td>\
-                  <td>' + item.name + '</td>\
-                  <td>' + item.price + '</td>\
-                  <td>' + item.unit + '</td>\
+                  <td id=\"item-id\" hidden>' + data.id + '</td>\
+                  <td>' + data.name + '</td>\
+                  <td>' + data.price + '</td>\
+                  <td>' + data.unit + '</td>\
                   <td>\
                     <button type=\"button\" class=\"reduce-cart\">-</button>\
-                    <input value='+cartHandle.getCount(item.name+"num")+'>\
+                    <input value='+cartHandle.getCount(data.name+"num")+'>\
                     <button type=\"button\" class=\"add-cart\">+</button>\
                   </td>\
-                  <td class=\"font-color-red\" id=\"item-promotion\">'+ item.promotion +'</td>\
-                  <td id = \"item-num\">'+cartHandle.calculateSubtotal(item.name)+'</td>\
+                  <td class=\"font-color-red\" id=\"item-promotion\">'+ data.promotion +'</td>\
+                  <td id = \"item-num\">'+cartHandle.calculateSubtotal(data.name)+'</td>\
                   </tr>');
     $("#cart-table").append(tr);
+
   };
   var showCartItem = function(){
     var storage = window.sessionStorage;
@@ -22,45 +23,53 @@ $(document).ready(function(){
             if(key.indexOf("num") < 0){
                 var item = cartHandle.getItem(key);
                 console.log(item);
-                appendCart(item, i);
+                appendCart(item);
             }
         }
   };
 
   showCartItem();
   $(".add-cart").on('click',function(){
-    $("#cart-table").empty();
-    var id = $(this).parent().siblings()[0].innerHTML;
-      var name = $(this).parent().siblings()[1].innerHTML;
-      var price = $(this).parent().siblings()[2].innerHTML;
-      var unit = $(this).parent().siblings()[3].innerHTML;
-      var promotion = $(this).parent().siblings()[4].innerHTML;
-      var pro = new product(name,price,unit);
-      cartHandle.addItem(name,pro,promotion);
-      pro.setProCount(cartHandle.getCount(name+"num"));
-      window.location.href='/cart';
+      var id = $(this).parent().siblings()[0].innerHTML;
+      console.log(id);
+      $.ajax({
+        type : "POST",
+        url : "/cart",
+        data :{"id": id},
+        dataType : "json",
+        success: function(data){
+          var pro = new product(id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion));
+          cartHandle.addItem(data.name,pro);
+          window.location.href='/cart';
+        }
+      });
   });
   $(".btn.btn-primary").on('click',function(){
       var id = $(this).parent().siblings()[0].innerHTML;
-      var name = $(this).parent().siblings().find("dt").text();
-      var price = $(this).parent().siblings()[2].innerHTML;
-      var unit = $(this).parent().siblings()[3].innerHTML;
-      var promotion = $(this).parent().siblings()[5].innerHTML;
-      var pro = new product(name,price,unit,promotion);
-      cartHandle.addItem(name,pro);
-      pro.setProCount(cartHandle.getCount(name+"num"));
-      window.location.href='/products';
+      $.ajax({
+        type : "POST",
+        url : "/cart",
+        data :{"id": id},
+        dataType : "json",
+        success: function(data){
+          var pro = new product(id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion));
+          cartHandle.addItem(data.name,pro);
+          window.location.href='/products';
+        }
+      });
   });
 
   $(".reduce-cart").on('click',function(){
         var id = $(this).parent().siblings()[0].innerHTML;
-        var name = $(this).parent().siblings()[1].innerHTML;
-        var price = $(this).parent().siblings()[2].innerHTML;
-        var unit = $(this).parent().siblings()[3].innerHTML;
-        var promotion = $(this).parent().siblings()[4].innerHTML;
-        var pro = new product(name,price,unit,promotion);
-        cartHandle.reduceItem(name);
-        pro.setProCount(cartHandle.getCount(name+"num"));
-        window.location.href='/cart';
+        $.ajax({
+          type : "POST",
+          url : "/cart",
+          data :{"id": id},
+          dataType : "json",
+          success: function(data){
+            cartHandle.reduceItem(data.name);
+            window.location.href='/cart';
+          }
+        });
   });
 });

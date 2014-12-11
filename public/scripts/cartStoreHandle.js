@@ -10,16 +10,15 @@ var cartHandle = (function(){
     reduceCount: function(num){
       sessionStorage[num] = (this.getCount(num) - 1).toString();
     },
-
-    getItem: function(key){
-      return JSON.parse(sessionStorage.getItem(key)) || "";
-    },
-    addItem: function(key,product){
-      if(this.getItem(key).name != product.name){
-        sessionStorage.setItem(key,JSON.stringify(product));
-      }
-      this.addCount(key+"num");
-    },
+     getItem: function(key){
+       return JSON.parse(sessionStorage.getItem(key)) || "";
+     },
+     addItem: function(key,product){
+       if(this.getItem(key).name != product.name){
+         sessionStorage.setItem(key,JSON.stringify(product));
+       }
+       this.addCount(key+"num");
+     },
     reduceItem: function(key){
       this.reduceCount(key+"num");
       if(sessionStorage[key+"num"] == 0){
@@ -59,6 +58,13 @@ var cartHandle = (function(){
           }
         }
       return total;
+    },
+    addPromotionType: function(promotion){
+      if(promotion == 'true'){
+        return "买二送一";
+      }else{
+        return "";
+      }
     }
   };
 })();
