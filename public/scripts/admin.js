@@ -44,10 +44,15 @@ $(document).ready(function(){
               "name" : name , "promotion": isChecked},
       dataType : "json",
       success : function(data){
-        if (isChecked === true)
+        console.log(data);
+        var pro = new product(data.id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion),data.number);
+        cartHandle.setItem(data.id,pro);
+        if (isChecked === true){
           alert("已为"+name+"添加买二送一优惠!");
-        else if (isChecked === false)
+        }
+        else if (isChecked === false){
           alert("已取消"+name+"的买二送一优惠!");
+        }
       }
     });
   });

@@ -16,6 +16,9 @@ var cartHandle = (function(){
      getItem: function(key){
        return JSON.parse(sessionStorage.getItem(key)) || "";
      },
+     setItem: function(key,product){
+       sessionStorage.setItem(key,JSON.stringify(product));
+     },
      addItem: function(key,product){
        if(this.getItem(key).id != product.id){
          sessionStorage.setItem(key,JSON.stringify(product));

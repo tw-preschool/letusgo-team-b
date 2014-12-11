@@ -1,6 +1,7 @@
 function keypress(id)
 {
+  console.log(id);
   var itemNumber = document.getElementById(id).value || 0;
-  cartHandle.setCount(name+"num",itemNumber);
+  cartHandle.setCount(id+"num",itemNumber);
   refreshAll();
 }
