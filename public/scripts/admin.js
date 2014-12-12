@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $('input[type = "checkbox"]').bootstrapSwitch();
     $("#addbutton").on("click",function(){
     var name = $("#iName").val();
     var price = $("#iPrice").val();
@@ -24,23 +25,25 @@ $(document).ready(function(){
                       <td>' + parseFloat(price).toFixed(2) + '</td>\
                       <td>' + unit + '</td>\
                       <td>' + number + '</td>\
-                      <td><input type="checkbox" class=\"item-promotion\"></td>\
+                      <td><input type="checkbox" class=\"item-promotion\" data-label-text=\"买二送一\"></td>\
                       <td><button class = \"edit-link\"><span aria-hidden=\"true\" class=\"icon-pen\"> 修改</button></td>\
                       <td><button class=\"btn btn-warning item-delete\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
                       </tr>');
         $("#product-table-list").append(tr);
+        $('input[type = "checkbox"]').bootstrapSwitch();
       }
     });
   });
 
-  $("#product-table-list").on("click",".item-promotion",function(){
+  $("#product-table-list").on("click",".bootstrap-switch",function(){
+    alert("1");
     var item = $(this).closest("tr");
     var name = item.find(".item-name").text();
-    var isChecked = this.checked;
+    var isChecked = item.find(".item-promotion").bootstrapSwitch("state");
     $.ajax({
       type : "POST",
       url : "/item-promotion",
-      data : {"id" : parseInt(item.find(".item-id").text(),10) ,
+      data : {"id" : parseInt(item.data("id"),10) ,
               "name" : name , "promotion": isChecked},
       dataType : "json",
       success : function(data){
@@ -56,7 +59,6 @@ $(document).ready(function(){
       }
     });
   });
-
   $("#product-table-list").on("click",".item-delete",function(event){
     event.preventDefault();
     var item = $(this).closest("tr");
@@ -83,7 +85,7 @@ $(document).ready(function(){
       cover.find("#iName").val(data.name);
       cover.find("#iPrice").val(data.price.toFixed(2));
       cover.find("#iUnit").val(data.unit);
-      cover.find("#iPromotion").val(data.promotion);
+      cover.find(".item-promotion").bootstrapSwitch("state",data.promotion === "true");
       cover.find("#iNumber").val(data.number);
       cover.find("#iDescription").val(data.description);
     });
@@ -99,7 +101,7 @@ $(document).ready(function(){
     var name = cover.find("#iName").val();
     var price = cover.find("#iPrice").val();
     var unit = cover.find("#iUnit").val();
-    var promotion = cover.find("#iPromotion").val();
+    var promotion = cover.find("#switch-state").bootstrapSwitch("state");
     var number = cover.find("#iNumber").val();
     var description = cover.find("#iDescription").val();
     var editItem = $(this).closest("tr");
@@ -121,12 +123,15 @@ $(document).ready(function(){
                       <td>' + price + '</td>\
                       <td>' + unit + '</td>\
                       <td>' + number + '</td>\
-                      <td><input type="checkbox" class=\"item-promotion\"></td>\
+                      <td><input type=\"checkbox\" class=\"item-promotion\" data-label-text=\"买二送一\"></td>\
                       <td><button class = \"edit-link\"><span aria-hidden=\"true\" class=\"icon-pen\"> 修改</button></td>\
                       <td><button class=\"btn btn-warning item-delete\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>');
+
         $.each($("#product-table-list").find("tr"),function(item,index){
           if($(this).data("id") == id){
             $(this).html(tr);
+            $('input[type = "checkbox"]').bootstrapSwitch();
+            $(this).find(".item-promotion").bootstrapSwitch("state",promotion);
           }
         });
         $("#cover").fadeOut();

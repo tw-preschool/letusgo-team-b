@@ -63,9 +63,9 @@
           <td><%=item.unit%></td>
           <td><%=item.number%></td>
           <%if item.promotion == "false" %>
-          <td><input type="checkbox" class="item-promotion"></td>
+          <td><input type="checkbox" class="item-promotion" data-label-text="买二送一"></td>
           <%else%>
-          <td><input type="checkbox" class="item-promotion" checked></td>
+          <td><input type="checkbox" class="item-promotion" data-label-text="买二送一" checked></td>
           <%end%>
           <td>
             <button class = "edit-link"><span aria-hidden="true" class="icon-pen"> 编辑</span></button>
@@ -91,7 +91,10 @@
       <label class = "hide" id = "iPromotion"></label>
       <label for = "">数量：</label>
       <input type = "number" class = "form-control" id = "iNumber" required>
-      <input type="checkbox" class="item-promotion" value = "cx">
+      <label for = "">促销:</label>
+      <div id="switch" style = "margin-left: 35%;">
+        <input class="item-promotion" id = "switch-state" type="checkbox" data-label-text="买二送一">
+      </div>
       <label for="iDescribe">描述信息：</label>
       <textarea class="form-control" rows="3" id = "iDescription"></textarea>
       <button class = "btn btn-primary save-btn">提交</button>
