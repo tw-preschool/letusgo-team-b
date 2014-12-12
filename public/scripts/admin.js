@@ -7,36 +7,45 @@ $(document).ready(function(){
     var promotion = "false";
     var number = $("#iNumber").val();
     var description = $("#iDescription").val();
-    $.ajax({
-      type : "POST",
-      url : "/products",
-      data : {"name" : name , "price" : price  , "unit" : unit ,
-              "promotion" : promotion , "number" : number ,
-              "description" : description},
-      dataType : "json",
-      success : function(data){
-        var tr = $('<tr data-id = '+data.id+'>\
-                      <td class = \"item-col-name\" >\
-                      <dl>\
-                      <dt class = \"item-name\">' + name + '</dt>\
-                      <dd>' + description+ '</dd>\
-                      </td>\
-                      </dl>\
-                      <td>' + parseFloat(price).toFixed(2) + '</td>\
-                      <td>' + unit + '</td>\
-                      <td>' + number + '</td>\
-                      <td><input type="checkbox" class=\"item-promotion\" data-label-text=\"买二送一\"></td>\
-                      <td><button class = \"edit-link\"><span aria-hidden=\"true\" class=\"icon-pen\"> 修改</button></td>\
-                      <td><button class=\"btn btn-warning item-delete\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
-                      </tr>');
-        $("#product-table-list").append(tr);
-        $('input[type = "checkbox"]').bootstrapSwitch();
+    if(name == "" || unit == ""){
+        $("#null-msg").show();
+    }else{
+      $("#null-msg").hide();
+      if(!(inputPriceIsNumber(price.toString())) || !(inputStoreIsNumber(number.toString()))){
+        $("#error-msg").show();
+      }else{
+        $("#error-msg").hide();
+        $.ajax({
+          type : "POST",
+          url : "/products",
+          data : {"name" : name , "price" : price  , "unit" : unit ,
+                  "promotion" : promotion , "number" : number ,
+                  "description" : description},
+          dataType : "json",
+          success : function(data){
+            var tr = $('<tr data-id = '+data.id+'>\
+                          <td class = \"item-col-name\" >\
+                          <dl>\
+                          <dt class = \"item-name\">' + name + '</dt>\
+                          <dd>' + description+ '</dd>\
+                          </td>\
+                          </dl>\
+                          <td>' + parseFloat(price).toFixed(2) + '</td>\
+                          <td>' + unit + '</td>\
+                          <td>' + number + '</td>\
+                          <td><input type="checkbox" class=\"item-promotion\" data-label-text=\"买二送一\"></td>\
+                          <td><button class = \"edit-link\"><span aria-hidden=\"true\" class=\"icon-pen\"> 修改</button></td>\
+                          <td><button class=\"btn btn-warning item-delete\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
+                          </tr>');
+            $("#product-table-list").append(tr);
+            $('input[type = "checkbox"]').bootstrapSwitch();
+          }
+        });
       }
-    });
+    }
   });
 
   $("#product-table-list").on("click",".bootstrap-switch",function(){
-    alert("1");
     var item = $(this).closest("tr");
     var name = item.find(".item-name").text();
     var isChecked = item.find(".item-promotion").bootstrapSwitch("state");
@@ -47,7 +56,6 @@ $(document).ready(function(){
               "name" : name , "promotion": isChecked},
       dataType : "json",
       success : function(data){
-        console.log(data);
         var pro = new product(data.id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion),data.number);
         cartHandle.setItem(data.id,pro);
         if (isChecked === true){
@@ -73,6 +81,8 @@ $(document).ready(function(){
         dataType : "json",
         success : function(data){
           item.remove();
+          cartHandle.deleteItem(id);
+          refreshAll();
         }
       });
     }
@@ -138,4 +148,24 @@ $(document).ready(function(){
       }
     });
   });
+  var inputPriceIsNumber = function (input){
+    var n = Number(input);
+    if(isNaN(n) || input == ""){
+      return false;
+    }else{
+      return true;
+    }
+  };
+  var inputStoreIsNumber = function (input){
+    if(input.indexOf('.') > 0){
+      return false;
+    }else{
+      var n = Number(input);
+      if(isNaN(n) || input == ""){
+        return false;
+      }
+      return true;
+    }
+
+  };
 });
