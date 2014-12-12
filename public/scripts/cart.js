@@ -14,7 +14,7 @@ $(document).ready(function(){
                     <button type=\"button\" class=\"add-cart\">+</button>\
                   </td>\
                   <td class=\"font-color-red\" id=\"item-promotion\">'+ data.promotion +'</td>\
-                  <td id = \"item-num\">'+cartHandle.calculateSubtotal(data.id).toFixed(2)+'</td>\
+                  <td id = \"subtotal-'+data.id+'\">'+cartHandle.calculateSubtotal(data.id).toFixed(2)+'</td>\
                   <td><button class=\"btn btn-xs btn-warning\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
                   </tr>');
     $("#cart-table").append(tr);
@@ -45,17 +45,24 @@ $(document).ready(function(){
   showCartItem();
    $(".add-cart").on('click',function(){
         var id = $(this).parent().siblings()[0].innerHTML;
-        addToSession(id);
+        addToSession(id,"addByPlus");
     });
   $(".btn.btn-primary").on('click',function(){
       var id = $(this).parent().siblings()[0].innerHTML;
-      addToSession(id);
+      addToSession(id,"addByButton");
+      refreshAll();
   });
 
    $(".reduce-cart").on('click',function(){
        var id = $(this).parent().siblings()[0].innerHTML;
        cartHandle.reduceItem(id);
+       if(cartHandle.getCount(id+"num") < 0){
+         cartHandle.deleteItem(id);
+       }
        document.getElementById(id).value = cartHandle.getCount(id+"num");
+       console.log(document.getElementById("subtotal-"+id).innerHTML);
+       document.getElementById("subtotal-"+id).innerHTML =
+                    cartHandle.calculateSubtotal(id) ? cartHandle.calculateSubtotal(id).toFixed(2) : 0;
        refreshAll();
      });
 
@@ -65,22 +72,23 @@ $(document).ready(function(){
       window.location.href='/cart';
   });
 
-  var addToSession = function(id){
+  var addToSession = function(id,type){
     $.ajax({
       type : "POST",
       url : "/cart",
       data :{"id": id},
       dataType : "json",
       success: function(data){
-        console.log(data.number);
         var pro = new product(id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion),data.number);
-        console.log(cartHandle.hasExceed(id));
         if(cartHandle.hasExceed(id)){
           $("#excced-msg").show();
         }else{
           cartHandle.addItem(id,pro);
-          var number = cartHandle.getCount(id+"num");
-          document.getElementById(id).value = cartHandle.getCount(id+"num");
+          if(type == "addByPlus"){
+            document.getElementById(id).value = cartHandle.getCount(id+"num");
+            document.getElementById("subtotal-"+id).innerHTML =
+                         cartHandle.calculateSubtotal(id) ? cartHandle.calculateSubtotal(id).toFixed(2) : 0;
+          }
           refreshAll();
         }
 

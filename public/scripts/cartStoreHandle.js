@@ -33,6 +33,7 @@ var cartHandle = (function(){
     },
     deleteItem: function(key){
       sessionStorage.removeItem(key);
+      sessionStorage.removeItem(key+"num");
     },
     getCartCount: function(){
       var count = 0;
