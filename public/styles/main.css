@@ -356,7 +356,7 @@ h1,h2,h3,h4,h5 {
 
 /*--empty----------------------*/
 .empty {
-  display: none;
+  display: inline;
   margin-top: 100px;
   padding: 0, 0, 0, 200px;
 }

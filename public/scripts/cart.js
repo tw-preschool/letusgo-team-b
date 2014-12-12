@@ -20,10 +20,11 @@ $(document).ready(function(){
 
   var showCartItem = function(){
     var storage = window.sessionStorage;
+    console.log(storage.length);
     if(storage.length == 0){
       $("#has-product").hide();
       $("#no-product").show();
-      $("#nothing-bought").show();
+      $("#none-msg").show();
     }else{
       $("#has-product").show();
       $("#no-product").hide();
@@ -36,6 +37,7 @@ $(document).ready(function(){
       }
     }
   };
+
   showCartItem();
    $(".add-cart").on('click',function(){
         var id = $(this).parent().siblings()[0].innerHTML;
