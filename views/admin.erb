@@ -2,10 +2,10 @@
 
 <div class="div-table">
   <div class="err-msg" id="error-msg">
-    <h4 id="excced-remind">亲,"价格"只能输入数字哦~~~~~   "库存"只能输入整数哇!!!!</h4>
+    <h5 id="excced-remind">亲,"价格"只能输入数字哦~~~~~   "库存"只能输入整数哇!!!!</h5>
   </div>
   <div class="err-msg" id="null-msg">
-    <h4 id="excced-remind">亲,商品的"名称"和"单位"都不能为空哇!!!!!!!</h4>
+    <h5 id="excced-remind">亲,商品的"名称"和"单位"都不能为空哇!!!!!!!</h5>
   </div>
   <div class="bs-callout">
     <div class="form-inline" role="form">
@@ -50,7 +50,7 @@
           <th>单价(元)</th>
           <th>单位</th>
           <th>库存</th>
-          <th>买二送一</th>
+          <th>促销</th>
           <th>修改</th>
           <th>删除</th>
         </tr>
@@ -87,7 +87,7 @@
 </div>
 <span id = "cover" class = "cover-on">
   <div class = "edit-info">
-      <label>商品编号:<span id = "iNo"></span></label>
+      <label class="hide">商品编号:<span id = "iNo"></span></label>
       <label for = "itemName">商品名称：</label>
       <input type = "text" class = "iName form-control" id = "iName" autofocus required>
       <label for = "itemPrice">价格：</label>
@@ -97,7 +97,7 @@
       <label class = "hide" id = "iPromotion"></label>
       <label for = "">数量：</label>
       <input type = "number" class = "form-control" id = "iNumber" required>
-      <label for = "">促销:</label>
+      <label class="hide" for = "">促销:</label>
       <div id="switch" style = "margin-left: 35%;">
         <input class="item-promotion" id = "switch-state" type="checkbox" data-label-text="买二送一">
       </div>
