@@ -353,3 +353,17 @@ h1,h2,h3,h4,h5 {
 .icon-pen:before {
   content: "\e605";
 }
+
+/*--empty----------------------*/
+.empty {
+  display: none;
+  margin-top: 100px;
+  padding: 0, 0, 0, 200px;
+}
+
+.empty-cart {
+  height: 139px;
+  background: url(imgs/empty_cart.gif) no-repeat;
+  padding: 18px 0 18px 160px;
+  margin-left: 10%;
+}
