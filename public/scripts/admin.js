@@ -21,7 +21,7 @@ $(document).ready(function(){
                       <dd>' + description+ '</dd>\
                       </td>\
                       </dl>\
-                      <td>' + price.toFixed(2) + '</td>\
+                      <td>' + parseFloat(price).toFixed(2) + '</td>\
                       <td>' + unit + '</td>\
                       <td>' + number + '</td>\
                       <td><input type="checkbox" class=\"item-promotion\"></td>\
