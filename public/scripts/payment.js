@@ -23,16 +23,17 @@ $(document).ready(function(){
   };
   var showCartItem = function(){
     var storage = window.sessionStorage;
-        for(var i=0 ; i<storage.length;i++){
-            var key = storage.key(i);
-            if(key.indexOf("num") < 0){
-                var item = cartHandle.getItem(key);
-                appendCart(item);
-                if(item.promotion != "" && cartHandle.getFreeNum(item.id) > 0){
-                  appendFree(item);
-                }
+    for(var i=0 ; i<storage.length;i++){
+        var key = storage.key(i);
+        if(key.indexOf("num") < 0){
+            var item = cartHandle.getItem(key);
+            appendCart(item);
+            if(item.promotion != "" && cartHandle.getFreeNum(item.id) > 0){
+              appendFree(item);
             }
+          }
         }
   };
+
   showCartItem();
 });
