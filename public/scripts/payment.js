@@ -28,7 +28,7 @@ $(document).ready(function(){
             if(key.indexOf("num") < 0){
                 var item = cartHandle.getItem(key);
                 appendCart(item);
-                if(item.promotion != ""){
+                if(item.promotion != "" && cartHandle.getFreeNum(item.id) > 0){
                   appendFree(item);
                 }
             }

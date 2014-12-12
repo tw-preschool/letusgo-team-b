@@ -1,7 +1,4 @@
 $(document).ready(function(){
-  function reduceFromCart(id){
-    console.log(id);
-  }
   var appendCart = function(data){
     var tr = $('<tr>\
                   <td id=\"item-id\" hidden>' + data.id + '</td>\
@@ -20,18 +17,7 @@ $(document).ready(function(){
     $("#cart-table").append(tr);
 
   };
-  var getItemWithId = function(id){
-    $.ajax({
-      type : "POST",
-      url : "/cart",
-      data :{"id": id},
-      dataType : "json",
-      success: function(data){
-        var pro = new product(data.id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion),data.number);
-        appendCart(pro);
-      }
-    });
-  };
+
   var showCartItem = function(){
     var storage = window.sessionStorage;
         for(var i=0 ; i<storage.length;i++){
@@ -54,13 +40,13 @@ $(document).ready(function(){
   });
 
    $(".reduce-cart").on('click',function(){
+      $("#excced-msg").hide();
        var id = $(this).parent().siblings()[0].innerHTML;
        cartHandle.reduceItem(id);
        if(cartHandle.getCount(id+"num") < 0){
          cartHandle.deleteItem(id);
        }
        document.getElementById(id).value = cartHandle.getCount(id+"num");
-       console.log(document.getElementById("subtotal-"+id).innerHTML);
        document.getElementById("subtotal-"+id).innerHTML =
                     cartHandle.calculateSubtotal(id) ? cartHandle.calculateSubtotal(id).toFixed(2) : 0;
        refreshAll();
@@ -83,6 +69,7 @@ $(document).ready(function(){
         if(cartHandle.hasExceed(id)){
           $("#excced-msg").show();
         }else{
+          $("#excced-msg").hide();
           cartHandle.addItem(id,pro);
           if(type == "addByPlus"){
             document.getElementById(id).value = cartHandle.getCount(id+"num");
