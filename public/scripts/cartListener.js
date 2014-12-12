@@ -3,16 +3,16 @@ function keypress(id)
   var itemNumber = document.getElementById(id).value || 0;
   var numberIn = cartHandle.getItem(id).numberInStore;
   if(itemNumber > cartHandle.getItem(id).numberInStore){
-    $("#excced-msg").show();
+    $("#excced-msg").fadeIn();
       document.getElementById("excced-remind").innerHTML = "亲,库存不足,您最多只能添加"+numberIn+"件此类商品";
       }else{
-    $("#excced-msg").hide();
+    $("#excced-msg").fadeOut();
     if(itemNumber != 0 && inputIsNumber(itemNumber)){
       cartHandle.setCount(id+"num",itemNumber);
-      $("#wrong-input").hide();
+      $("#wrong-input").fadeOut();
       refreshAll();
     }else{
-      $("#wrong-input").show();
+      $("#wrong-input").fadeIn();
     }
   }
 }

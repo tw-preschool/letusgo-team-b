@@ -27,7 +27,7 @@ var cartHandle = (function(){
      },
     reduceItem: function(key){
       this.reduceCount(key+"num");
-      if(sessionStorage[key+"num"] == 0){
+      if(sessionStorage[key+"num"] === 0){
         sessionStorage.removeItem(key);
       }
     },
@@ -48,7 +48,7 @@ var cartHandle = (function(){
         var item = this.getItem(key);
         var number = this.getCount(key+"num");
         var price = item.price;
-        if(item.promotion != "" && number>2){
+        if(item.promotion !== "" && number>2){
           return item.price*(Math.ceil(number/3))*2;
         }
         else{
@@ -75,7 +75,7 @@ var cartHandle = (function(){
       for(var i=0;i<storage.length;i++){
         var key = storage.key(i);
         var item = this.getItem(key);
-        if(key.indexOf("num") < 0 && item.promotion != ""){
+        if(key.indexOf("num") < 0 && item.promotion !== ""){
           total += parseFloat(item.price * this.getFreeNum(key));
         }
       }
