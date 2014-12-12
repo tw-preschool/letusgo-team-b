@@ -1,6 +1,18 @@
+
+ <% if Product.all.count == 0 %>
+<div class="div-table">
+  <div class="shop-cart" >
+     <div class="empty">
+      <div class="empty-cart">
+          <h3>很抱歉，暂时没有商品提供，新品即将上架，敬请期待哦～</h3>
+      </div>
+     </div>
+  </div>
+</div>
+ <% else %>
 <div class="div-table">
   <div class="div-table-heard">
-    <h3>商品列表</h3>
+    <h3>商品列表<%=Product.all.count %></h3>
   </div>
   <div class="err-msg" id="excced-msg">
     <h5>库存不足，亲,你不能够继续添加了！</h5>
@@ -45,12 +57,8 @@
       </tbody>
     </table>
   </div>
-  <div class="empty">
-    <div class="empty-item">
-      <h3>很抱歉，暂时没有商品提供，新品即将上架，敬请期待哦～</h3>
-    </div>
-  </div>
 </div>
+<% end %>
   <script type="text/javascript" src="../scripts/items.js"></script>
   <script type="text/javascript" src="../scripts/cart.js"></script>
   <script type="text/javascript" src="../scripts/model/product.js"></script>
