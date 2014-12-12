@@ -367,3 +367,7 @@ h1,h2,h3,h4,h5 {
   padding: 18px 0 18px 160px;
   margin-left: 10%;
 }
+
+.empty-item {
+  margin-left: 18%;
+}
