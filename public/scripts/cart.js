@@ -53,7 +53,7 @@ $(document).ready(function(){
       $("#excced-msg").hide();
        var id = $(this).parent().siblings()[0].innerHTML;
        cartHandle.reduceItem(id);
-       if(cartHandle.getCount(id+"num") < 0){
+       if(cartHandle.getCount(id+"num") <= 0){
          cartHandle.deleteItem(id);
        }
        document.getElementById(id).value = cartHandle.getCount(id+"num");

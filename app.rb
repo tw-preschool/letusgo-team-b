@@ -153,7 +153,6 @@ class POSApplication < Sinatra::Base
     post '/item-promotion' do
       product = Product.find(params[:id])
       product.update_attributes(:promotion => params[:promotion])
-      #[201, {:message => "update"}.to_json]
       return product.to_json
     end
 
