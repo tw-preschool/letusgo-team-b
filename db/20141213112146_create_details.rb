@@ -8,6 +8,7 @@ class CreateDetails < ActiveRecord::Migration
       t.boolean :promotion
       t.integer :numberForFree
       t.float :totalcost
+      t.integer :order_id
       t.timestamps
     end
   end

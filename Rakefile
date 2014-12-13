@@ -2,6 +2,7 @@ require 'active_record'
 require 'logger'
 require 'yaml'
 require './models/order'
+require './models/detail'
 desc "Migrate the database through scripts in db/."
 task :migrate => :environment do
     ActiveRecord::Migrator.migrate('db/', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
@@ -25,7 +26,11 @@ end
 
 task :seedOrderData do
   5.times do |i|
-    puts Order.create(totalcost: 20,state: "unpaid")
+    @order = Order.create(totalcost: 20,state: "unpaid")
+    puts @order
+    i.times do |j|
+      puts Detail.create(name: 'apple#{i}-#{j}',unit: 'kg', price: 12.00, number: 3, promotion: true, numberForFree: 1, totalcost: 24,order: Order.find(i))
+    end
   end
 end
 

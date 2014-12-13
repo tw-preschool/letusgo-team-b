@@ -5,6 +5,7 @@ require 'active_record'
 require 'json'
 require './models/product'
 require './models/order'
+require './models/detail'
 class LoginHandle < Sinatra::Base
 
   configure do
@@ -159,6 +160,9 @@ class POSApplication < Sinatra::Base
     get '/orders' do
       content_type :html
       erb :orders
+    end
+    get '/detail' do
+      Order.find(params[:id]).details.to_json
     end
 
     after do
