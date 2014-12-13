@@ -1,7 +1,7 @@
 require 'active_record'
 require 'logger'
 require 'yaml'
-
+require './models/order'
 desc "Migrate the database through scripts in db/."
 task :migrate => :environment do
     ActiveRecord::Migrator.migrate('db/', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
@@ -13,6 +13,22 @@ task :environment do
     ActiveRecord::Base.establish_connection(dbconfig[env])
     ActiveRecord::Base.logger = Logger.new(File.open('database.log', 'a'))
 end
+
+desc "insert items into orders"
+task :seed => :setConfig do
+  Rake::Task["environment"].invoke
+  Rake::Task["seedOrderData"].invoke
+end
+task :setConfig do
+    ENV["RACK_ENV"] = "development"
+end
+
+task :seedOrderData do
+  5.times do |i|
+    puts Order.create(totalcost: 20,state: "unpaid")
+  end
+end
+
 
 if ENV["RACK_ENV"] == 'test'
 	require 'rspec/core/rake_task'

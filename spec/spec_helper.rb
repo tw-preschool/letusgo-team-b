@@ -1,7 +1,7 @@
 ENV['RACK_ENV'] = 'test'
 
 require 'rspec'
-require 'rack/test' 
+require 'rack/test'
 require 'database_cleaner'
 
 require_relative File.join('..', 'app')
@@ -11,7 +11,7 @@ RSpec.configure do |config|
 
   config.color = true
   config.tty = true
-  
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
@@ -26,5 +26,5 @@ RSpec.configure do |config|
   def app
     POSApplication
   end
-  
+
 end

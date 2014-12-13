@@ -4,7 +4,7 @@ require 'rack/contrib'
 require 'active_record'
 require 'json'
 require './models/product'
-
+require './models/order'
 class LoginHandle < Sinatra::Base
 
   configure do
@@ -156,8 +156,14 @@ class POSApplication < Sinatra::Base
       return product.to_json
     end
 
+    get '/orders' do
+      content_type :html
+      erb :orders
+    end
+
     after do
       ActiveRecord::Base.connection.close
     end
+
 
 end

@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="../styles/order.css"/>
+
+<div class="div-table">
+  <div class="item-list">
+    <table id="item-table" class="table table-hover">
+      <thead>
+        <tr class="table-th">
+          <th class="hide">order List</th>
+          <th>id</th>
+          <th>cost</th>
+          <th>state</th>
+
+          <th>details</th>
+        </tr>
+      </thead>
+      <tbody id="product-table-list">
+        <% Order.all.each do |item| %>
+        <tr data-id = "<%=item.id%>">
+          <td class = "item-id "><%=item.id%></td>
+
+          <td><%= format("%0.2f",item.totalcost)%></td>
+          <td><%=item.state%></td>
+
+          <td>
+            <button class = "details-link"><span aria-hidden="true" class="icon-pen"> details</span></button>
+          </td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class = 'details'>
+ <p>hi, welcome to order details</p>
+</div>
+<script type="text/javascript" src="../scripts/order.js"></script>

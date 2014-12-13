@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 require_relative '../spec_helper'
- 
+
 describe 'Products Application' do
   describe 'List all products' do
     before { get '/products' }
- 
+
     it 'is successful' do
       expect(last_response.status).to eq 200
     end
@@ -22,7 +22,7 @@ describe 'Products Application' do
   	it 'create a product'  do
   		post '/products', body, {'Content-Type' => 'application/json'}
   		expect(last_response.status).to eq 201
-  		
+
   		get '/products'
   		created = JSON.parse(last_response.body)[0]
 
