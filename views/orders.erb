@@ -7,9 +7,10 @@
         <tr class="table-th">
           <th class="hide">order List</th>
           <th>id</th>
+          <th>username</th>
           <th>cost</th>
           <th>state</th>
-
+          <th>ordertime</th>
           <th>details</th>
         </tr>
       </thead>
@@ -17,9 +18,12 @@
         <% Order.all.each do |item| %>
         <tr data-id = "<%=item.id%>">
           <td class = "item-id "><%=item.id%></td>
+          <td><%=item.username%></td>
 
           <td><%= format("%0.2f",item.totalcost)%></td>
           <td><%=item.state%></td>
+          <td><%=item.created_at%></td>
+
 
           <td>
             <button class = "details-link"><span aria-hidden="true" class="icon-pen"> details</span></button>
