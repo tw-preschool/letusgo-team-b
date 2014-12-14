@@ -42,6 +42,7 @@ end
 
 class POSApplication < Sinatra::Base
 
+
     use LoginHandle
     dbconfig = YAML.load(File.open("config/database.yml").read)
 
@@ -161,8 +162,21 @@ class POSApplication < Sinatra::Base
       content_type :html
       erb :orders
     end
+
     get '/detail' do
       Order.find(params[:id]).details.to_json
+    end
+
+    post '/addOrder' do
+      order = Order.create(params[:order])
+    #  params[:detailsCount].to_i.times do |i|
+    #    detail = params[":detail"+i.to_s]
+        #detail[:order] = product
+        detail = params[:details0]
+
+        Detail.create(name: detail[:name],unit: detail[:unit],price: detail[:price], number: detail[:number], promotion: detail[:promotion], numberForFree: detail[:numberForFree], totalcost: detail[:totalcost], order: order)
+    #  end
+      [201,{:p =>detail[:name],:q =>"r"}.to_json]
     end
 
     after do

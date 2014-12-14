@@ -1,4 +1,21 @@
 $(document).ready(function(){
+  var details = [{name: "apple",unit: "kg", price: 12,number: 6, promotion: false, numberForFree: 0, totalcost: 72},{name: "orange",unit: "kg", price: 5,number: 3, promotion: true, numberForFree: 1, totalcost: 10}];
+  var orderData={"order": {username: "tester",state: "unpaid", totalcost:"24" }};
+  orderData.detailsCount = details.length;
+  for(var i in details){
+    orderData["details"+i] = details[i];
+  }
+  console.log(orderData);
+  $.ajax({
+    type : "POST",
+    url : "/addOrder",
+
+    data :orderData,
+    dataType : "json",
+    success: function(data){
+      console.log(data);
+    }
+  });
   var appendCart = function(data){
     var tr = $('<tr>\
                   <td id=\"item-id\" hidden>' + data.id + '</td>\
@@ -15,7 +32,6 @@ $(document).ready(function(){
                   <td><button class=\"btn btn-xs btn-warning\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
                   </tr>');
     $("#cart-table").append(tr);
-
   };
 
   var showCartItem = function(){
@@ -65,7 +81,12 @@ $(document).ready(function(){
   $(".btn.btn-warning").on('click',function(){
       var id = $(this).parent().siblings()[0].innerHTML;
       cartHandle.deleteItem(id);
+
       window.location.href='/cart';
+
+
+
+
   });
 
   var addToSession = function(id,type){
