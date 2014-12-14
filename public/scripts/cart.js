@@ -1,11 +1,11 @@
 $(document).ready(function(){
   var details = [{name: "apple",unit: "kg", price: 12,number: 6, promotion: false, numberForFree: 0, totalcost: 72},{name: "orange",unit: "kg", price: 5,number: 3, promotion: true, numberForFree: 1, totalcost: 10}];
   var orderData={"order": {username: "tester",state: "unpaid", totalcost:"24" }};
-  orderData.detailsCount = details.length;
+//  orderData.detailsCount = details.length;
   for(var i in details){
     orderData["details"+i] = details[i];
   }
-  console.log(orderData);
+  //console.log(orderData);
   $.ajax({
     type : "POST",
     url : "/addOrder",

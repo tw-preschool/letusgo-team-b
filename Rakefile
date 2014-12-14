@@ -19,6 +19,7 @@ desc "insert items into orders"
 task :seed => :setConfig do
   Rake::Task["environment"].invoke
   Rake::Task["seedOrderData"].invoke
+  Rake::Task["seedProductData"].invoke
 end
 task :setConfig do
     ENV["RACK_ENV"] = "development"
@@ -29,11 +30,16 @@ task :seedOrderData do
     @order = Order.create(username: 'tester',totalcost: 20,state: "unpaid")
     puts @order
     i.times do |j|
-      puts Detail.create(name: 'apple#{i}-#{j}',unit: 'kg', price: 12.00, number: 3, promotion: true, numberForFree: 1, totalcost: 24,order: Order.find(i))
+      puts Detail.create(name: "apple#{i}-#{j}",unit: 'kg', price: 12.00, number: 3, promotion: true, numberForFree: 1, totalcost: 24,order: Order.find(i))
     end
   end
 end
-
+task :seedProductData do
+  Product.delete_all
+  5.times do |i|
+    puts Product.create(name: "p#{i}",price: 1, unit: "kg", promotion: false,number: 0,description: "").to_json
+  end
+end
 
 if ENV["RACK_ENV"] == 'test'
 	require 'rspec/core/rake_task'

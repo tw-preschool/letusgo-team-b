@@ -174,14 +174,19 @@ class POSApplication < Sinatra::Base
 
     post '/addOrder' do
       order = Order.create(params[:order])
+      params.delete("order")
+      params.each {|key,value|
+        detail = value.merge({:order => order})
+        Detail.create(detail)
+      }
     #  params[:detailsCount].to_i.times do |i|
     #    detail = params[":detail"+i.to_s]
         #detail[:order] = product
-        detail = params[:details0]
+      #  detail = params[:details0]
 
-        Detail.create(name: detail[:name],unit: detail[:unit],price: detail[:price], number: detail[:number], promotion: detail[:promotion], numberForFree: detail[:numberForFree], totalcost: detail[:totalcost], order: order)
+    #    Detail.create(name: detail[:name],unit: detail[:unit],price: detail[:price], number: detail[:number], promotion: detail[:promotion], numberForFree: detail[:numberForFree], totalcost: detail[:totalcost], order: order)
     #  end
-      [201,{:p =>detail[:name],:q =>"r"}.to_json]
+      [201,{:p =>params}.to_json]
     end
 
     after do
