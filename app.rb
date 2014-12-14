@@ -38,6 +38,11 @@ class LoginHandle < Sinatra::Base
     redirect '/login'
   end
 
+  get '/register' do
+    content_type :html
+    erb :register
+  end
+
 end
 
 class POSApplication < Sinatra::Base
