@@ -23,7 +23,7 @@
           <td><%= format("%0.2f",item.totalcost)%></td>
           <td><%=item.state%></td>
 
-          <td><%= item.created_at%></td>
+          <td><%= item.created_at.localtime.strftime("%Y/%m/%d %H:%M")%></td>
 
 
           <td>

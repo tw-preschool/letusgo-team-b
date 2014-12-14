@@ -1,6 +1,5 @@
 #!/bin/bash
-cd db
-sqlite3 development.sqlite3
-drop table products;
-drop schema_migrations;
-.exit
+rm -f db/development.sqlite3
+rm -f db/test.sqlite3
+./setup.sh
+rake seed

@@ -3,6 +3,7 @@ require 'logger'
 require 'yaml'
 require './models/order'
 require './models/detail'
+require './models/product'
 desc "Migrate the database through scripts in db/."
 task :migrate => :environment do
     ActiveRecord::Migrator.migrate('db/', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
@@ -24,6 +25,7 @@ end
 task :setConfig do
     ENV["RACK_ENV"] = "development"
 end
+
 
 task :seedOrderData do
   5.times do |i|
