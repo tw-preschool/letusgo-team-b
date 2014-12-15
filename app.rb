@@ -6,6 +6,7 @@ require 'json'
 require './models/product'
 require './models/order'
 require './models/detail'
+require './models/user'
 class LoginHandle < Sinatra::Base
 
   configure do
@@ -42,6 +43,22 @@ class LoginHandle < Sinatra::Base
     content_type :html
     erb :register
   end
+  post '/register' do
+
+      users = User.find_by_sql(['select * from users where email=?',params[:email]])
+      if users.count == 0
+        user = User.create(:email => params[:email],
+                            :password => params[:password],
+                            :phone => params[:phone],
+                            :name => params[:name],
+                            :address => params[:address],
+                            :phone => params[:phone].to_i)
+          user.save
+          return true.to_json;
+      else
+          return false.to_json;
+      end
+end
 
 end
 

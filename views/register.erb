@@ -3,23 +3,27 @@
     <div class="div-table-heard">
       <h3>用户注册</h3>
     </div>
+    <div class="err-msg" id="exist-err">
+      <button type="button" class="close" id="cancle-excced"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h5 id="excced-remind">用户名存在！！！</h5>
+    </div>
     <div class="shop-cart">
       <form role="form">
         <div class="form-group">
           <label for="email">邮箱：</label>
-          <input type="email" class="form-control" id="email" placeholder="请输入邮箱">
+          <input type="email" class="form-control" id="email" placeholder="请输入邮箱"><p class="err-msg" id="email-err">请输入正确的邮箱格式！！<p>
         </div>
         <div class="form-group">
           <label for="password">密码：</label>
-          <input type="password" class="form-control" id="password" placeholder="请输入密码">
+          <input type="password" class="form-control" id="password" placeholder="请输入密码"><p class="err-msg" id="pass-err">密码不得少于6位<p>
         </div>
         <div class="form-group">
           <label for="confirm-password">确认密码：</label>
-          <input type="password" class="form-control" id="confirm-password" placeholder="请再次输入密码">
+          <input type="password" class="form-control" id="confirm-password" placeholder="请再次输入密码"><p class="err-msg" id="noneEqual-err">两次密码不相等！<p>
         </div>
         <div class="form-group">
           <label for="name">姓名：</label>
-          <input type="text" class="form-control" id="name" placeholder="请输入姓名">
+          <input type="text" class="form-control" id="name" placeholder="请输入姓名"><p class="err-msg" id="name-err">昵称只能是数字和字母的组合<p>
         </div>
         <div class="form-group">
           <label for="address">地址：</label>
@@ -27,12 +31,12 @@
         </div>
         <div class="form-group">
           <label for="phone">电话：</label>
-          <input type="text" class="form-control" id="phone" placeholder="请输入电话">
+          <input type="text" class="form-control" id="phone" placeholder="请输入电话"><p class="err-msg" id="phone-err">电话只能是数字，且长度为8到11位！<p>
         </div>
         <div class="form-group">
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-warning" id="login">注 册<span></span></button>
+          <button type="submit" class="btn btn-warning" id="registerButton">注 册<span></span></button>
         </div>
       </form>
     </div>
@@ -52,3 +56,5 @@
     </div>
   </div>
 </div>
+<script type="text/javascript" src="../scripts/registerHandle.js"></script>
+<script type="text/javascript" src="../scripts/register.js"></script>
