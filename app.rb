@@ -182,6 +182,14 @@ class POSApplication < Sinatra::Base
 
     get '/orders' do
       content_type :html
+      t = Time.new
+      t = t.getutc
+      orders = Order.where(:state == "unpaid")
+      orders.each do |order|
+        if t-order[:created_at]>60*60*2
+          order.update(:state => "canceled")
+        end
+      end
       erb :orders
     end
 
