@@ -25,17 +25,28 @@ class LoginHandle < Sinatra::Base
   end
 
   post '/login' do
-    if params[:name] == settings.username && params[:password] == settings.password
+    user = User.find_by_sql(['select * from users where email=? and password=?',params[:email],params[:password]])
+    if user.count > 0
       session[:isLogin] = true
-      return session[:isLogin].to_json
+      session[:user] = params[:email]
+      return true.to_json
     else
-      session[:isLogin] = false
-      return session[:isLogin].to_json
+      return false.to_json
     end
   end
+  # post '/login' do
+  #   if params[:name] == settings.username && params[:password] == settings.password
+  #     session[:isLogin] = true
+  #     return session[:isLogin].to_json
+  #   else
+  #     session[:isLogin] = false
+  #     return session[:isLogin].to_json
+  #   end
+  # end
 
   get '/logout' do
     session[:isLogin] = false
+    session[:user] = ""
     redirect '/login'
   end
 
@@ -85,7 +96,7 @@ class POSApplication < Sinatra::Base
     before do
         content_type :json
         @isLogin = session[:isLogin]
-        @user = 'admin'
+        @user = session[:user]
     end
 
     get '/' do

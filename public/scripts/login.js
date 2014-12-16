@@ -1,22 +1,23 @@
 $(document).ready(function(){
   $("#login").on('click',function(event){
     event.preventDefault();
-    var name = $('#inputUsername').val();
+    var email = $('#inputUsername').val();
     var password = $('#inputPassword').val();
-    if(name.length === 0 || password.length === 0){
+    if(email.length === 0 || password.length === 0){
       $("#err-msg").show();
     }
     $.ajax({
       type : "POST",
       url : "/login",
-      data : {"name":name,"password":password},
+      data : {"email":email,"password":password},
       dataType : "json",
       success : function(result){
-        if(result === true){
-          window.location.href = '/admin';
-        }else{
-          $("#err-msg").show();
-        }
+        console.log(result);
+         if(result === true){
+           window.location.href = '/';
+         }else{
+           $("#err-msg").show();
+         }
       }
     });
   });
