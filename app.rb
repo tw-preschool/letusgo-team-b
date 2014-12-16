@@ -34,16 +34,6 @@ class LoginHandle < Sinatra::Base
       return false.to_json
     end
   end
-  # post '/login' do
-  #   if params[:name] == settings.username && params[:password] == settings.password
-  #     session[:isLogin] = true
-  #     return session[:isLogin].to_json
-  #   else
-  #     session[:isLogin] = false
-  #     return session[:isLogin].to_json
-  #   end
-  # end
-
   get '/logout' do
     session[:isLogin] = false
     session[:user] = ""
