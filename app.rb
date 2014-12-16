@@ -52,7 +52,9 @@ class LoginHandle < Sinatra::Base
                             :phone => params[:phone],
                             :name => params[:name],
                             :address => params[:address],
-                            :phone => params[:phone].to_i)
+                            :phone => params[:phone].to_i,
+                            :role => "",
+                            :state => "active")
           user.save
           return true.to_json;
       else
