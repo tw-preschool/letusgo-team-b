@@ -23,9 +23,9 @@ $(document).ready (function(){
         $("#detail-table-list").html(htmlArray);
       }
     });
-
-    $(".details").fadeIn();
     $(".div-table").fadeOut();
+    $(".details").fadeIn();
+
   });
   $(".returnOrder-link").on("click",function(){
     $(".details").fadeOut();
