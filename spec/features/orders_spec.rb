@@ -1,15 +1,16 @@
 #encoding: utf-8
 require_relative '../spec_helper'
 
-describe "orders storing and fecthing test" ,:type => :feature do
+describe "testing order management function" ,:type => :feature do
   before :each do
+
+  end
+  it "shoul store orders in db" do
     order = {:username => "tester", :state => "unpaid", :totalcost => 30}
     detail0 = {:name => "orange",:unit => 'kg', :price => 12.00, :number => 3, :promotion => true, :numberForFree => 1, :totalcost => 24}
     detail1 = {:name => "apple",:unit => 'kg', :price => 24.00, :number => 3, :promotion => false, :numberForFree => 0, :totalcost => 72}
     body = {:order => order, :detail0 => detail0, :detail1 => detail1}
     post "/addOrder" ,body
-  end
-  it "shoul store orders in db" do
     expect(last_response.status).to eq 201
     expect(Order.count).to eq 1
     order = Order.last
