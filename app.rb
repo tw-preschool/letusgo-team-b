@@ -196,8 +196,10 @@ class POSApplication < Sinatra::Base
       erb :orders
     end
 
-    get '/detail' do
-      Order.find(params[:id]).details.to_json
+    get '/details/:id' do
+      content_type :html
+      @details = Order.find(params[:id]).details
+      erb :details
     end
 
     post '/addOrder' do
@@ -207,7 +209,11 @@ class POSApplication < Sinatra::Base
         detail = value.merge({:order => order})
         Detail.create(detail)
       }
-      [201,{:message =>"success"}.to_json]
+      if order.save
+        [201,{:message =>params}.to_json]
+      else
+        [404,{:message => "error"}.to_json]
+      end
     end
 
     after do

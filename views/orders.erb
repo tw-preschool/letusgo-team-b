@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../styles/order.css"/>
 
 <div class="div-table">
   <div class="item-list">
@@ -19,46 +18,16 @@
         <tr data-id = "<%=item.id%>">
           <td class = "item-id "><%=item.id%></td>
           <td><%=item.username%></td>
-
           <td><%= format("%0.2f",item.totalcost)%></td>
           <td><%=item.state%></td>
-
           <td><%= item.created_at.localtime.strftime("%Y/%m/%d %H:%M")%></td>
-
-
           <td>
-            <button class = "details-link"><span aria-hidden="true" class="icon-pen"> details</span></button>
+            <a href = "/details/<%=item.id%>"><span aria-hidden="true" class="icon-pen"> details</span></a>
           </td>
         </tr>
         <%end%>
       </tbody>
     </table>
   </div>
-</div>
-
-<div class = 'details'>
-  <div class = "background">
-     <div class="detail-table">
-       <div class="item-list">
-         <table id="item-table" class="table table-hover">
-           <thead>
-             <tr class="table-th">
-               <th class="hide">details List</th>
-               <th>name</th>
-               <th>unit</th>
-               <th>price</th>
-               <th>number</th>
-               <th>promotion</th>
-               <th>numberForFree</th>
-               <th>totalcost</th>
-             </tr>
-           </thead>
-           <tbody id="detail-table-list">
-           </tbody>
-         </table>
-       </div>
-     </div>
-     <button class = "returnOrder-link"><span aria-hidden="true" class="icon-pen"> return to orders</span></button>
-   </div>
 </div>
 <script type="text/javascript" src="../scripts/order.js"></script>
