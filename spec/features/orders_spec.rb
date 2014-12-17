@@ -3,14 +3,13 @@ require_relative '../spec_helper'
 
 describe "testing order management function" ,:type => :feature do
   before :each do
-
-  end
-  it "shoul store orders in db" do
     order = {:username => "tester", :state => "unpaid", :totalcost => 30}
     detail0 = {:name => "orange",:unit => 'kg', :price => 12.00, :number => 3, :promotion => true, :numberForFree => 1, :totalcost => 24}
     detail1 = {:name => "apple",:unit => 'kg', :price => 24.00, :number => 3, :promotion => false, :numberForFree => 0, :totalcost => 72}
     body = {:order => order, :detail0 => detail0, :detail1 => detail1}
     post "/addOrder" ,body
+  end
+  it "shoul store orders in db" do
     expect(last_response.status).to eq 201
     expect(Order.count).to eq 1
     order = Order.last
@@ -41,6 +40,7 @@ describe "testing order management function" ,:type => :feature do
     expect(detail.numberForFree).to eq 0
     expect(detail.totalcost).to eq 72.00
   end
+
   it "should list orders when visiting /orders" do
     visit "/orders"
     expect(page).to have_content('tester')
@@ -48,7 +48,7 @@ describe "testing order management function" ,:type => :feature do
     expect(page).to have_content('unpaid')
     expect(page).to have_content('details')
   end
-    #
+
   it "should list details when clicking details button" do
     visit "/orders"
     click_link 'details'
