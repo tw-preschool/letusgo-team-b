@@ -7,67 +7,39 @@ require './models/product'
 require './models/order'
 require './models/detail'
 require './models/user'
-class LoginHandle < Sinatra::Base
+require './controllers/loginController'
+require './controllers/shoppingController'
 
+class LoginHandle < Sinatra::Base
+  use Rack::Session::Pool, :expire_after => 60*60*24*7
   configure do
-    use Rack::Session::Pool, :expire_after => 60*60*24*7
     set :username, 'admin'
     set :password, 'admin'
   end
 
-  get '/login' do
-    if session[:isLogin] === true
-      redirect '/admin'
-    else
-      content_type :html
-      erb :login
-    end
+  post '/login' do
+    userLogin(params[:email],params[:password])
   end
 
-  post '/login' do
-    user = User.find_by_sql(['select * from users where email=? and password=?',params[:email],params[:password]])
-    if user.count > 0
-      session[:isLogin] = true
-      session[:user] = params[:email]
-      return true.to_json
-    else
-      return false.to_json
-    end
+  get '/login' do
+    checkLoginStatus
   end
+
   get '/logout' do
-    session[:isLogin] = false
-    session[:user] = ""
-    redirect '/login'
+    userLogout
   end
 
   get '/register' do
-    content_type :html
-    erb :register
+    goToRegister
   end
+
   post '/register' do
-
-      users = User.find_by_sql(['select * from users where email=?',params[:email]])
-      if users.count == 0
-        user = User.create(:email => params[:email],
-                            :password => params[:password],
-                            :phone => params[:phone],
-                            :name => params[:name],
-                            :address => params[:address],
-                            :phone => params[:phone].to_i,
-                            :role => "",
-                            :state => "active")
-          user.save
-          return true.to_json;
-      else
-          return false.to_json;
-      end
-end
-
+    userRegister(params[:email],params[:password],params[:phone],
+                 params[:name],params[:address])
+  end
 end
 
 class POSApplication < Sinatra::Base
-
-
     use LoginHandle
     dbconfig = YAML.load(File.open("config/database.yml").read)
 
@@ -82,7 +54,6 @@ class POSApplication < Sinatra::Base
     end
 
     use Rack::PostBodyContentTypeParser
-
     before do
         content_type :json
         @isLogin = session[:isLogin]
@@ -90,130 +61,68 @@ class POSApplication < Sinatra::Base
     end
 
     get '/' do
-      content_type :html
-      erb :index
-    end
-
-    get '/products' do
-      content_type :html
-        begin
-            erb :items
-        rescue ActiveRecord::RecordNotFound => e
-            [404, {:message => e.message}.to_json]
-        end
-    end
-
-    get '/products/:id' do
-        begin
-            product = Product.find(params[:id])
-            product.to_json
-        rescue  ActiveRecord::RecordNotFound => e
-            [404, {:message => e.message}.to_json]
-        end
+      goToIndex
     end
 
     post '/products' do
-        product = Product.create(:name => params[:name],
-                            :price => params[:price],
-                            :unit => params[:unit],
-                            :promotion => params[:promotion],
-                            :number => params[:number],
-                            :description => params[:description])
-        if product.save
-            [201, {:message => "products/#{product.id}",:id => product.id }.to_json]
-        else
-            halt 500, {:message => "create product failed"}.to_json
-        end
+      createProduct(params[:name],params[:price],params[:unit],
+                    params[:promotion],params[:number],params[:description])
+    end
+
+    get '/products' do
+      showProducts
+    end
+
+    get '/products/:id' do
+      findProductByID(params[:id])
     end
 
     get '/admin' do
-      if !(session[:isLogin] === true)
-        redirect '/login'
-      else
-        content_type :html
-        begin
-          erb :admin
-        rescue ActiveRecord::RecordNotFound => e
-          [404, {:message => e.message}.to_json]
-        end
-      end
+      checkAdminStatus
     end
 
     post '/item-delete' do
-      Product.find(params[:id]).destroy
-      [201, {:message => "delete"}.to_json]
+      deleteItem(params[:id])
     end
 
     post '/item-edit' do
-      product = Product.find(params[:id])
-      product.update(params[:"item-info"] )
-      [201, {:message => "edit"}.to_json]
+      editItem(params[:id],params[:"item-info"])
     end
 
     get '/item-edit/:id' do
-      content_type :html
-      @id = params[:id]
-      erb :'item-edit'
+      editItemByID(params[:id])
     end
 
     get '/items' do
-      content_type :html
-      erb :items
+      goToItems
     end
 
     get '/cart' do
-      content_type :html
-      erb :cart
+      goToCart
     end
 
     post '/cart' do
-      if params[:id]
-        product = Product.find(params[:id])
-        return product.to_json
-      end
+      returnCartInfo(params[:id])
     end
+
     get '/payment' do
-      content_type :html
-      erb :payment
+      goToPayment
     end
 
     post '/item-promotion' do
-      product = Product.find(params[:id])
-      product.update_attributes(:promotion => params[:promotion])
-      return product.to_json
+      updateItemPromotion(params[:id],params[:promotion])
     end
 
     get '/orders' do
-      content_type :html
-      t = Time.new
-      t = t.getutc
-      orders = Order.where(:state == "unpaid")
-      orders.each do |order|
-        if t-order[:created_at]>60*60*2
-          order.update(:state => "canceled")
-        end
-      end
-      erb :orders
+      updateOrders
     end
 
     get '/details/:id' do
-      content_type :html
-      @details = Order.find(params[:id]).details
-      erb :details
+      getDetailsByID(params[:id])
     end
 
     post '/addOrder' do
-      order = Order.create(params[:order])
-      params.delete("order")
-      params.each {|key,value|
-        detail = value.merge({:order => order})
-        Detail.create(detail)
-      }
-      if order.save
-        [201,{:message =>params}.to_json]
-      else
-        [404,{:message => "error"}.to_json]
-      end
+      addOrder(params[:order])
     end
 
     after do
