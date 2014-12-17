@@ -32,14 +32,17 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="/">主页</a></li>
-                    <li><a href="/products">商品列表</a></li>
-                    <li><a href="/admin">商品管理</a></li>
-                    <li><a href="/orders">订单详情</a></li>
+                    <% if @role == "root" || @role == "manager"%>
+                      <li><a href="/admin">商品管理</a></li>
+                      <li><a href="/orders">订单详情</a></li>
+                    <%else%>
+                      <li><a href="/products">商品列表</a></li>
+                    <% end %>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right " id="cartTextAndLosg">
                     <% if @isLogin === true%>
-                      <li id="logName"><a href="#"><span aria-hidden="true" class="icon-users"> <%=@user %></span></a></li>
+                      <li id="logName"><a href="#"><span aria-hidden="true" class="icon-users"> <%=session[:user] %></span></a></li>
                       <li id="logout">
                         <a href="/logout"><span aria-hidden="true" class="icon-exit"> 退出</span></a>
                       </li>
@@ -48,9 +51,11 @@
                         <a href="/login"><span aria-hidden="true" class="icon-users"> 登录</span></a>
                       </li>
                     <%end%>
+                    <% if @isLogin === true && @role == "customer"%>
                     <li>
                       <a href="/cart"><span aria-hidden="true" class="icon-cart"> 购物车(<span id="count">0</span>)</span></a>
                     </li>
+                    <%end%>
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->

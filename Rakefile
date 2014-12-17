@@ -4,6 +4,8 @@ require 'yaml'
 require './models/order'
 require './models/detail'
 require './models/product'
+require './models/user'
+
 desc "Migrate the database through scripts in db/."
 task :migrate => :environment do
     ActiveRecord::Migrator.migrate('db/', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
@@ -41,6 +43,11 @@ task :seedProductData do
   5.times do |i|
     puts Product.create(name: "p#{i}",price: 1, unit: "kg", promotion: false,number: 0,description: "").to_json
   end
+end
+desc "construct root"
+task :seedroot => :setConfig do
+  Rake::Task["environment"].invoke
+  User.create(email: "root", password: "letsgo", name: "root", address: "", phone: 1, role: "root")
 end
 
 if ENV["RACK_ENV"] == 'test'

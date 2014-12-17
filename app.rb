@@ -58,6 +58,12 @@ class POSApplication < Sinatra::Base
         content_type :json
         @isLogin = session[:isLogin]
         @user = session[:user]
+        users = User.where(email: @user)
+        if users.count > 0
+          @role = users.first.role
+        else
+          @role = ""
+        end
     end
 
     get '/' do
