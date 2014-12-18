@@ -25,6 +25,7 @@ end
 def userLogout
   session[:isLogin] = false
   session[:user] = ""
+  session[:role] = ""
   redirect '/login'
 end
 

@@ -32,7 +32,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="/">主页</a></li>
-                    <% if session[:role] == "root" || session[:role] == "manager"%>
+                    <% if session[:role] == "root" || session[:role] == "admin"%>
                       <li><a href="/admin">商品管理</a></li>
                       <li><a href="/orders">订单详情</a></li>
                     <%else%>
@@ -51,7 +51,11 @@
                         <a href="/login"><span aria-hidden="true" class="icon-users">登录</span></a>
                       </li>
                     <%end%>
-                    <% if session[:isLogin] === true && session[:role] == "customer"%>
+                    <% if session[:role] == "root" || session[:role] == "admin"%>
+                    <li class="hide">
+                      <a href="/cart"><span aria-hidden="true" class="icon-cart"> 购物车(<span id="count">0</span>)</span></a>
+                    </li>
+                    <%else%>
                     <li>
                       <a href="/cart"><span aria-hidden="true" class="icon-cart"> 购物车(<span id="count">0</span>)</span></a>
                     </li>
