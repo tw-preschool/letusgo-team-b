@@ -1,5 +1,6 @@
 $(document).ready(function(){
-
+  //var details = cartHandle.getAllItems();
+  //console.log(details);
   var details = [{name: "apple",unit: "kg", price: 12,number: 6, promotion: false, numberForFree: 0, totalcost: 72},{name: "orange",unit: "kg", price: 5,number: 3, promotion: true, numberForFree: 1, totalcost: 10}];
   var orderData={"order": {username: "tester",state: "unpaid", totalcost:"24" }};
 //  orderData.detailsCount = details.length;
@@ -25,7 +26,7 @@ $(document).ready(function(){
                   <td>' + data.unit + '</td>\
                   <td>\
                     <button type=\"button\" class=\"reduce-cart\">-</button>\
-                    <input value='+cartHandle.getCount(data.id+"num")+' type="text" maxlength=15 id="'+data.id+'" onKeyUp="keypress('+data.id+')"/>\
+                    <input value='+data.boughtNum+' type="text" maxlength=15 id="'+data.id+'" onKeyUp="keypress('+data.id+')"/>\
                     <button type=\"button\" class=\"add-cart\">+</button>\
                   </td>\
                   <td class=\"font-color-red\" id=\"item-promotion\">'+ data.promotion +'</td>\
@@ -37,7 +38,6 @@ $(document).ready(function(){
 
   var showCartItem = function(){
     var storage = window.sessionStorage;
-    console.log(storage.length);
     if(storage.length == 0){
       $("#has-product").hide();
       $("#no-product").show();
@@ -70,10 +70,10 @@ $(document).ready(function(){
       $("#excced-msg").hide();
        var id = $(this).parent().siblings()[0].innerHTML;
        cartHandle.reduceItem(id);
-       if(cartHandle.getCount(id+"num") <= 0){
+       if(cartHandle.getCount(id) <= 0){
          cartHandle.deleteItem(id);
        }
-       document.getElementById(id).value = cartHandle.getCount(id+"num");
+       document.getElementById(id).value = cartHandle.getCount(id);
        document.getElementById("subtotal-"+id).innerHTML =
                     cartHandle.calculateSubtotal(id) ? cartHandle.calculateSubtotal(id).toFixed(2) : 0;
        refreshAll();
@@ -97,14 +97,14 @@ $(document).ready(function(){
       data :{"id": id},
       dataType : "json",
       success: function(data){
-        var pro = new product(id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion),data.number);
+        //var pro = new product(id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion),data.number);
         if(cartHandle.hasExceed(id)){
           $("#excced-msg").show();
         }else{
           $("#excced-msg").hide();
-          cartHandle.addItem(id,pro);
+          cartHandle.addItem(id,data);
           if(type == "addByPlus"){
-            document.getElementById(id).value = cartHandle.getCount(id+"num");
+            document.getElementById(id).value = cartHandle.getCount(id);
             document.getElementById("subtotal-"+id).innerHTML =
                          cartHandle.calculateSubtotal(id) ? cartHandle.calculateSubtotal(id).toFixed(2) : 0;
           }

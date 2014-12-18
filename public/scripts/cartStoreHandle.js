@@ -1,14 +1,8 @@
 var cartHandle = (function(){
 
   return {
-    getCount: function(num){
-      return parseInt(sessionStorage[num]) || 0 ;
-    },
-    setCount: function(num, count){
-      sessionStorage[num] = count.toString();
-    },
-    addCount: function(num){
-      sessionStorage[num] = (this.getCount(num) + 1).toString();
+    getCount: function(key){
+      return parseInt(this.getItem(key).boughtNum) || 0 ;
     },
     reduceCount: function(num){
       sessionStorage[num] = (this.getCount(num) - 1).toString();
@@ -19,21 +13,32 @@ var cartHandle = (function(){
      setItem: function(key,product){
        sessionStorage.setItem(key,JSON.stringify(product));
      },
-     addItem: function(key,product){
-       if(this.getItem(key).id != product.id){
-         sessionStorage.setItem(key,JSON.stringify(product));
-       }
-       this.addCount(key+"num");
+     addItem: function(key,value){
+       var pro  = new product(value.id,value.name,value.price,value.unit,this.addPromotionType(value.promotion),value.number);
+        if(this.getItem(key).id != value.id){
+          pro.boughtNum = 1;
+          sessionStorage.setItem(key,JSON.stringify(pro));
+        }else{
+          pro.boughtNum = this.getItem(key).boughtNum + 1;
+          this.updateItem(key,pro);
+        }
      },
     reduceItem: function(key){
-      this.reduceCount(key+"num");
-      if(sessionStorage[key+"num"] === 0){
+      var value = this.getItem(key);
+      var pro  = new product(value.id,value.name,value.price,value.unit,this.addPromotionType(value.promotion),value.number);
+      pro.boughtNum = value.boughtNum - 1;
+      if(pro.boughtNum === 0){
         sessionStorage.removeItem(key);
+      }else{
+        this.updateItem(key,pro);
       }
     },
     deleteItem: function(key){
       sessionStorage.removeItem(key);
-      sessionStorage.removeItem(key+"num");
+    },
+    updateItem : function(key,pro){
+      sessionStorage.removeItem(key);
+      sessionStorage.setItem(key,JSON.stringify(pro));
     },
     getAllItems: function(){
       var items = [];
@@ -49,13 +54,13 @@ var cartHandle = (function(){
       var storage = window.sessionStorage;
       for(var i=0;i<storage.length;i++){
         var key = storage.key(i);
-        count += this.getCount(key+"num");
+        count += this.getCount(key);
       }
       return count;
     },
     calculateSubtotal: function(key){
         var item = this.getItem(key);
-        var number = this.getCount(key+"num");
+        var number = this.getCount(key);
         var price = item.price;
         if(item.promotion !== "" && number>2){
           return item.price*(Math.ceil(number/3))*2;
@@ -69,14 +74,12 @@ var cartHandle = (function(){
         var storage = window.sessionStorage;
         for(var i=0;i<storage.length;i++){
           var key = storage.key(i);
-          if(key.indexOf("num") < 0 ){
-            total += parseFloat(this.calculateSubtotal(key).toString());
-          }
+          total += parseFloat(this.calculateSubtotal(key).toString());
         }
       return total;
     },
     getFreeNum: function(name){
-      return parseInt((this.getCount(name+"num"))/3);
+      return parseInt((this.getCount(name))/3);
     },
     calculateFree: function(){
       var total = 0;
@@ -84,7 +87,7 @@ var cartHandle = (function(){
       for(var i=0;i<storage.length;i++){
         var key = storage.key(i);
         var item = this.getItem(key);
-        if(key.indexOf("num") < 0 && item.promotion !== ""){
+        if(item.promotion !== ""){
           total += parseFloat(item.price * this.getFreeNum(key));
         }
       }
@@ -100,7 +103,7 @@ var cartHandle = (function(){
     },
     hasExceed: function(key){
       var item = this.getItem(key);
-      var number = this.getCount(key+"num");
+      var number = this.getCount(key);
       if(item.numberInStore <= number){
         return true;
       }else{
