@@ -40,6 +40,13 @@ var cartHandle = (function(){
       sessionStorage.removeItem(key);
       sessionStorage.setItem(key,JSON.stringify(pro));
     },
+    updateAttribute : function(key,attribute,attriValue){
+      var pro = this.getItem(key);
+      if(pro.boughtNum >0 && attribute == "promotion"){
+        pro.promotion = this.addPromotionType(attriValue);
+        this.updateItem(key,pro);
+      }
+    },
     getAllItems: function(){
       var items = [];
       var storage = window.sessionStorage;
@@ -47,7 +54,7 @@ var cartHandle = (function(){
         var key = storage.key(i);
         items.push(this.getItem(key));
       }
-      console.log(items);
+      return items;
     },
     getCartCount: function(){
       var count = 0;
@@ -78,8 +85,8 @@ var cartHandle = (function(){
         }
       return total;
     },
-    getFreeNum: function(name){
-      return parseInt((this.getCount(name))/3);
+    getFreeNum: function(key){
+      return parseInt((this.getCount(key))/3);
     },
     calculateFree: function(){
       var total = 0;

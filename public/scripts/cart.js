@@ -1,7 +1,18 @@
 $(document).ready(function(){
-  //var details = cartHandle.getAllItems();
-  //console.log(details);
-  var details = [{name: "apple",unit: "kg", price: 12,number: 6, promotion: false, numberForFree: 0, totalcost: 72},{name: "orange",unit: "kg", price: 5,number: 3, promotion: true, numberForFree: 1, totalcost: 10}];
+  var getAllDetails = function(details){
+    var detail = [];
+    for(var i in details){
+      details[i].freeNum = cartHandle.getFreeNum(details[i].id);
+      details[i].subtotal = cartHandle.calculateSubtotal(details[i].id).toFixed(2);
+      detail.push(details[i]);
+    }
+    return detail;
+  };
+
+  var all = cartHandle.getAllItems();
+  var details = getAllDetails(all);
+  console.log(details);
+
   var orderData={"order": {username: "tester",state: "unpaid", totalcost:"24" }};
 //  orderData.detailsCount = details.length;
   for(var i in details){
@@ -18,6 +29,7 @@ $(document).ready(function(){
       console.log(data);
     }
   });
+
   var appendCart = function(data){
     var tr = $('<tr>\
                   <td id=\"item-id\" hidden>' + data.id + '</td>\

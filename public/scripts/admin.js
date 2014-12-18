@@ -60,8 +60,7 @@ $(document).ready(function(){
               "name" : name , "promotion": isChecked},
       dataType : "json",
       success : function(data){
-        var pro = new product(data.id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion),data.number);
-        cartHandle.setItem(data.id,pro);
+        cartHandle.updateAttribute(data.id,"promotion",data.promotion);
       }
     });
   });
