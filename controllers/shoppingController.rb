@@ -94,13 +94,13 @@ end
 
 def updateOrders
   content_type :html
-  t = Time.new.getutc
-  orders = Order.where(:state == "unpaid")
-  orders.each do |order|
-    if t-order[:created_at]>60*60*2
-      order.update(:state => "canceled")
-    end
-  end
+  # t = Time.new.getutc
+  # orders = Order.where(:state == "unpaid")
+  # orders.each do |order|
+  #   if t-order[:created_at]>60*60*2
+  #     order.update(:state => "canceled")
+  #   end
+  # end
   erb :orders
 end
 

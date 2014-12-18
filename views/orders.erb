@@ -1,16 +1,19 @@
 
 <div class="div-table">
+  <div class="div-table-heard">
+    <h3>订单列表</h3>
+  </div>
   <div class="item-list">
     <table id="item-table" class="table table-hover">
       <thead>
         <tr class="table-th">
           <th class="hide">order List</th>
-          <th>id</th>
-          <th>username</th>
-          <th>cost</th>
-          <th>state</th>
-          <th>ordertime</th>
-          <th>details</th>
+          <th>订单编号</th>
+          <th>用户名</th>
+          <th>订单金额</th>
+          <th class="hide">订单状态</th>
+          <th>订单时间</th>
+          <th></th>
         </tr>
       </thead>
       <tbody id="product-table-list">
@@ -19,10 +22,10 @@
           <td class = "item-id "><%=item.id%></td>
           <td><%=item.username%></td>
           <td><%= format("%0.2f",item.totalcost)%></td>
-          <td><%=item.state%></td>
+          <td class="hide"><%=item.state%></td>
           <td><%= item.created_at.localtime.strftime("%Y/%m/%d %H:%M")%></td>
           <td>
-            <a href = "/details/<%=item.id%>"><span aria-hidden="true" class="icon-pen"> details</span></a>
+            <a href = "/details/<%=item.id%>"><span aria-hidden="true" class="icon-pen"> 订单详情</span></a>
           </td>
         </tr>
         <%end%>

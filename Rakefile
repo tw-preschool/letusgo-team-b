@@ -29,7 +29,7 @@ task :setConfig do
     ENV["RACK_ENV"] = "development"
 end
 task :seedOrderData do
-  puts Order.create(username: 'tw@tw.com',totalcost: 2513,state: "正在处理")
+  puts Order.create(username: 'tw@tw.com', totalcost: 2513, state: "unpaid")
   puts Detail.create(name: "罗技 M185 无线鼠标",unit: '个', price: 59.00, number: 3,
                      promotion: "true", numberForFree: 1, totalcost: 118, order_id: 1)
   puts Detail.create(name: "罗技 C270 高清网络摄像头",unit: '个', price: 149.00, number: 6,

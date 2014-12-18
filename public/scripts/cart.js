@@ -11,13 +11,13 @@ $(document).ready(function(){
 
   var all = cartHandle.getAllItems();
   var details = getAllDetails(all);
-  console.log(details);
+  // console.log(details);
 
-  var orderData={"order": {username: "tester",state: "unpaid", totalcost:"24" }};
+  // var orderData={"order": {username: "tester",state: "unpaid", totalcost:"24" }};
 //  orderData.detailsCount = details.length;
-  for(var i in details){
-    orderData["details"+i] = details[i];
-  }
+  // for(var i in details){
+  //   orderData["details"+i] = details[i];
+  // }
   //console.log(orderData);
   $.ajax({
     type : "POST",
@@ -50,7 +50,7 @@ $(document).ready(function(){
 
   var showCartItem = function(){
     var storage = window.sessionStorage;
-    if(storage.length == 0){
+    if(storage.length === 0){
       $("#has-product").hide();
       $("#no-product").show();
       $("#none-msg").show();
