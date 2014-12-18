@@ -5,7 +5,8 @@ def userLogin(email,password)
   if user.count > 0
     session[:isLogin] = true
     session[:user] = email
-    session[:role] = user.first.role    
+    session[:username] = user.first.name
+    session[:role] = user.first.role
     return true.to_json
   else
     return false.to_json

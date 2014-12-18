@@ -42,7 +42,7 @@
 
                 <ul class="nav navbar-nav navbar-right " id="cartTextAndLosg">
                     <% if session[:isLogin] === true%>
-                      <li id="logName"><a href="#"><span aria-hidden="true" class="icon-users"> <%=session[:user] %></span></a></li>
+                      <li id="logName"><a href="#"><span aria-hidden="true" class="icon-users"> <%=session[:username] %></span></a></li>
                       <li id="logout">
                         <a href="/logout"><span aria-hidden="true" class="icon-exit"> 退出</span></a>
                       </li>
