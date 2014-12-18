@@ -3,6 +3,7 @@ require_relative '../spec_helper'
 
 describe "testing order management function" ,:type => :feature do
   before :each do
+    page.set_rack_session user: "root", isLogin: true, role: "root"
     order = {:username => "tester", :state => "unpaid", :totalcost => 30}
     detail0 = {:name => "orange",:unit => 'kg', :price => 12.00, :number => 3, :promotion => true, :numberForFree => 1, :totalcost => 24}
     detail1 = {:name => "apple",:unit => 'kg', :price => 24.00, :number => 3, :promotion => false, :numberForFree => 0, :totalcost => 72}

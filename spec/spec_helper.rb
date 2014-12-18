@@ -6,10 +6,17 @@ require 'rack/test'
 require 'database_cleaner'
 require 'capybara/rspec'
 require 'test/unit'
+require 'rack_session_access'
+require 'rack_session_access/capybara'
 
 require_relative File.join('..', 'app')
 
 Capybara.app = POSApplication
+
+POSApplication.configure do |config|
+  config.use RackSessionAccess::Middleware
+end
+
 RSpec.configure do |config|
   include Rack::Test::Methods
 

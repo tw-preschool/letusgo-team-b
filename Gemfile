@@ -12,4 +12,5 @@ group :development, :test do
     gem 'shotgun'
   	gem 'tux'
     gem 'capybara'
+    gem 'rack_session_access'
 end

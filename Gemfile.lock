@@ -42,6 +42,9 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack_session_access (0.1.1)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     ripl (0.7.1)
       bond (~> 0.5.1)
     ripl-multi_line (0.3.1)
@@ -90,6 +93,7 @@ DEPENDENCIES
   database_cleaner
   rack-contrib
   rack-test
+  rack_session_access
   rspec
   shotgun
   sinatra
