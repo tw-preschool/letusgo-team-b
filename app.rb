@@ -55,17 +55,12 @@ class POSApplication < Sinatra::Base
 
     use Rack::PostBodyContentTypeParser
     before do
-        content_type :json
-        @isLogin = session[:isLogin]
-        @user = session[:user]
-        users = User.where(email: @user)
-        if users.count > 0
-          @role = users.first.role
-        else
-          @role = ""
+        if session[:isLogin] != true  && request.request_method === 'GET'
+          if request.path != '/products' && request.path != '/'
+            redirect '/login'
+          end
         end
     end
-
     get '/' do
       goToIndex
     end
