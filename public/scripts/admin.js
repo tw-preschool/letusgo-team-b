@@ -1,5 +1,14 @@
 $(document).ready(function(){
     $('input[type = "checkbox"]').bootstrapSwitch();
+
+    $("#cleanbutton").on("click",function(){
+      $("#iName").val("");
+      $("#iPrice").val("");
+      $("#iUnit").val("");
+      $("#iNumber").val("");
+      $("#iDescription").val("");
+    });
+
     $("#addbutton").on("click",function(){
     var name = $("#iName").val();
     var price = $("#iPrice").val();
@@ -7,14 +16,15 @@ $(document).ready(function(){
     var promotion = "false";
     var number = $("#iNumber").val();
     var description = $("#iDescription").val();
-    if(name == "" || unit == ""){
+    if(name === "" || unit === ""){
         $("#null-msg").show();
     }
     else if (description.length>100){
-        $("#des-err-msg").show();
+        $("#description-err-msg").show();
     }
     else{
       $("#null-msg").hide();
+      $("#description-err-msg").hide();
       if(!(inputPriceIsNumber(price.toString())) || !(inputStoreIsNumber(number.toString()))){
         $("#error-msg").show();
       }else{
@@ -145,20 +155,22 @@ $(document).ready(function(){
       }
     });
   });
+
   var inputPriceIsNumber = function (input){
     var n = Number(input);
-    if(isNaN(n) || input == ""){
+    if(isNaN(n) || input === ""){
       return false;
     }else{
       return true;
     }
   };
+
   var inputStoreIsNumber = function (input){
     if(input.indexOf('.') > 0){
       return false;
     }else{
       var n = Number(input);
-      if(isNaN(n) || input == ""){
+      if(isNaN(n) || input === ""){
         return false;
       }
       return true;

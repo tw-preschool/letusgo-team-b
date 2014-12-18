@@ -9,11 +9,10 @@
     <button type="button" class="close" id="cancle-null"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <h5 id="excced-remind">亲,商品的"名称"和"单位"都不能为空哇!!!!!!!</h5>
   </div>
-    <div>
-        <div class="err-msg" id="des-err-msg">
-            <button type="button" class="close" id="cancle-null"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h5 id="excced-remind">亲,描述必须控制在100字以内哦~~~~~</h5>
-    </div>
+  <div class="err-msg" id="description-err-msg">
+    <button type="button" class="close" id="cancle-description"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h5 id="excced-remind">亲,描述必须控制在100字以内哦~~~~~</h5>
+  </div>
   <div class="bs-callout">
     <div class="form-inline" role="form">
       <div class="form-group">
@@ -35,7 +34,7 @@
       <div>
         <div class="form-group">
           <label for="iDescription">描述信息：</label>
-          <textarea class="form-control" rows="3" id="iDescription" placeholder="请输入商品描述信息"></textarea>
+          <textarea class="form-control" rows="3" id="iDescription" placeholder="请输入商品描述信息（最多输入100字）"></textarea>
         </div>
         <div class="form-group">
           <button class="btn btn-warning btn-default" id="addbutton">添加商品</button>

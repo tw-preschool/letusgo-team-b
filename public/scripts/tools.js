@@ -14,4 +14,8 @@ $(document).ready(function(){
   $("#cancle-null").on("click",function(){
     $("#null-msg").fadeOut();
   });
+
+  $("#cancle-description").on("click",function(){
+    $("#description-err-ms").fadeOut();
+  });
 });
