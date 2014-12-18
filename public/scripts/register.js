@@ -7,6 +7,7 @@ $(document).ready(function(){
     var name = $("#name").val() || "";
     var address = $("#address").val() || "";
     var phone = $("#phone").val();
+    var role = $("#role").val();
     if(!(registerHandle.isEmail(email))){
       registerHandle.messageHelper("email");
     }else if(!(registerHandle.isPassword(password))){
@@ -18,17 +19,17 @@ $(document).ready(function(){
     }else if(!(registerHandle.isTelephone(phone))){
       registerHandle.messageHelper("phone");
     }else{
-      console.log(email+" "+password+" "+name+"  "+address+" "+phone);
-      saveToUser(email,password,name,address,phone);
+      console.log(email+" "+password+" "+name+"  "+address+" "+phone+"  "+role);
+      saveToUser(email,password,name,address,phone,role);
     //
     }
    });
-   var saveToUser = function(email,password,name,address,phone){
+   var saveToUser = function(email,password,name,address,phone,role){
      $.ajax({
        type : "POST",
        url : "/register",
        data : {"email" :email , "password" :password  , "name" :name ,
-               "address" :address , "phone" :phone},
+               "address" :address , "phone" :phone, "role" :role},
        dataType : "json",
        success : function(data){
          if(data){

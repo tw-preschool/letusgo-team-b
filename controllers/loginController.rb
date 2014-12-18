@@ -31,7 +31,7 @@ def goToRegister
   erb :register
 end
 
-def userRegister(email,password,phone,name,address)
+def userRegister(email,password,phone,name,address,role)
   users = User.find_by_sql(['select * from users where email=?',email])
   if users.count == 0
     user = User.create(:email => email,
@@ -39,8 +39,7 @@ def userRegister(email,password,phone,name,address)
                        :phone => phone,
                        :name => name,
                        :address => address,
-                       :phone => phone.to_i,
-                       :role => "",
+                       :role => role,
                        :state => "active")
     user.save
     return true.to_json;

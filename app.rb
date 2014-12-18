@@ -35,7 +35,7 @@ class LoginHandle < Sinatra::Base
 
   post '/register' do
     userRegister(params[:email],params[:password],params[:phone],
-                 params[:name],params[:address])
+                 params[:name],params[:address],params[:role])
   end
 end
 

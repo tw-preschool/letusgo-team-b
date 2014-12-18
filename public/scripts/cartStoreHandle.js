@@ -35,6 +35,15 @@ var cartHandle = (function(){
       sessionStorage.removeItem(key);
       sessionStorage.removeItem(key+"num");
     },
+    getAllItems: function(){
+      var items = [];
+      var storage = window.sessionStorage;
+      for(var i=0; i<storage.length; i++){
+        var key = storage.key(i);
+        items.push(this.getItem(key));
+      }
+      console.log(items);
+    },
     getCartCount: function(){
       var count = 0;
       var storage = window.sessionStorage;
