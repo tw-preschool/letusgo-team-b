@@ -5,7 +5,7 @@ class CreateDetails < ActiveRecord::Migration
       t.string :unit
       t.float :price
       t.integer :number
-      t.boolean :promotion
+      t.string :promotion
       t.integer :numberForFree
       t.float :totalcost
       t.integer :order_id
