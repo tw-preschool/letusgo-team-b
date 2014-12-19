@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../styles/order.css"/>
+<!-- <link rel="stylesheet" href="../styles/order.css"/>
 <div class = 'details'>
   <div class = "background">
      <div class="detail-table">
@@ -34,4 +34,101 @@
      </div>
      <a href = "/orders"><span aria-hidden="true" class="icon-pen"> return to orders</span></a>
    </div>
+</div> -->
+<div class="div-table" id="has-product">
+  <div class="div-table-heard">
+    <h3>订单详情</h3>
+  </div>
+  <div class="shop-cart" id="pay-date">
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-th">
+          <th>名称</th>
+          <th>单价(元)</th>
+          <th>单位</th>
+          <th>数量</th>
+          <th>促销</th>
+          <th>小计</th>
+        </tr>
+      </thead>
+      <tbody id="cart">
+        <% paymentTotle = 0 %>
+        <% paymentSaveTotle = 0 %>
+        <% @details.each do |detail| %>
+          <tr data-id = "<%=detail.id%>">
+            <td><%= detail.name%></td>
+            <td><%= detail.price%></td>
+            <td><%= detail.unit%></td>
+            <td><%= detail.number%></td>
+            <td class="font-color-red"><%= detail.promotion%></td>
+            <td><%= format("%0.2f",detail.totalcost)%></td>
+          </tr>
+          <% paymentTotle += detail.totalcost %>
+          <% paymentSaveTotle = paymentSaveTotle + detail.numberForFree * detail.price%>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+  <div class="cart-save-item">
+    <div class="div-table-heard">
+      <h4>赠送商品</h4>
+    </div>
+    <div class="shop-cart">
+
+      <table class="table table-hover">
+        <thead>
+          <tr class="table-th">
+            <th>分类</th>
+            <th>名称</th>
+            <th>数量</th>
+          </tr>
+        </thead>
+        <tbody id="free-table">
+          <% @details.each do |detail| %>
+            <% if (detail.promotion === "买二送一") %>
+              <tr data-id = "<%=detail.id%>">
+                <td class="font-color-red"><%= detail.promotion%></td>
+                <td><%= detail.name%></td>
+                <td><%= detail.numberForFree%></td>
+              </tr>
+            <%end%>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="payment-summary">
+    <div class="div-table-heard">
+      <h4>购物金额</h4>
+    </div>
+    <div class="shop-cart clearfix">
+      <div class="clearfix">
+        <div class="flow-right">
+          <h5 class="text-right width-fifty-percent">元</h5>
+        </div>
+        <div class="flow-right">
+          <h5 class="text-right width-fix-eighty-px"><%= paymentSaveTotle%></h5>
+        </div>
+        <div class="flow-right">
+          <h5 class="text-right">节约：</h5>
+        </div>
+      </div>
+      <div class="clearfix car-border-top car-summary-width">
+        <div class="flow-right">
+          <h4 class="text-right width-fifty-percent">元</h4>
+        </div>
+        <div class="flow-right">
+          <h4 class="text-right width-fix-eighty-px"><%= paymentTotle%></h4>
+        </div>
+        <div class="flow-right">
+          <h4 class="text-right">总计：</h4>
+        </div>
+      </div>
+      <div class="clearfix cart-summary-button-dir car-border-top">
+        <div class="width-forty-percent flow-right margin-left">
+          <a href="/orders" class="btn btn-warning btn-block flow-right" role="button">返回订单列表</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
