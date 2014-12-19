@@ -1,40 +1,5 @@
-<!-- <link rel="stylesheet" href="../styles/order.css"/>
-<div class = 'details'>
-  <div class = "background">
-     <div class="detail-table">
-       <div class="item-list">
-         <table id="item-table" class="table table-hover">
-           <thead>
-             <tr class="table-th">
-               <th class="hide">details List</th>
-               <th>name</th>
-               <th>unit</th>
-               <th>price</th>
-               <th>number</th>
-               <th>promotion</th>
-               <th>numberForFree</th>
-               <th>totalcost</th>
-             </tr>
-           </thead>
-           <tbody id="detail-table-list">
-             <% @details.each do |detail| %>
-              <tr data-id = "<%=detail.id%>">
-                <td><%= detail.name%></td>
-                <td><%= detail.unit%></td>
-                <td><%= detail.price%></td>
-                <td><%= detail.number%></td>
-                <td><%= detail.promotion%></td>
-                <td><%= detail.numberForFree%></td>
-                <td><%= detail.totalcost%></td>
-              </tr>
-             <%end%>
-           </tbody>
-         </table>
-       </div>
-     </div>
-     <a href = "/orders"><span aria-hidden="true" class="icon-pen"> return to orders</span></a>
-   </div>
-</div> -->
+<link rel="stylesheet" href="../styles/order.css"/>
+
 <div class="div-table" id="has-product">
   <div class="div-table-heard">
     <h3>订单详情</h3>
@@ -57,7 +22,7 @@
         <% @details.each do |detail| %>
           <tr data-id = "<%=detail.id%>">
             <td><%= detail.name%></td>
-            <td><%= detail.price%></td>
+            <td><%= format("%0.2f",detail.price)%></td>
             <td><%= detail.unit%></td>
             <td><%= detail.number%></td>
             <td class="font-color-red"><%= detail.promotion%></td>
@@ -85,7 +50,7 @@
         </thead>
         <tbody id="free-table">
           <% @details.each do |detail| %>
-            <% if (detail.promotion === "买二送一") %>
+            <% if (!(detail.numberForFree === 0)) %>
               <tr data-id = "<%=detail.id%>">
                 <td class="font-color-red"><%= detail.promotion%></td>
                 <td><%= detail.name%></td>
@@ -107,7 +72,7 @@
           <h5 class="text-right width-fifty-percent">元</h5>
         </div>
         <div class="flow-right">
-          <h5 class="text-right width-fix-eighty-px"><%= paymentSaveTotle%></h5>
+          <h5 class="text-right width-fix-eighty-px"><%= format("%0.2f",paymentSaveTotle)%></h5>
         </div>
         <div class="flow-right">
           <h5 class="text-right">节约：</h5>
@@ -118,7 +83,7 @@
           <h4 class="text-right width-fifty-percent">元</h4>
         </div>
         <div class="flow-right">
-          <h4 class="text-right width-fix-eighty-px"><%= paymentTotle%></h4>
+          <h4 class="text-right width-fix-eighty-px"><%= format("%0.2f",paymentTotle)%></h4>
         </div>
         <div class="flow-right">
           <h4 class="text-right">总计：</h4>

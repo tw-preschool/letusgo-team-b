@@ -3,3 +3,13 @@
   margin-left: 80% ;
 
 }
+
+.order-detail-head {
+  padding: 10px 10px 10px 10px;
+  margin: 0 0 15px 0;
+  border: 1px solid #ffcc33;
+  border-left-color: #f0ad4e;
+  border-left-width: 5px;
+  border-radius: 3px;
+  background-color: #ffffdd;
+}

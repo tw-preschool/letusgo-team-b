@@ -48,7 +48,7 @@ $(document).ready(function(){
                           <td>' + unit + '</td>\
                           <td>' + number + '</td>\
                           <td><input type="checkbox" class=\"item-promotion\" data-label-text=\"买二送一\"></td>\
-                          <td><button class = \"edit-link\"><span aria-hidden=\"true\" class=\"icon-pen\"> 修改</button></td>\
+                          <td><button class = \"edit-link\"><span aria-hidden=\"true\" class=\"icon-pen\"> 编辑</button></td>\
                           <td><button class=\"btn btn-warning item-delete\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
                           </tr>');
             $("#product-table-list").append(tr);
