@@ -51,7 +51,7 @@ describe "order management test" ,:type => :feature do
     it "should jump back to orders when clicking return button" do
       visit "/orders"
       click_link '订单详情'
-      click_link 'return to orders'
+      click_link '返回订单列表'
       expect(current_path).to eq "/orders"
     end
   end

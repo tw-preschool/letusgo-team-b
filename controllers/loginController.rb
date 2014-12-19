@@ -45,8 +45,8 @@ def userRegister(email,password,phone,name,address,role)
                        :role => role,
                        :state => "active")
     user.save
-    return true.to_json;
+    [201,true.to_json]
   else
-    return false.to_json;
+    [404,false.to_json]
   end
 end

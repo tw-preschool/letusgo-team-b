@@ -8,11 +8,11 @@ require 'capybara/rspec'
 require 'test/unit'
 require 'rack_session_access'
 require 'rack_session_access/capybara'
-require 'minitest/autorun'
+
 require_relative File.join('..', 'app')
 
 Capybara.app = POSApplication
-
+Capybara.default_driver = :selenium
 POSApplication.configure do |config|
   config.use RackSessionAccess::Middleware
 end
