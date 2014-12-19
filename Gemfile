@@ -10,7 +10,7 @@ gem 'bcrypt-ruby'
 gem 'sinatra-contrib'
 gem 'rack-flash3'
 gem 'sinatra-authorize'
-
+gem 'test-unit'
 
 group :development, :test do
   	gem 'rack-test'
@@ -21,4 +21,5 @@ group :development, :test do
     gem 'capybara'
     gem 'rack_session_access'
     gem 'selenium-webdriver'
+    gem 'minitest'
 end
