@@ -19,16 +19,16 @@ $(document).ready(function(){
   //   orderData["details"+i] = details[i];
   // }
   //console.log(orderData);
-  $.ajax({
-    type : "POST",
-    url : "/addOrder",
-
-    data :orderData,
-    dataType : "json",
-    success: function(data){
-      console.log(data);
-    }
-  });
+  // $.ajax({
+  //   type : "POST",
+  //   url : "/addOrder",
+  //
+  //   data :orderData,
+  //   dataType : "json",
+  //   success: function(data){
+  //     console.log(data);
+  //   }
+  // });
 
   var appendCart = function(data){
     var tr = $('<tr>\
@@ -68,17 +68,15 @@ $(document).ready(function(){
   };
 
   showCartItem();
-   $(".add-cart").on('click',function(){
+
+  //"+" button on cart.erb
+  $(".add-cart").on('click',function(){
         var id = $(this).parent().siblings()[0].innerHTML;
         addToSession(id,"addByPlus");
     });
-  $(".btn.btn-primary").on('click',function(){
-      var id = $(this).parent().siblings()[0].innerHTML;
-      addToSession(id,"addByButton");
-      refreshAll();
-  });
 
-   $(".reduce-cart").on('click',function(){
+  //"-" button on cart.erb
+  $(".reduce-cart").on('click',function(){
       $("#excced-msg").hide();
        var id = $(this).parent().siblings()[0].innerHTML;
        cartHandle.reduceItem(id);
@@ -94,12 +92,13 @@ $(document).ready(function(){
   $(".btn.btn-warning").on('click',function(){
       var id = $(this).parent().siblings()[0].innerHTML;
       cartHandle.deleteItem(id);
-
       window.location.href='/cart';
+  });
 
-
-
-
+  $(".btn.btn-primary").on('click',function(){
+    var id = $(this).parent().siblings()[0].innerHTML;
+    addToSession(id,"addByButton");
+    refreshAll();
   });
 
   var addToSession = function(id,type){
