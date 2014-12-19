@@ -1,23 +1,67 @@
 #encoding: utf-8
 require_relative '../spec_helper'
 
-describe "testing order management function" ,:type => :feature do
-  before :each do
-    page.set_rack_session user: "root", isLogin: true, role: "root"
-    order = {:username => "tester", :state => "unpaid", :totalcost => 30}
-    detail0 = {:name => "orange",:unit => 'kg', :price => 12.00, :number => 3, :promotion => true, :numberForFree => 1, :totalcost => 24}
-    detail1 = {:name => "apple",:unit => 'kg', :price => 24.00, :number => 3, :promotion => false, :numberForFree => 0, :totalcost => 72}
-    body = {:order => order, :detail0 => detail0, :detail1 => detail1}
-    post "/addOrder" ,body
+describe "order management test" ,:type => :feature do
+  describe "data send test", :js => true do
+    before :each do
+      page.set_rack_session user: "root", isLogin: true, role: "root"
+    end
+    it "shoul return 201 when sending data" do
+      order = {:username => "tester", :state => "unpaid", :totalcost => 30}
+      detail0 = {:name => "orange",:unit => 'kg', :price => 12.00, :number => 3, :promotion => true, :numberForFree => 1, :totalcost => 24}
+      detail1 = {:name => "apple",:unit => 'kg', :price => 24.00, :number => 3, :promotion => false, :numberForFree => 0, :totalcost => 72}
+      body = {:order => order, :detail0 => detail0, :detail1 => detail1}
+      post "/addOrder" ,body
+      expect(last_response.status).to eq 201
+    end
+    it "should have anchor link to /orders" do
+      visit "/"
+      expect(page).to have_content('订单详情')
+      click_link '订单详情'
+      expect(current_path).to eq "/orders"
+    end
+    it "should list orders when visiting /orders" do
+      visit "/orders"
+      expect(page).to have_content('tester')
+      expect(page).to have_content('30.00')
+      expect(page).to have_content('unpaid')
+      expect(page).to have_content('details')
+    end
+    it "should list details when clicking details button" do
+      visit "/orders"
+      click_link 'details'
+      expect(current_path).to eq "/details/1"
+
+      expect(page).to have_content("apple")
+      expect(page).to have_content('kg')
+      expect(page).to have_content('12.0')
+      expect(page).to have_content('3')
+      expect(page).to have_content('true')
+      expect(page).to have_content('1')
+      expect(page).to have_content('24.0')
+
+      expect(page).to have_content('orange')
+      expect(page).to have_content('kg')
+      expect(page).to have_content('24.0')
+      expect(page).to have_content('3')
+      expect(page).to have_content('false')
+      expect(page).to have_content('0')
+      expect(page).to have_content('72.0')
+      end
+    it "should jump back to orders when clicking return button" do
+      visit "/orders"
+      click_link 'details'
+      click_link 'return to orders'
+      expect(current_path).to eq "/orders"
+    end
   end
-  it "shoul store orders in db" do
-    expect(last_response.status).to eq 201
-    expect(Order.count).to eq 1
-    order = Order.last
-    expect(order.username).to eq 'tester'
-  end
-  it "should find it out" do
-    visit "/"
+end
+describe "data store and fetch test" do
+  it "should fetch data from database" do
+    order = Order.create(username: 'tester',totalcost: 20,state: "unpaid")
+    Detail.create(name: "orange", unit: 'kg', price: 12.00, number: 3, promotion: true, numberForFree: 1, totalcost: 24, order: order)
+    Detail.create(name: "apple", unit: 'kg', price: 24.00, number: 3, promotion: false, numberForFree: 0, totalcost: 72, order: order)
+
     order = Order.last
     expect(order.username).to eq 'tester'
     expect(order.totalcost).to eq 30
@@ -40,41 +84,5 @@ describe "testing order management function" ,:type => :feature do
     expect(detail.promotion).to eq false
     expect(detail.numberForFree).to eq 0
     expect(detail.totalcost).to eq 72.00
-  end
-
-  it "should list orders when visiting /orders" do
-    visit "/orders"
-    expect(page).to have_content('tester')
-    expect(page).to have_content('30.00')
-    expect(page).to have_content('unpaid')
-    expect(page).to have_content('details')
-  end
-
-  it "should list details when clicking details button" do
-    visit "/orders"
-    click_link 'details'
-    expect(current_path).to eq "/details/1"
-
-    expect(page).to have_content("apple")
-    expect(page).to have_content('kg')
-    expect(page).to have_content('12.0')
-    expect(page).to have_content('3')
-    expect(page).to have_content('true')
-    expect(page).to have_content('1')
-    expect(page).to have_content('24.0')
-
-    expect(page).to have_content('orange')
-    expect(page).to have_content('kg')
-    expect(page).to have_content('24.0')
-    expect(page).to have_content('3')
-    expect(page).to have_content('false')
-    expect(page).to have_content('0')
-    expect(page).to have_content('72.0')
-  end
-  it "should jump back to orders when clicking return button" do
-    visit "/orders"
-    click_link 'details'
-    click_link 'return to orders'
-    expect(current_path).to eq "/orders"
   end
 end

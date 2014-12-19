@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require 'sinatra'
 require 'rack/contrib'
 require 'active_record'
