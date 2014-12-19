@@ -57,15 +57,15 @@ task :seedroot => :setConfig do
   puts User.create(email: "admin", password: "letsgo", name: "admin", address: "", phone: 8783212, role: "admin", state: "active")
   puts User.create(email: "tw@tw.com", password: "letsgo", name: "思特沃克", address: "西安锦业一路", phone: 8783212, role: "customer", state: "active")
 end
+task :specs do
+  if ENV["RACK_ENV"] == 'test'
+  	require 'rspec/core/rake_task'
 
-if ENV["RACK_ENV"] == 'test'
-	require 'rspec/core/rake_task'
+  	RSpec::Core::RakeTask.new :specs do |task|
+  		task.pattern = Dir['spec/**/*_spec.rb']
+  	end
 
-	RSpec::Core::RakeTask.new :specs do |task|
-		task.pattern = Dir['spec/**/*_spec.rb']
-	end
-
-	task :default => ['specs']
+  	task :default => ['specs']
+  end
 end
-
 task :default => ['migrate']

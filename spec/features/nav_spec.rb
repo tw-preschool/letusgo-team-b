@@ -6,13 +6,14 @@ describe "nav bar should be rendered based on role" ,:type => :feature do
     it "should have items link and login link when visit" do
       visit '/'
       expect(page).to have_content('商品列表')
-      expect(page).to have_content('登陆')
+      expect(page).to have_content('登录')
     end
   end
   describe "testing with customer", :js =>true do
     it "should have items-link,cart-link and login-link when visit" do
       page.set_rack_session user: "customer", isLogin: true, role: "customer", username: "sj"
       visit '/'
+      expect(current_path).to eq "/"
       expect(page).to have_content('商品列表')
       expect(page).to have_content('退出')
       expect(page).to have_content('购物车')
