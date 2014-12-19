@@ -10,7 +10,11 @@
       </p>
     </div>
     <div>
+      <% if session[:role] == "root" || session[:role] == "admin"%>
+      <a href="/admin">
+      <%else%>
       <a href="/items">
+      <%end%>
       <button type="button" class="btn btn-warning btn-lg" id="let-button">Let's Go</button>
     </div>
   </div>

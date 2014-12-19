@@ -5,3 +5,8 @@ product.json
 npm-debug.log
 .idea/
 letusgo-team-b.iml
+.bundle/
+.ruby-version
+vendor/
+.gitignore
+
