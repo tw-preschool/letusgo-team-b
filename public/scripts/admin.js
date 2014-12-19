@@ -158,7 +158,7 @@ $(document).ready(function(){
 
   var inputPriceIsNumber = function (input){
     var n = Number(input);
-    if(isNaN(n) || input === ""){
+    if(isNaN(n) || input === "" || n < 0){
       return false;
     }else{
       return true;
@@ -170,7 +170,7 @@ $(document).ready(function(){
       return false;
     }else{
       var n = Number(input);
-      if(isNaN(n) || input === ""){
+      if(isNaN(n) || input === "" || n < 0){
         return false;
       }
       return true;
