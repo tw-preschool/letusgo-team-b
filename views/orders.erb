@@ -25,7 +25,8 @@
           <td><%=item.state%></td>
           <td><%= item.created_at.localtime.strftime("%Y/%m/%d %H:%M")%></td>
           <td>
-            <a href = "/details/<%=item.id%>"><span aria-hidden="true" class="icon-pen"> 订单详情</span></a>
+            <a href = "/details/<%=item.id%>">
+            <button type="button" class="btn btn-warning btn-xs"> 订单详情</button>
           </td>
         </tr>
         <%end%>

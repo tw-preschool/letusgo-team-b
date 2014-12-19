@@ -51,10 +51,11 @@
             <div class="clearfix cart-summary-button-dir car-border-top">
               <div class="width-forty-percent flow-right margin-left">
                 <% if session[:isLogin] === true%>
-                <a href="/payment" id="create-order" class="btn btn-block flow-right" role="button">提交订单</a>
+                <a href="/payment" id="create-order" class="btn btn-info btn-block flow-right" role="button">提交订单</a>
                 <%else%>
-                <a href="/login" class="btn btn-warning btn-block flow-right" role="button">提交订单</a>
-                <%end%>              </div>
+                <a href="/login" class="btn btn-info btn-block flow-right" role="button">提交订单</a>
+                <%end%>
+              </div>
               <div class="width-forty-percent flow-right">
                 <a href="/products" class="btn btn-default btn-block flow-right" role="button">继续购物</a>
               </div>
