@@ -125,9 +125,12 @@ def addOrder(order)
     :numberForFree => value[:freeNum],
     :totalcost => value[:subtotal],
     :order => order)
+    product = Product.find(value[:id].to_i)
+    count= product.number - value[:boughtNum].to_i
+    product.update(:number => count)
   }
   if (order.save || resultDetail.save)
-    [201,{:message =>params}.to_json]
+    [201,{:message => "success"}.to_json]
   else
     [404,{:message => "error"}.to_json]
   end

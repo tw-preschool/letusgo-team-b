@@ -131,7 +131,14 @@ class POSApplication < Sinatra::Base
     post '/addOrder' do
       addOrder(params[:order])
     end
-
+    post '/getProductNum' do
+      storage = {}
+      params[:details].each {|key,value|
+       product = Product.find(value[:id].to_i)
+         storage["#{value[:id]}"] = product.number
+      }
+      [201,storage.to_json]
+    end
     after do
       ActiveRecord::Base.connection.close
     end
