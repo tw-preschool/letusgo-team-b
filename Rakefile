@@ -29,13 +29,13 @@ task :setConfig do
     ENV["RACK_ENV"] = "development"
 end
 task :seedOrderData do
-  puts Order.create(username: 'tw@tw.com', totalcost: 2513, state: "unpaid")
+  puts Order.create(username: 'tw@tw.com', totalcost: 2513, state: "待付款")
   puts Detail.create(name: "罗技 M185 无线鼠标",unit: '个', price: 59.00, number: 3,
-                     promotion: "true", numberForFree: 1, totalcost: 118, order_id: 1)
+                     promotion: "买二送一", numberForFree: 1, totalcost: 118, order_id: 1)
   puts Detail.create(name: "罗技 C270 高清网络摄像头",unit: '个', price: 149.00, number: 6,
-                     promotion: "true", numberForFree: 2, totalcost: 596, order_id: 1)
+                     promotion: "买二送一", numberForFree: 2, totalcost: 596, order_id: 1)
   puts Detail.create(name: "惠普 LaserJet Pro M1213nf 黑白多功能激光一体机",unit: '个', price: 1799.00, number: 1,
-                     promotion: "false", numberForFree: 0, totalcost: 1799, order_id: 1)
+                     promotion: "", numberForFree: 0, totalcost: 1799, order_id: 1)
 end
 task :seedProductData do
   Product.delete_all

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
   var getAllDetails = function(details){
     var detail = [];
     for(var i in details){
@@ -9,8 +10,8 @@ $(document).ready(function(){
     return detail;
   };
 
-  var all = cartHandle.getAllItems();
-  var details = getAllDetails(all);
+  // var all = cartHandle.getAllItems();
+  // var details = getAllDetails(all);
   // console.log(details);
 
   // var orderData={"order": {username: "tester",state: "unpaid", totalcost:"24" }};
@@ -100,6 +101,33 @@ $(document).ready(function(){
     addToSession(id,"addByButton");
     refreshAll();
   });
+
+  $("#create-order").on('click',function(){
+    createOrder();
+  });
+
+  var createOrder = function(){
+    var all = cartHandle.getAllItems();
+    var details = getAllDetails(all);
+    var orderData={"order": {username: "思特沃克",state: "待付款", totalcost:cartHandle.calculateTotal() }};
+    orderData.detailsCount = details.length;
+    console.log(orderData);
+    for(var i in details){
+      orderData["details"+i] = details[i];
+      console.log(orderData["details"+i]);
+    }
+    console.log(orderData);
+    $.ajax({
+      type : "POST",
+      url : "/addOrder",
+
+      data :orderData,
+      dataType : "json",
+      success: function(data){
+        // console.log(data);
+      }
+    });
+  };
 
   var addToSession = function(id,type){
     $.ajax({

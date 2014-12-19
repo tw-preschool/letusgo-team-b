@@ -94,15 +94,16 @@ end
 
 def updateOrders
   content_type :html
-  # t = Time.new.getutc
-  # orders = Order.where(:state == "unpaid")
-  # orders.each do |order|
-  #   if t-order[:created_at]>60*60*2
-  #     order.update(:state => "canceled")
-  #   end
-  # end
+  t = Time.new.getutc
+  orders = Order.where(:state == "unpaid")
+  orders.each do |order|
+    if t-order[:created_at]>60*60*2
+      order.update(:state => "canceled")
+    end
+  end
   erb :orders
 end
+    # string :promotion
 
 def getDetailsByID(id)
   content_type :html
@@ -113,11 +114,19 @@ end
 def addOrder(order)
   order = Order.create(order)
   params.delete("order")
+  params.delete("detailsCount")
   params.each {|key,value|
-    detail = value.merge({:order => order})
-    Detail.create(detail)
+    Detail.create(
+    :name => value[:name],
+    :price => value[:price],
+    :unit => value[:unit],
+    :promotion => value[:promotion],
+    :number => value[:boughtNum],
+    :numberForFree => value[:freeNum],
+    :totalcost => value[:subtotal],
+    :order => order)
   }
-  if order.save
+  if (order.save || resultDetail.save)
     [201,{:message =>params}.to_json]
   else
     [404,{:message => "error"}.to_json]
