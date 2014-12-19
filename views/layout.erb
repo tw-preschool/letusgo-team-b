@@ -41,6 +41,7 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right " id="cartTextAndLosg">
+                    <li id="username" class="hide"><%=session[:user]%></li>
                     <% if session[:isLogin] === true%>
                       <li id="logName"><a href="#"><span aria-hidden="true" class="icon-users"> <%=session[:username] %></span></a></li>
                       <li id="logout">

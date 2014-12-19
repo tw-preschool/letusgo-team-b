@@ -112,7 +112,8 @@ $(document).ready(function(){
   var createOrder = function(){
     var all = cartHandle.getAllItems();
     var details = getAllDetails(all);
-    var orderData={"order": {username: "思特沃克",state: "待付款", totalcost:cartHandle.calculateTotal() }};
+    var username = $("#username").text();
+    var orderData={"order": {username: username, state: "待付款", totalcost:cartHandle.calculateTotal() }};
     orderData.detailsCount = details.length;
 
     for(var i in details){
