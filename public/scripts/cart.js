@@ -10,27 +10,6 @@ $(document).ready(function(){
     return detail;
   };
 
-  // var all = cartHandle.getAllItems();
-  // var details = getAllDetails(all);
-  // console.log(details);
-
-  // var orderData={"order": {username: "tester",state: "unpaid", totalcost:"24" }};
-//  orderData.detailsCount = details.length;
-  // for(var i in details){
-  //   orderData["details"+i] = details[i];
-  // }
-  //console.log(orderData);
-  // $.ajax({
-  //   type : "POST",
-  //   url : "/addOrder",
-  //
-  //   data :orderData,
-  //   dataType : "json",
-  //   success: function(data){
-  //     console.log(data);
-  //   }
-  // });
-
   var appendCart = function(data){
     var tr = $('<tr>\
                   <td id=\"item-id\" hidden>' + data.id + '</td>\
@@ -102,21 +81,46 @@ $(document).ready(function(){
     refreshAll();
   });
 
-  $("#create-order").on('click',function(){
-    createOrder();
+  $("#create-order").on('click',function(event){
+    event.preventDefault();
+    var all = cartHandle.getAllItems();
+    var details = getAllDetails(all);
+    $.ajax({
+      type : "POST",
+      url : "/getProductNum",
+      data :{"details":details},
+      dataType : "json",
+      success: function(data){
+      var flag = true;
+       for(var id in data){
+         var boughtNum = cartHandle.getItem(id).boughtNum;
+         if(boughtNum > data[id] && boughtNum != 0){
+           flag = false;
+           var name = cartHandle.getItem(id).name;
+           $("#wrong").text(name+"库存不足，无法提交订单！！！").show();
+           break;
+         }
+        }
+      if(flag){
+        createOrder();
+        window.location.href = "/payment";
+      }
+    }
   });
+});
 
   var createOrder = function(){
     var all = cartHandle.getAllItems();
     var details = getAllDetails(all);
     var orderData={"order": {username: "思特沃克",state: "待付款", totalcost:cartHandle.calculateTotal() }};
     orderData.detailsCount = details.length;
-    console.log(orderData);
+
     for(var i in details){
       orderData["details"+i] = details[i];
-      console.log(orderData["details"+i]);
+      //console.log(orderData["details"+i]);
     }
     console.log(orderData);
+    //console.log(orderData);
     $.ajax({
       type : "POST",
       url : "/addOrder",
@@ -124,7 +128,10 @@ $(document).ready(function(){
       data :orderData,
       dataType : "json",
       success: function(data){
-        // console.log(data);
+      for(var id in data){
+         console.log(id);
+         console.log(data[id]);
+       }
       }
     });
   };

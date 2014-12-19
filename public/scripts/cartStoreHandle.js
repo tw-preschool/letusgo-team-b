@@ -4,9 +4,9 @@ var cartHandle = (function(){
     getCount: function(key){
       return parseInt(this.getItem(key).boughtNum) || 0 ;
     },
-    reduceCount: function(num){
-      sessionStorage[num] = (this.getCount(num) - 1).toString();
-    },
+    // reduceCount: function(num){
+    //   sessionStorage[num] = (this.getCount(num) - 1).toString();
+    // },
      getItem: function(key){
        return JSON.parse(sessionStorage.getItem(key)) || "";
      },
