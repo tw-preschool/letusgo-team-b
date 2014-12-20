@@ -379,3 +379,8 @@ dd {
 .empty-item {
   margin-left: 18%;
 }
+
+h5#shortage-remind-customer {
+text-align: center;
+font-size: 20px;
+}
