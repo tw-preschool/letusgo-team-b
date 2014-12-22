@@ -1,5 +1,13 @@
 require 'active_record'
 
+def loginConfig
+  use Rack::Session::Pool, :expire_after => 60*60*24*7
+  configure do
+    set :username, 'admin'
+    set :password, 'admin'
+  end
+end
+
 def userLogin(email,password)
   user = User.find_by_sql(['select * from users where email=? and password=?',email,password])
   if user.count > 0
@@ -29,7 +37,7 @@ def userLogout
   redirect '/login'
 end
 
-def goToRegister
+def goToRegisterPage
   content_type :html
   erb :register
 end
