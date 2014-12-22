@@ -9,4 +9,4 @@ letusgo-team-b.iml
 .ruby-version
 vendor/
 .gitignore
-
+Gemfile.lock
