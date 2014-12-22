@@ -112,7 +112,7 @@ class POSApplication < Sinatra::Base
       returnCartInfo(params[:id])
     end
 
-    get '/payment' do
+    get '/confirm' do
       goToPayment
     end
 

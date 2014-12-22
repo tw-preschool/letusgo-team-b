@@ -103,7 +103,7 @@ $(document).ready(function(){
         }
       if(flag){
         createOrder();
-        window.location.href = "/payment";
+        window.location.href = "/confirm";
       }
     }
   });

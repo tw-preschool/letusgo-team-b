@@ -71,7 +71,7 @@ end
 
 def goToPayment
   content_type :html
-  erb :payment
+  erb :confirm
 end
 
 def editItemByID(id)
