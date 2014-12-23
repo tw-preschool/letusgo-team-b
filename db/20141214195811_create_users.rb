@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :phone
       t.string :role
       t.string :state
+      t.string :identify_code		
       t.timestamps
     end
   end

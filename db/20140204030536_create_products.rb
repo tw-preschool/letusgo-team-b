@@ -7,6 +7,7 @@ class CreateProducts < ActiveRecord::Migration
             t.string :promotion
             t.integer :number
             t.string :description
+            t.string :state
             t.timestamps
         end
     end
