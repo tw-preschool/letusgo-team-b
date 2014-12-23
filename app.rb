@@ -48,7 +48,7 @@ class AdminHandle < Sinatra::Base
   end
 
   post '/products' do
-    createProduct(params[:name],params[:price],params[:units],
+    createProduct(params[:name],params[:price],params[:unit],
                   params[:promotion],params[:number],params[:description])
   end
 

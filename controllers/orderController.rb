@@ -8,7 +8,7 @@ def addOrder(order)
     Detail.create(
         :name => value[:name],
         :price => value[:price],
-        :units => value[:units],
+        :unit => value[:unit],
         :promotion => value[:promotion],
         :number => value[:boughtNum],
         :numberForFree => value[:freeNum],

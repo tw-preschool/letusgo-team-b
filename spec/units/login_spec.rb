@@ -1,7 +1,7 @@
 # encoding: utf-8
 require_relative '../spec_helper'
 
-describe "login test", :type => :feature do
+describe "login and logout test", :type => :feature do
   describe "check login page", :js => true do
     it "visit login page" do
       visit '/login'
@@ -23,8 +23,8 @@ describe "login test", :type => :feature do
 
     it "login with existing valid username" do
       visit '/login'
-      fill_in '邮箱：', :with => 'tw@tw.com'
-      fill_in '密码：', :with => 'letsgo'
+      fill_in '邮箱：', :with => "tw@tw.com"
+      fill_in '密码：', :with => "letsgo"
       click_button '登 录'
       expect(current_path).to eq "/"
       expect(page).to have_content('思特沃克')
@@ -56,6 +56,19 @@ describe "login test", :type => :feature do
       click_button '登 录'
       expect(current_path).to eq "/"
       expect(page).to have_content('admin')
+    end
+  end
+
+  describe "logout test", :js => true do
+    before do
+      page.set_rack_session user: "admin", isLogin: true, role: "admin", username: "admin"
+    end
+
+    it "logout after login" do
+      visit '/'
+      visit '/logout'
+      expect(current_path).to eq "/login"
+      expect(page).to have_content(' 登录')
     end
   end
 end

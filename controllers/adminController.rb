@@ -16,7 +16,7 @@ end
 def createProduct(name,price,unit,promotion,number,description)
   product = Product.create(:name => name,
                            :price => price,
-                           :units => unit,
+                           :unit => unit,
                            :promotion => promotion,
                            :number => number,
                            :description => description)
