@@ -53,7 +53,7 @@
                         <a href="/login"><span aria-hidden="true" class="icon-users"> 登录</span></a>
                       </li>
                     <%end%>
-                    <% if session[:role] == "root" || session[:role] == "admin"%>
+                    <% if session[:isLogin] != true || session[:role] == "root" || session[:role] == "admin"%>
                     <li class="hide">
                       <a href="/cart"><span aria-hidden="true" class="icon-cart"> 购物车(<span id="count">0</span>)</span></a>
                     </li>
