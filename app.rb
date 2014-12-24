@@ -128,7 +128,7 @@ class POSApplication < Sinatra::Base
     end
 
     post '/cart' do
-      returnCartInfo(params[:id])
+      returnCartInfo(params[:id],params[:email])
     end
 
     after do

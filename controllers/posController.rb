@@ -20,10 +20,25 @@ def goToConfirmPage
   erb :confirm
 end
 
-def returnCartInfo(id)
-  if id
-    return Product.find(id).to_json
+def returnCartInfo(productId,email)
+ # [200,{:id => productId, :em => email}.to_json]
+  productInCart = Cart.find_by_sql(['select * from carts where product_id=?',productId]).first || nil
+  productInStock = Product.find(productId)
+  # [200,{:id => productInStock}.to_json]
+  #
+  if productInCart == nil
+    Cart.create(
+    :email => email,
+    :product_id => productId,
+    :number => 1)
+    return true.to_json
+  else
+    if productInCart.number < productInStock.number
+      productInCart.update(:number => (productInCart.number+1))
+      return true.to_json
+    end
   end
+    return false.to_json
 end
 
 def getUserCart(user)
