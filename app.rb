@@ -8,6 +8,7 @@ require './models/product'
 require './models/order'
 require './models/detail'
 require './models/user'
+require './models/cart'
 require './controllers/dbConfigController'
 require './controllers/loginController'
 require './controllers/adminController'
@@ -116,6 +117,10 @@ class POSApplication < Sinatra::Base
 
     get '/cart' do
       goToCartPage
+    end
+
+    get '/cart/:user' do
+      getUserCart(params[:user])
     end
 
     get '/confirm' do

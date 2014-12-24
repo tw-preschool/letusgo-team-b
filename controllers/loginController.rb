@@ -15,6 +15,7 @@ def userLogin(email,password)
     session[:user] = email
     session[:username] = user.first.name
     session[:role] = user.first.role
+    session[:userId] = user.first.id
     return true.to_json
   else
     return false.to_json
