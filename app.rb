@@ -131,6 +131,18 @@ class POSApplication < Sinatra::Base
       returnCartInfo(params[:id],params[:email])
     end
 
+    post '/cartByPlus' do
+      updateCartNumberByPlus(params[:id],params[:email])
+    end
+
+    post '/cartReduce' do
+      updateCartNumberByReduce(params[:id],params[:email])
+    end
+
+    post '/cartDelete' do
+      deleteProductFromCart(params[:id],params[:email])
+    end
+
     after do
       ActiveRecord::Base.connection.close
     end

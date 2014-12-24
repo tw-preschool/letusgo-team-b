@@ -22,7 +22,7 @@ end
 
 def returnCartInfo(productId,email)
  # [200,{:id => productId, :em => email}.to_json]
-  productInCart = Cart.find_by_sql(['select * from carts where product_id=?',productId]).first || nil
+  productInCart = Cart.find_by_sql(['select * from carts where product_id=? and email=?',productId,email]).first || nil
   productInStock = Product.find(productId)
   # [200,{:id => productInStock}.to_json]
   #
@@ -39,6 +39,32 @@ def returnCartInfo(productId,email)
     end
   end
     return false.to_json
+end
+
+def updateCartNumberByPlus(productId,email)
+  productInCart = Cart.find_by_sql(['select * from carts where product_id=? and email=?',productId,email]).first
+  productInStock = Product.find(productId)
+  if productInCart.number < productInStock.number
+    productInCart.update(:number => (productInCart.number+1))
+    return productInCart.number.to_json
+  end
+  return false.to_json
+end
+
+def updateCartNumberByReduce(productId,email)
+  productInCart = Cart.find_by_sql(['select * from carts where product_id=? and email=?',productId,email]).first
+  # productInStock = Product.find(productId)
+  if productInCart.number > 0
+    productInCart.update(:number => (productInCart.number-1))
+    return productInCart.number.to_json
+  end
+  return false.to_json
+end
+
+def deleteProductFromCart(productId,email)
+  productInCart = Cart.find_by_sql(['select * from carts where product_id=? and email=?',productId,email]).first
+  productInCart.destroy
+  [200,{:key => "ok"}.to_json]
 end
 
 def getUserCart(user)

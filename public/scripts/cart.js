@@ -47,39 +47,43 @@ $(document).ready(function(){
     }
   };
 
-  showCartItem();
+  // showCartItem();
 
   //"+" button on cart.erb
   $(".add-cart").on('click',function(){
     var email = $("#username").text();
     var id = $(this).parent().siblings()[0].innerHTML;
         // addToSession(id,"addByPlus");
-    // addToTableByPlus(id,email);
+    addToTableByPlus(id,email);
   });
 
   //"-" button on cart.erb
   $(".reduce-cart").on('click',function(){
       $("#excced-msg").hide();
+      var email = $("#username").text();
        var id = $(this).parent().siblings()[0].innerHTML;
-       cartHandle.reduceItem(id);
-       if(cartHandle.getCount(id) <= 0){
-         cartHandle.deleteItem(id);
-       }
-       document.getElementById(id).value = cartHandle.getCount(id);
-       document.getElementById("subtotal-"+id).innerHTML =
-                    cartHandle.calculateSubtotal(id) ? cartHandle.calculateSubtotal(id).toFixed(2) : 0;
-       refreshAll();
+       reduceTable(id,email);
+      //  cartHandle.reduceItem(id);
+      //  if(cartHandle.getCount(id) <= 0){
+      //    cartHandle.deleteItem(id);
+      //  }
+      //  document.getElementById(id).value = cartHandle.getCount(id);
+      //  document.getElementById("subtotal-"+id).innerHTML =
+      //               cartHandle.calculateSubtotal(id) ? cartHandle.calculateSubtotal(id).toFixed(2) : 0;
+      //  refreshAll();
      });
-
+  // "delet" button
   $(".btn.btn-warning").on('click',function(){
       var id = $(this).parent().siblings()[0].innerHTML;
-      cartHandle.deleteItem(id);
-      window.location.href='/cart';
+      var email = $("#username").text();
+      // cartHandle.deleteItem(id);
+      // window.location.href='/cart';
+      deleteProductFromCart(id,email,this);
+
   });
 
   $(".btn.btn-primary").on('click',function(){
     var id = $(this).parent().siblings()[0].innerHTML;
-    // addToSession(id,"addByButton");
     var email = $("#username").text();
     addToTable(id, email);
     // refreshAll();
@@ -168,8 +172,41 @@ $(document).ready(function(){
           $("#excced-msg").show();
         }else{
           $("#excced-msg").hide();
+          console.log(data);
+          document.getElementById(id).value = data;
         }
       }
+    });
+  };
+
+  var reduceTable = function(id,email){
+    $.ajax({
+      type : "POST",
+      url : "/cartReduce",
+      data :{"id": id, "email": email},
+      dataType : "json",
+      success: function(data){
+        if(!data){
+          // $("#excced-msg").show();
+        }else{
+          $("#excced-msg").hide();
+          console.log(data);
+          document.getElementById(id).value = data;
+        }
+      }
+    });
+  };
+
+  var deleteProductFromCart = function(id,email,address){
+    $.ajax({
+      type : "POST",
+      url : "/cartDelete",
+      data :{"id": id, "email": email},
+      dataType : "json",
+      success: function(data){
+          $("#excced-msg").hide();
+          $(address).closest("tr").remove();
+        }
     });
   };
 
