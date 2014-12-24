@@ -6,6 +6,7 @@ require './models/order'
 require './models/detail'
 require './models/product'
 require './models/user'
+require './models/cart'
 
 desc "Migrate the database through scripts in db/."
 task :migrate => :environment do
@@ -23,6 +24,7 @@ task :seed => :setConfig do
   Rake::Task["environment"].invoke
   Rake::Task["seedOrderData"].invoke
   Rake::Task["seedProductData"].invoke
+  Rake::Task["seedCartData"].invoke
   Rake::Task["seedroot"].invoke
 end
 task :setConfig do
@@ -52,6 +54,11 @@ task :seedProductData do
                       description: "智慧驱动，不用CD就能安装；有线网络接口，适合办公需求；首页输出仅需8.5秒，超级畅销的四合一一体机！",
                       state: "sale").to_json
 end
+task :seedCartData do
+  puts Cart.create(email: 'tw@tw.com', product_id: 1, number: 1)
+  puts Cart.create(email: 'tw@tw.com', product_id: 2, number: 4)
+end
+
 
 desc "construct root"
 task :seedroot => :setConfig do
