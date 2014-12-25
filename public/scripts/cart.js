@@ -78,30 +78,29 @@ $(document).ready(function(){
     calculateShow();
   });
 
-  $("#create-order").on('click',function(event){
-    event.preventDefault();
-    var all = cartHandle.getAllItems();
-    var details = getAllDetails(all);
+  $("#create-order").on('click',function(){
+    //event.preventDefault();
     $.ajax({
       type : "POST",
-      url : "/getProductNum",
-      data :{"details":details},
+      url : "/confirm",
+      data :null,
       dataType : "json",
       success: function(data){
-      var flag = true;
-       for(var id in data){
-         var boughtNum = cartHandle.getItem(id).boughtNum;
-         if(boughtNum > data[id] && boughtNum != 0){
-           flag = false;
-           var name = cartHandle.getItem(id).name;
-           $("#wrong").text(name+"库存不足，无法提交订单！！！").show();
-           break;
-         }
-        }
-      if(flag){
-        createOrder();
-        window.location.href = "/confirm";
-      }
+        console.log(data);
+      // var flag = true;
+      //  for(var id in data){
+      //    var boughtNum = cartHandle.getItem(id).boughtNum;
+      //    if(boughtNum > data[id] && boughtNum != 0){
+      //      flag = false;
+      //      var name = cartHandle.getItem(id).name;
+      //      $("#wrong").text(name+"库存不足，无法提交订单！！！").show();
+      //      break;
+      //    }
+      //   }
+      // if(flag){
+      //   createOrder();
+      //   window.location.href = "/confirm";
+      // }
     }
   });
 });
@@ -123,7 +122,7 @@ $(document).ready(function(){
       data :orderData,
       dataType : "json",
       success: function(data){
-
+        console.log("data"+data);
       }
     });
   };

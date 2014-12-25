@@ -88,6 +88,7 @@ class OrderHandle < Sinatra::Base
   use DbConfig
   use AdminHandle
 
+
   post '/addOrder' do
     addOrder(params[:order])
   end
@@ -115,16 +116,23 @@ class POSApplication < Sinatra::Base
       goToItemsPage
     end
 
+  get '/confirm' do
+    goToConfirmPage
+  end
+
+  get '/confirm/:user' do
+    getUserCart(params[:user])
+  end
+
+  post '/confirm' do
+    returnCartInfo(params[:id],params[:email])
+  end
     get '/cart' do
       goToCartPage
     end
 
     get '/cart/:user' do
       getUserCart(params[:user])
-    end
-
-    get '/confirm' do
-      goToConfirmPage
     end
 
     post '/cart' do
