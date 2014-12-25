@@ -32,7 +32,7 @@
           <td class = "item-id "><%=@userOrders[i].id%></td>
           <td><%=@userOrders[i].username%></td>
           <td><%= format("%0.2f",@userOrders[i].totalcost)%></td>
-          <td><%=@userOrders[i].state%></td>
+          <td><span class="font-color-red"><%=@userOrders[i].state%></span></td>
           <td><%= @userOrders[i].created_at.localtime.strftime("%Y/%m/%d %H:%M")%></td>
           <td>
             <a href = "/details/<%=@userOrders[i].id%>">
