@@ -47,14 +47,12 @@ $(document).ready(function(){
     }
   };
 
-  // showCartItem();
-
   //"+" button on cart.erb
   $(".add-cart").on('click',function(){
     var email = $("#username").text();
     var id = $(this).parent().siblings()[0].innerHTML;
-        // addToSession(id,"addByPlus");
     addToTableByPlus(id,email);
+    calculateShow();
   });
 
   //"-" button on cart.erb
@@ -63,30 +61,21 @@ $(document).ready(function(){
       var email = $("#username").text();
        var id = $(this).parent().siblings()[0].innerHTML;
        reduceTable(id,email);
-      //  cartHandle.reduceItem(id);
-      //  if(cartHandle.getCount(id) <= 0){
-      //    cartHandle.deleteItem(id);
-      //  }
-      //  document.getElementById(id).value = cartHandle.getCount(id);
-      //  document.getElementById("subtotal-"+id).innerHTML =
-      //               cartHandle.calculateSubtotal(id) ? cartHandle.calculateSubtotal(id).toFixed(2) : 0;
-      //  refreshAll();
+       calculateShow();
      });
   // "delet" button
   $(".btn.btn-warning").on('click',function(){
       var id = $(this).parent().siblings()[0].innerHTML;
       var email = $("#username").text();
-      // cartHandle.deleteItem(id);
-      // window.location.href='/cart';
       deleteProductFromCart(id,email,this);
-
+      calculateShow();
   });
 
   $(".btn.btn-primary").on('click',function(){
     var id = $(this).parent().siblings()[0].innerHTML;
     var email = $("#username").text();
     addToTable(id, email);
-    // refreshAll();
+    calculateShow();
   });
 
   $("#create-order").on('click',function(event){
@@ -126,10 +115,7 @@ $(document).ready(function(){
 
     for(var i in details){
       orderData["details"+i] = details[i];
-      //console.log(orderData["details"+i]);
     }
-    console.log(orderData);
-    //console.log(orderData);
     $.ajax({
       type : "POST",
       url : "/addOrder",
@@ -137,10 +123,7 @@ $(document).ready(function(){
       data :orderData,
       dataType : "json",
       success: function(data){
-      for(var id in data){
-         console.log(id);
-         console.log(data[id]);
-       }
+
       }
     });
   };
@@ -172,7 +155,6 @@ $(document).ready(function(){
           $("#excced-msg").show();
         }else{
           $("#excced-msg").hide();
-          console.log(data);
           document.getElementById(id).value = data;
         }
       }
@@ -186,11 +168,10 @@ $(document).ready(function(){
       data :{"id": id, "email": email},
       dataType : "json",
       success: function(data){
-        if(!data){
-          // $("#excced-msg").show();
+        if(data === false){
+
         }else{
           $("#excced-msg").hide();
-          console.log(data);
           document.getElementById(id).value = data;
         }
       }
@@ -210,30 +191,61 @@ $(document).ready(function(){
     });
   };
 
-  // var addToSession = function(id,type){
-  //   $.ajax({
-  //     type : "POST",
-  //     url : "/cart",
-  //     data :{"id": id},
-  //     dataType : "json",
-  //     success: function(data){
-  //       //var pro = new product(id,data.name,data.price,data.unit,cartHandle.addPromotionType(data.promotion),data.number);
-  //       if(cartHandle.hasExceed(id)){
-  //         $("#excced-msg").show();
-  //       }else{
-  //         $("#excced-msg").hide();
-  //         cartHandle.addItem(id,data);
-  //         if(type == "addByPlus"){
-  //           document.getElementById(id).value = cartHandle.getCount(id);
-  //           document.getElementById("subtotal-"+id).innerHTML =
-  //           cartHandle.calculateSubtotal(id) ? cartHandle.calculateSubtotal(id).toFixed(2) : 0;
-  //         }
-  //         refreshAll();
-  //       }
-  //
-  //     }
-  //   });
-  // };
+  var calculateSubtotal = function(productId, email){
+    $.ajax({
+      type : "POST",
+      url : "/getSubtotalParams",
+      data :{"productId": productId, "email": email},
+      dataType : "json",
+      success: function(data){
+          var subtotal = cartsHandle.calculateSubtotal(data.number, data.price, data.promotion);
+
+        }
+    });
+  };
+var calculateShow = function(){
+  var email = $("#username").text();
+  $.ajax({
+    type : "POST",
+    url : "/getCalculateParams",
+    data :{"email": email},
+    dataType : "json",
+    success: function(data){
+      calculate(data);
+    }
+  });
+};
+var calculate = function(data){
+  var totalNum = 0;
+  var total = 0;
+  var productInCart = data.productInCart;
+  var productArray = data.productArray;
+  for(var i in productArray){
+    var productId = productArray[i].id;
+    var subtotal = 0;
+    var number= 0;
+    for(var j in productInCart){
+      if(productInCart[j].product_id == productId){
+        number = productInCart[j].number;
+      }
+    }
+    subtotal = cartsHandle.calculateSubtotal(number, productArray[i].price, productArray[i].promotion);
+    totalNum += number;
+    total += subtotal;
+    $("#subtotal-"+productId).text(subtotal);
 
 
+  }
+  $("#count").text(totalNum);
+  $("#totalPrice").text(total);
+  if(totalNum == 0 ){
+    $("#no-product").show();
+    $("#none-msg").show();
+    $("#has-product").hide();
+  }else{
+    $("#has-product").show();
+    $("#no-product").hide();
+  }
+
+};
 });

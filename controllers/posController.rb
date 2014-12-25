@@ -76,3 +76,17 @@ def getUserCart(user)
                                         email=?)',user])
   erb :shopcart
 end
+
+def getSubtotalParams(productId,email)
+  productInCart = Cart.find_by_sql(['select * from carts where product_id=? and email=?',productId,email]).first
+  product = Product.find(productId)
+  [200,{:number => productInCart.number, :price => product.price, :promotion => product.promotion}.to_json]
+end
+def getCalculateParams(email)
+  productInCart = Cart.find_by_sql(['select * from carts where email=?',email])
+  productArray = []
+  productInCart.each do |product|
+    productArray.push( Product.find(product.product_id))
+  end
+  [200,{:productArray => productArray, :productInCart => productInCart}.to_json]
+end
