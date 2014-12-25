@@ -97,6 +97,10 @@ class OrderHandle < Sinatra::Base
     cancelTimeoutOrders
   end
 
+  get '/orders/:email' do
+    getUserOrders(params[:email])
+  end
+
   get '/details/:id' do
     getOrderDetails(params[:id])
   end
