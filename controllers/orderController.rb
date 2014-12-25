@@ -37,6 +37,7 @@ def cancelTimeoutOrders
       order.update(:state => "取消")
     end
   end
+  @userOrders = Order.find_by_sql(['select * from orders'])
   erb :orders
 end
 
@@ -48,11 +49,6 @@ end
 
 def getUserOrders(email)
   content_type :html
-  Order.find_by_username(email)
+  @userOrders = Order.find_by_sql(['select * from orders where username=?',email])
   erb :orders
-end
-
-def getAllOrders
-  content_type :html
-  erb :details
 end
