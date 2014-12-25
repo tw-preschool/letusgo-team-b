@@ -47,11 +47,13 @@
                       <li id="logName" class="dropdown" data-toggle="dropdown">
                         <a href="#"><span aria-hidden="true" class="icon-users"> <%=session[:username] %></span></a>
                       </li>
+                      <% if session[:role] === "customer" %>
                       <ul class="dropbox-menu" role="menu" aria-labelledby="dLabel">
                         <li role="presentation">
                           <a role="menuitem" tabindex="-1" href="/orders/<%=session[:user]%>">我的订单</a>
                         </li>
                       </ul>
+                      <%end%>
                       <li id="logout">
                         <a href="/logout"><span aria-hidden="true" class="icon-exit"> 退出</span></a>
                       </li>
