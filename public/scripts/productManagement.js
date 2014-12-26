@@ -87,9 +87,10 @@ $(document).ready(function(){
         data : {"id" : id , "name" : name},
         dataType : "json",
         success : function(data){
+          console.log(data);
           item.remove();
-          cartHandle.deleteItem(id);
-          refreshAll();
+      //    cartHandle.deleteItem(id);
+        //  refreshAll();
         }
       });
     }
