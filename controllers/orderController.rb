@@ -21,7 +21,7 @@ def addOrder(order)
     end
   }
   if (order.save || resultDetail.save)
-    deleteAllFromCartAboutThisUser(session[:user])
+    # deleteAllFromCartAboutThisUser(session[:user])
     [201,{:message => "success"}.to_json]
   else
     [404,{:message => "error"}.to_json]

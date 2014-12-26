@@ -100,7 +100,11 @@
       </div>
       <div class="clearfix cart-summary-button-dir car-border-top">
         <div class="width-forty-percent flow-right margin-left">
-          <a href="/orders" class="btn btn-warning btn-block flow-right" role="button">返回订单列表</a>
+          <% if session[:role] == "admin"%>
+            <a href="/orders" class="btn btn-warning btn-block flow-right" role="button">返回订单列表</a>
+          <% else %>
+            <a href="/orders/<%=session[:user]%>" class="btn btn-warning btn-block flow-right" role="button">返回订单列表</a>
+          <% end %>
         </div>
       </div>
     </div>
