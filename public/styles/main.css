@@ -284,12 +284,12 @@ dd {
   float:left;
 }
 
-.payment-summary {
+.payment-summary,.confirm-summary {
   width:40%;
   float:right;
 }
 
-.payment-summary h5 {
+.payment-summary,.confirm-summary h5 {
   font-weight: normal;
 }
 
