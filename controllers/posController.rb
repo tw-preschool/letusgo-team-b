@@ -61,6 +61,11 @@ def updateCartNumberByReduce(productId,email)
   return false.to_json
 end
 
+def updateCartNumberByInput(email,productId,number)
+  productInCart = Cart.find_by_sql(['select * from carts where product_id=? and email=?',productId,email]).first
+  productInCart.update(:number => (number))
+end
+
 def deleteProductFromCart(productId,email)
   productInCart = Cart.find_by_sql(['select * from carts where product_id=? and email=?',productId,email]).first
   productInCart.destroy
@@ -98,4 +103,12 @@ def getCalculateParams(email)
     productArray.push( Product.find(product.product_id))
   end
   [200,{:productArray => productArray, :productInCart => productInCart}.to_json]
+end
+def enoughJudgement(email, productId,productNum)
+  product = Product.find(productId)
+  if product.number.to_i > productNum.to_i
+    return false.to_json
+  else
+    return product.number.to_json
+  end
 end

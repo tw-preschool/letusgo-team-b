@@ -188,6 +188,12 @@ class POSApplication < Sinatra::Base
     post '/getCalculateParams' do
       getCalculateParams(params[:email])
     end
+    post '/enoughJudgement' do
+      enoughJudgement(params[:email], params[:productId],params[:productNum])
+    end
+    post '/addToCartByInput' do
+      updateCartNumberByInput(params[:email], params[:productId],params[:productNum])
+    end
     after do
       ActiveRecord::Base.connection.close
     end
