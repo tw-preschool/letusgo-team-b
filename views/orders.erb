@@ -35,7 +35,7 @@
           <td><span class="font-color-red"><%=@userOrders[i].state%></span></td>
           <td><%= @userOrders[i].created_at.localtime.strftime("%Y/%m/%d %H:%M")%></td>
           <td>
-            <a href = "/details/<%=@userOrders[i].id%>">
+            <a href = "/orderDetails/<%=@userOrders[i].id%>">
             <button type="button" class="btn btn-warning btn-xs"> 订单详情</button>
           </td>
         </tr>

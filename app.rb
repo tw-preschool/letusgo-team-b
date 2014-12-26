@@ -101,7 +101,7 @@ class OrderHandle < Sinatra::Base
     getUserOrders(params[:email])
   end
 
-  get '/details/:id' do
+  get '/orderDetails/:id' do
     getOrderDetails(params[:id])
   end
 end

@@ -45,7 +45,7 @@ def getOrderDetails(id)
   content_type :html
   @orderInfo = Order.find(id)
   @details = Order.find(id).details
-  erb :details
+  erb :orderDetails
 end
 
 def getUserOrders(email)
