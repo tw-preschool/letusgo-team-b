@@ -119,6 +119,7 @@ var calculateShow = function(){
 var calculate = function(data){
   var totalNum = 0;
   var total = 0;
+  var hasProduct = 0;
   var productInCart = data.productInCart;
   var productArray = data.productArray;
   for(var i in productArray){
@@ -127,6 +128,7 @@ var calculate = function(data){
     var number= 0;
     for(var j in productInCart){
       if(productInCart[j].product_id == productId){
+        hasProduct = 1;
         number = productInCart[j].number;
       }
     }
@@ -137,7 +139,7 @@ var calculate = function(data){
   }
   $("#count").text(totalNum);
   $("#totalPrice").text(total);
-  if(totalNum == 0 ){
+  if(totalNum == 0 && hasProduct == 0){
     $("#no-product").show();
     $("#none-msg").show();
     $("#has-product").hide();

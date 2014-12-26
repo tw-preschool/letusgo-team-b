@@ -46,7 +46,7 @@
         </thead>
         <tbody id="cart-table">
           <%for i in 0..(@cartProducts.length-1)%>
-          <% if @userCart[i].number == 0  %>
+          <% if @cartProducts[i].state == "nosale" || @cartProducts[i].state == "deleted"  %>
           <tr class="deleted-product" id = "productInCartId<%=@userCart[i].id%>">
           <% else %>
           <tr id = "productInCartId<%=@userCart[i].id%>">
@@ -56,7 +56,7 @@
             <td><%=@cartProducts[i].price%></td>
             <td><%=@cartProducts[i].unit%></td>
             <td>
-              <% if @userCart[i].number == 0 %>
+              <% if @cartProducts[i].state == "nosale" || @cartProducts[i].state == "deleted"%>
               <span id="deleted-product" class="deleted-product-font label label-default">商品失效，请删除</span>
               <% else %>
               <button type="button" class="reduce-cart">-</button>
