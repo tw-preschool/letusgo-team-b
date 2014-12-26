@@ -11,7 +11,7 @@ require './models/user'
 require './models/cart'
 require './controllers/dbConfigController'
 require './controllers/loginController'
-require './controllers/adminController'
+require './controllers/productController'
 require './controllers/posController'
 require './controllers/orderController'
 
@@ -57,15 +57,15 @@ class AdminHandle < Sinatra::Base
     getProductNum
   end
 
-  post '/item-delete' do
+  delete '/item' do
     deleteItem(params[:id])
   end
 
-  post '/item-edit' do
+  post '/item' do
     editItem(params[:id],params[:"item-info"])
   end
 
-  post '/item-promotion' do
+  post '/itemPromotion' do
     updateItemPromotion(params[:id],params[:promotion])
   end
 
@@ -77,10 +77,6 @@ class AdminHandle < Sinatra::Base
     findProductByID(params[:id])
   end
 
-  get '/item-edit/:id' do
-    goToItemEditPage(params[:id])
-  end
-
 end
 
 class OrderHandle < Sinatra::Base
@@ -89,7 +85,7 @@ class OrderHandle < Sinatra::Base
   use AdminHandle
 
 
-  post '/addOrder' do
+  post '/order' do
     addOrder(params[:order])
   end
 

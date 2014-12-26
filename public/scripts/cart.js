@@ -196,7 +196,7 @@ for(var i in details){
 }
 $.ajax({
   type : "POST",
-  url : "/addOrder",
+  url : "/order",
 
   data :orderData,
   dataType : "json",

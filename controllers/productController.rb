@@ -50,14 +50,12 @@ def deleteItem(id)
 end
 
 def editItem(id,item_info)
-  Product.find(id).update(item_info)
-  [201, {:message => "edit"}.to_json]
-end
-
-def goToItemEditPage(id)
-  content_type :html
-  @id = id
-  erb :'item-edit'
+   if item_info['number'].to_i >= 0 && item_info['price'].to_i > 0
+     Product.find(id).update(item_info)
+     [201, {:message => "edit"}.to_json]
+   else
+     [401, {:message => "error"}.to_json]
+   end
 end
 
 def updateItemPromotion(id,promotion)
