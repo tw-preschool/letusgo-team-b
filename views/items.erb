@@ -33,7 +33,7 @@
       </tr>
       </thead>
       <tbody id="body-list">
-        <% Product.all.each do |item| %>
+        <% Product.where(:state => "onsale").each do |item| %>
           <% if item.number > 0%>
           <tr>
             <td class = "item-id hide"><%=item.id%></td>

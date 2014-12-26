@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'active_record'
 
 def addOrder(order)
@@ -30,17 +31,25 @@ end
 def cancelTimeoutOrders
   content_type :html
   t = Time.new.getutc
-  orders = Order.where(:state == "unpaid")
+  orders = Order.where(:state == "待付款")
   orders.each do |order|
     if t-order[:created_at]>60*60*2
-      order.update(:state => "canceled")
+      order.update(:state => "取消")
     end
   end
+  @userOrders = Order.find_by_sql(['select * from orders'])
   erb :orders
 end
 
 def getOrderDetails(id)
   content_type :html
+  @orderInfo = Order.find(id)
   @details = Order.find(id).details
-  erb :details
+  erb :orderDetails
+end
+
+def getUserOrders(email)
+  content_type :html
+  @userOrders = Order.find_by_sql(['select * from orders where username=?',email])
+  erb :orders
 end

@@ -11,12 +11,12 @@ require './models/user'
 require './models/cart'
 require './controllers/dbConfigController'
 require './controllers/loginController'
-require './controllers/adminController'
+require './controllers/productController'
 require './controllers/posController'
 require './controllers/orderController'
 require 'action_mailer'
 require './controllers/mail_controller'
-
+require './controllers/permissionController.rb'
 
 class LoginHandle < Sinatra::Base
   loginConfig
@@ -44,7 +44,6 @@ class LoginHandle < Sinatra::Base
 
   post '/mailsent' do
     mailSender(params[:email], params[:name])
-    # redirect '/register'
   end
 end
 
@@ -52,7 +51,7 @@ class AdminHandle < Sinatra::Base
   use LoginHandle
   use DbConfig
 
-  get '/admin' do
+  get '/productManagement' do
     checkAdminStatus
   end
 
@@ -65,15 +64,15 @@ class AdminHandle < Sinatra::Base
     getProductNum
   end
 
-  post '/item-delete' do
+  delete '/item' do
     deleteItem(params[:id])
   end
 
-  post '/item-edit' do
+  post '/item' do
     editItem(params[:id],params[:"item-info"])
   end
 
-  post '/item-promotion' do
+  post '/itemPromotion' do
     updateItemPromotion(params[:id],params[:promotion])
   end
 
@@ -85,10 +84,6 @@ class AdminHandle < Sinatra::Base
     findProductByID(params[:id])
   end
 
-  get '/item-edit/:id' do
-    goToItemEditPage(params[:id])
-  end
-
 end
 
 class OrderHandle < Sinatra::Base
@@ -96,16 +91,33 @@ class OrderHandle < Sinatra::Base
   use DbConfig
   use AdminHandle
 
-  post '/addOrder' do
+
+  post '/order' do
     addOrder(params[:order])
   end
 
   get '/orders' do
-    cancelTimeoutOrders
+    if isLogin && isAdmin
+      cancelTimeoutOrders
+    else
+      redirect '/login'
+    end
   end
 
-  get '/details/:id' do
-    getOrderDetails(params[:id])
+  get '/orders/:email' do
+    if isLogin && isCustomer
+      getUserOrders(params[:email])
+    else
+      redirect '/login'
+    end
+  end
+
+  get '/orderDetails/:id' do
+    if isLogin
+      getOrderDetails(params[:id])
+    else
+      redirect '/login'
+    end
   end
 end
 
@@ -120,19 +132,45 @@ class POSApplication < Sinatra::Base
     end
 
     get '/items' do
-      goToItemsPage
-    end
 
-    get '/cart' do
-      goToCartPage
-    end
+        goToItemsPage
 
-    get '/cart/:user' do
-      getUserCart(params[:user])
     end
 
     get '/confirm' do
-      goToConfirmPage
+      if isLogin && isCustomer
+        goToConfirmPage
+      else
+        redirect '/login'
+      end
+    end
+
+     get '/confirm/:user' do
+       if isLogin && isCustomer
+         getUserCartToConfirm(params[:user])
+       else
+         redirect '/login'
+       end
+     end
+
+    post '/confirm' do
+      returnCartInfo(params[:id],params[:email])
+    end
+
+    get '/cart' do
+      if isLogin && isCustomer
+        goToCartPage
+      else
+        redirect '/login'
+      end
+    end
+
+    get '/cart/:user' do
+      if isLogin && isCustomer
+        getUserCart(params[:user])
+      else
+        redirect '/login'
+      end
     end
 
     post '/cart' do
@@ -150,7 +188,12 @@ class POSApplication < Sinatra::Base
     post '/cartDelete' do
       deleteProductFromCart(params[:id],params[:email])
     end
-
+    post '/getSubtotalParams' do
+      getSubtotalParams(params[:productId],params[:email])
+    end
+    post '/getCalculateParams' do
+      getCalculateParams(params[:email])
+    end
     after do
       ActiveRecord::Base.connection.close
     end

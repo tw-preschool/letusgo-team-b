@@ -6,7 +6,7 @@ def checkAdminStatus
   else
     content_type :html
     begin
-      erb :admin
+      erb :productManagement
     rescue ActiveRecord::RecordNotFound => e
       [404, {:message => e.message}.to_json]
     end
@@ -19,7 +19,8 @@ def createProduct(name,price,unit,promotion,number,description)
                            :unit => unit,
                            :promotion => promotion,
                            :number => number,
-                           :description => description)
+                           :description => description,
+                           :state => "onsale")
   if product.save
     [201, {:message => "products/#{product.id}",:id => product.id }.to_json]
   else
@@ -45,19 +46,21 @@ def findProductByID(id)
 end
 
 def deleteItem(id)
-  Product.find(id).destroy
-  [201, {:message => "delete"}.to_json]
+  Product.find(id).update(:state => "deleted")
+  carts = Cart.where(:product_id => id)
+  carts.each do |cart|
+    cart.update_attributes(:number => 0)
+  end
+  [201, {:message => carts}.to_json]
 end
 
 def editItem(id,item_info)
-  Product.find(id).update(item_info)
-  [201, {:message => "edit"}.to_json]
-end
-
-def goToItemEditPage(id)
-  content_type :html
-  @id = id
-  erb :'item-edit'
+   if item_info['number'].to_i >= 0 && item_info['price'].to_i > 0
+     Product.find(id).update(item_info)
+     [201, {:message => "edit"}.to_json]
+   else
+     [401, {:message => "error"}.to_json]
+   end
 end
 
 def updateItemPromotion(id,promotion)

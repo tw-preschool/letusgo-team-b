@@ -33,7 +33,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/">主页</a></li>
                     <% if session[:role] == "root" || session[:role] == "admin"%>
-                      <li><a href="/admin">商品管理</a></li>
+                      <li><a href="/productManagement">商品管理</a></li>
                       <li><a href="/orders">订单管理</a></li>
                     <%else%>
                       <li><a href="/products">商品列表</a></li>
@@ -44,11 +44,16 @@
                     <li id="userId" class="hide"><%=session[:userId]%></li>
                     <li id="username" class="hide"><%=session[:user]%></li>
                     <% if session[:isLogin] === true%>
-                      <li id="logName" class="dropdown" data-toggle="dropdown"><a href="#"><span aria-hidden="true" class="icon-users"> <%=session[:username] %></span></a></li>
+                      <li id="logName" class="dropdown" data-toggle="dropdown">
+                        <a href="#"><span aria-hidden="true" class="icon-users"> <%=session[:username] %></span></a>
+                      </li>
+                      <% if session[:role] === "customer" %>
                       <ul class="dropbox-menu" role="menu" aria-labelledby="dLabel">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">我的订单</a></li>
-
+                        <li role="presentation">
+                          <a role="menuitem" tabindex="-1" href="/orders/<%=session[:user]%>">我的订单</a>
+                        </li>
                       </ul>
+                      <%end%>
                       <li id="logout">
                         <a href="/logout"><span aria-hidden="true" class="icon-exit"> 退出</span></a>
                       </li>

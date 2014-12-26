@@ -8,7 +8,7 @@ describe "product management test", :type => :feature do
     end
 
     it "login with admin status" do
-      visit '/admin'
+      visit '/productManagement'
       expect(page).to have_content('admin')
     end
 
@@ -26,13 +26,13 @@ describe "product management test", :type => :feature do
     end
 
     it "edit product" do
-      visit '/admin'
+      visit '/productManagement'
       click_button '编辑'
       expect(page).to have_content('提交')
     end
 
     it 'delete product' do
-      visit '/admin'
+      visit '/productManagement'
       click_button '删除'
       message = accept_alert
       expect(message).to eq('确定要删除该商品?')
@@ -41,7 +41,7 @@ describe "product management test", :type => :feature do
 end
 
 def addNewProduct(name,price,unit,num,description)
-  visit '/admin'
+  visit '/productManagement'
   fill_in '商品名称：', :with => name
   fill_in '价格：', :with => price
   fill_in '单位：', :with => unit

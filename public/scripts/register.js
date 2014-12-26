@@ -53,7 +53,7 @@ $(document).ready(function(){
        success : function(data){
          if(data){
            sentMail(email, name);
-           window.location.href = "/";
+//           window.location.href = "/";
          }else{
            registerHandle.messageHelper("exist");
          }

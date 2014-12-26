@@ -44,15 +44,15 @@ task :seedProductData do
   puts Product.create(name: "罗技 M185 无线鼠标" , price: 59, unit: "个",
                       promotion: "true", number: 4,
                       description: "黑色蓝边。好评30万，月销过万，办公鼠标首选！",
-                      state: "sale").to_json
+                      state: "onsale").to_json
   puts Product.create(name: "罗技 C270 高清网络摄像头", price: 149, unit: "个",
                       promotion: "true", number: 57,
                       description: "音质好，画面清晰，自带话筒，罗技活色系列！",
-                      state: "sale").to_json
+                      state: "onsale").to_json
   puts Product.create(name: "惠普 LaserJet Pro M1213nf 黑白多功能激光一体机" , price: 1799, unit: "个",
                       promotion: "false", number: 2,
                       description: "智慧驱动，不用CD就能安装；有线网络接口，适合办公需求；首页输出仅需8.5秒，超级畅销的四合一一体机！",
-                      state: "sale").to_json
+                      state: "onsale").to_json
 end
 task :seedCartData do
   puts Cart.create(email: 'tw@tw.com', product_id: 1, number: 1)

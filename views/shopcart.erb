@@ -1,12 +1,12 @@
-<!-- <div class="div-table" id="no-product">
+ <div class="div-table" id="no-product">
   <div class="shop-cart" >
-    <div class="empty">
-      <div class="empty-cart">
+    <div class="empty" >
+      <div class="empty-cart" >
         <h4 class="err-msg" id="none-msg">您没有需要付款的商品,请前往<a href="/products">商品列表</a>添加</h4>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <div class="div-table" id="has-product">
   <div class="div-table-heard">
@@ -40,22 +40,30 @@
         </thead>
         <tbody id="cart-table">
           <%for i in 0..(@cartProducts.length-1)%>
+          <% if @userCart[i].number == 0  %>
+          <tr class="deleted-product" id = "productInCartId<%=@userCart[i].id%>">
+          <% else %>
           <tr id = "productInCartId<%=@userCart[i].id%>">
+          <% end %>
             <td class="hide"><%=@cartProducts[i].id%></td>
             <td><%=@cartProducts[i].name%></td>
             <td><%=@cartProducts[i].price%></td>
             <td><%=@cartProducts[i].unit%></td>
             <td>
+              <% if @userCart[i].number == 0 %>
+              <span id="deleted-product" class="deleted-product-font label label-default">商品失效，请删除</span>
+              <% else %>
               <button type="button" class="reduce-cart">-</button>
               <input value="<%=@userCart[i].number%>" type="text" maxlength=15 id="<%=@cartProducts[i].id%>" onKeyUp="keypress(<%=@cartProducts[i].id%>)"/>
               <button type="button" class="add-cart">+</button>
+              <% end %>
             </td>
-            <%if @cartProducts[i].promotion == "true" %>
+            <%if @cartProducts[i].promotion == "true" && @userCart[i].number != 0%>
             <td class="font-color-red">买二送一</td>
             <%else%>
             <td class="font-color-red"></td>
             <%end%>
-            <td></td>
+            <td id="subtotal-<%=@cartProducts[i].id%>"></td>
             <td><button class="btn btn-xs btn-warning"><span aria-hidden="true" class="icon-trash"> 删除</button></td>
           </tr>
           <%end%>
@@ -70,7 +78,7 @@
         </div>
         <div class="clearfix cart-summary-button-dir car-border-top">
           <div class="width-forty-percent flow-right margin-left">
-            <a href="/payment" id="create-order" class="btn btn-info btn-block flow-right" role="button">提交订单</a>
+            <a href="/confirm/<%=session[:user]%>" id="create-order" class="btn btn-info btn-block flow-right" role="button">提交订单</a>
           </div>
           <div class="width-forty-percent flow-right">
             <a href="/products" class="btn btn-default btn-block flow-right" role="button">继续购物</a>

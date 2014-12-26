@@ -13,3 +13,7 @@
   border-radius: 3px;
   background-color: #ffffdd;
 }
+
+#has-product {
+display: block !important;
+}

@@ -11,7 +11,7 @@ describe "order management test" ,:type => :feature do
       detail0 = {:name => "orange",:unit => 'kg', :price => 12.00, :boughtNum => 3, :promotion => "true", :freeNum => 1, :subtotal => 24}
       detail1 = {:name => "apple",:unit => 'kg', :price => 24.00, :boughtNum => 3, :promotion => "false", :freeNum => 0, :subtotal => 72}
       body = {:order => order, :detail0 => detail0, :detail1 => detail1}
-      post "/addOrder" ,body
+      post "/order" ,body
       expect(last_response.status).to eq 201
     end
     it "should have anchor link to /orders" do

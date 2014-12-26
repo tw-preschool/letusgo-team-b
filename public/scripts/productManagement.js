@@ -65,7 +65,7 @@ $(document).ready(function(){
     var isChecked = item.find(".item-promotion").bootstrapSwitch("state");
     $.ajax({
       type : "POST",
-      url : "/item-promotion",
+      url : "/itemPromotion",
       data : {"id" : parseInt(item.data("id"),10) ,
               "name" : name , "promotion": isChecked},
       dataType : "json",
@@ -82,14 +82,15 @@ $(document).ready(function(){
     {
       var id = parseInt(item.data("id"),10);
       $.ajax({
-        type : "POST",
-        url : "/item-delete",
+        type : "DELETE",
+        url : "/item",
         data : {"id" : id , "name" : name},
         dataType : "json",
         success : function(data){
+          console.log(data);
           item.remove();
-          cartHandle.deleteItem(id);
-          refreshAll();
+      //    cartHandle.deleteItem(id);
+        //  refreshAll();
         }
       });
     }
@@ -124,13 +125,14 @@ $(document).ready(function(){
     var editItem = $(this).closest("tr");
     $.ajax({
       type : "POST",
-      url : "/item-edit",
+      url : "/item",
       context: editItem,
       data : {"id" : id,"item-info" :{"name" : name , "price" : price  ,
               "unit" : unit , "promotion" : promotion , "number" : number ,
               "description" : description}},
       dataType : "json",
       success : function(data){
+        console.log(data);
         var tr =$('<td class = \"item-col-name\" >\
                       <dl>\
                       <dt class = \"item-name\">' + name + '</dt>\
