@@ -14,6 +14,7 @@ require './controllers/loginController'
 require './controllers/productController'
 require './controllers/posController'
 require './controllers/orderController'
+require './controllers/permissionController.rb'
 
 class LoginHandle < Sinatra::Base
   loginConfig
@@ -90,15 +91,27 @@ class OrderHandle < Sinatra::Base
   end
 
   get '/orders' do
-    cancelTimeoutOrders
+    if isLogin && isAdmin
+      cancelTimeoutOrders
+    else
+      redirect '/login'
+    end
   end
 
   get '/orders/:email' do
-    getUserOrders(params[:email])
+    if isLogin && isCustomer
+      getUserOrders(params[:email])
+    else
+      redirect '/login'
+    end
   end
 
   get '/orderDetails/:id' do
-    getOrderDetails(params[:id])
+    if isLogin
+      getOrderDetails(params[:id])
+    else
+      redirect '/login'
+    end
   end
 end
 
@@ -113,26 +126,47 @@ class POSApplication < Sinatra::Base
     end
 
     get '/items' do
-      goToItemsPage
+      if isLogin && isAdmin
+        redirect '/login'
+      else
+        goToItemsPage
+      end
     end
 
-  get '/confirm' do
-    goToConfirmPage
-  end
+    get '/confirm' do
+      if isLogin && isCustomer
+        goToConfirmPage
+      else
+        redirect '/login'
+      end
+    end
 
-   get '/confirm/:user' do
-     getUserCartToConfirm(params[:user])
-   end
+     get '/confirm/:user' do
+       if isLogin && isCustomer
+         getUserCartToConfirm(params[:user])
+       else
+         redirect '/login'
+       end
+     end
 
-  post '/confirm' do
-    returnCartInfo(params[:id],params[:email])
-  end
+    post '/confirm' do
+      returnCartInfo(params[:id],params[:email])
+    end
+
     get '/cart' do
-      goToCartPage
+      if isLogin && isCustomer
+        goToCartPage
+      else
+        redirect '/login'
+      end
     end
 
     get '/cart/:user' do
-      getUserCart(params[:user])
+      if isLogin && isCustomer
+        getUserCart(params[:user])
+      else
+        redirect '/login'
+      end
     end
 
     post '/cart' do
