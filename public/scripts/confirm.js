@@ -62,7 +62,7 @@ $(document).ready(function(){
     data :{"email": email},
     dataType : "json",
     success: function(data){
-
+      $("#count").text(0);
     }
   });
 });
