@@ -1,10 +1,16 @@
- <div class="div-table" id="no-product">
+<div class="div-table" id="no-product">
   <div class="shop-cart" >
     <div class="empty" >
       <div class="empty-cart" >
         <h4 class="err-msg" id="none-msg">您没有需要付款的商品,请前往<a href="/products">商品列表</a>添加</h4>
       </div>
     </div>
+  </div>
+</div>
+<div class="div-table">
+  <div class="err-msg" id="has-delete-product-msg">
+    <button type="button" class="close" id="cancle-has-delete-product"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h5 id="excced-remind">亲,购物车里有失效商品，请删除后提交订单</h5>
   </div>
 </div>
 
@@ -40,17 +46,25 @@
         </thead>
         <tbody id="cart-table">
           <%for i in 0..(@cartProducts.length-1)%>
+          <% if @cartProducts[i].state == "nosale" || @cartProducts[i].state == "deleted"  %>
+          <tr class="deleted-product" id = "productInCartId<%=@userCart[i].id%>">
+          <% else %>
           <tr id = "productInCartId<%=@userCart[i].id%>">
+          <% end %>
             <td class="hide"><%=@cartProducts[i].id%></td>
             <td><%=@cartProducts[i].name%></td>
             <td><%=@cartProducts[i].price%></td>
             <td><%=@cartProducts[i].unit%></td>
             <td>
+              <% if @cartProducts[i].state == "nosale" || @cartProducts[i].state == "deleted"%>
+              <span id="deleted-product" class="deleted-product-font label label-default">商品失效，请删除</span>
+              <% else %>
               <button type="button" class="reduce-cart">-</button>
               <input value="<%=@userCart[i].number%>" type="text" maxlength=15 id="<%=@cartProducts[i].id%>" onKeyUp="keypress(<%=@cartProducts[i].id%>)"/>
               <button type="button" class="add-cart">+</button>
+              <% end %>
             </td>
-            <%if @cartProducts[i].promotion == "true" %>
+            <%if @cartProducts[i].promotion == "true" && @userCart[i].number != 0%>
             <td class="font-color-red">买二送一</td>
             <%else%>
             <td class="font-color-red"></td>

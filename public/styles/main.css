@@ -434,3 +434,12 @@ dd {
 h5#shortage-remind-customer {
 text-align: center;
 }
+
+.deleted-product {
+  color: #bbb;
+  background-color: #ddd;
+}
+
+.deleted-product .deleted-product-font {
+  font-size: 90%;
+}

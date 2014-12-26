@@ -18,4 +18,8 @@ $(document).ready(function(){
   $("#cancle-description").on("click",function(){
     $("#description-err-ms").fadeOut();
   });
+
+  $("#cancle-has-delete-product").on("click",function(){
+    $("#has-delete-product-msg").fadeOut();
+  });
 });

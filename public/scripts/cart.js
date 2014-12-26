@@ -1,4 +1,15 @@
 $(document).ready(function(){
+
+  var getAllDetails = function(details){
+    var detail = [];
+    for(var i in details){
+      details[i].freeNum = cartHandle.getFreeNum(details[i].id);
+      details[i].subtotal = cartHandle.calculateSubtotal(details[i].id).toFixed(2);
+      detail.push(details[i]);
+    }
+    return detail;
+  };
+
   //"+" button on cart.erb
   $(".add-cart").on('click',function(){
     var email = $("#username").text();
@@ -108,6 +119,7 @@ var calculateShow = function(){
 var calculate = function(data){
   var totalNum = 0;
   var total = 0;
+  var hasProduct = 0;
   var productInCart = data.productInCart;
   var productArray = data.productArray;
   for(var i in productArray){
@@ -116,6 +128,7 @@ var calculate = function(data){
     var number= 0;
     for(var j in productInCart){
       if(productInCart[j].product_id == productId){
+        hasProduct = 1;
         number = productInCart[j].number;
       }
     }
@@ -123,12 +136,10 @@ var calculate = function(data){
     totalNum += number;
     total += subtotal;
     $("#subtotal-"+productId).text(subtotal.toFixed(2));
-
-
   }
   $("#count").text(totalNum);
   $("#totalPrice").text(total.toFixed(2));
-  if(totalNum == 0 ){
+  if(totalNum == 0 && hasProduct == 0){
     $("#no-product").show();
     $("#none-msg").show();
     $("#has-product").hide();
@@ -136,39 +147,47 @@ var calculate = function(data){
     $("#has-product").show();
     $("#no-product").hide();
   }
-
 };
+
 $("#create-order").on('click',function(){
-  var email = $("#username").text();
-  $.ajax({
-    type : "POST",
-    url : "/getCalculateParams",
-    data :{"email": email},
-    dataType : "json",
-    success: function(data){
-      var products = [];
-      var productInCart = data.productInCart;
-      var productArray = data.productArray;
-      for(var i in productInCart){
-        var productId  = productInCart[i].product_id;
-        var pro = null;
-        for(var j in productArray){
-          if(productId == productArray[j].id){
-            pro = new product(productArray[j].id,productArray[j].name,productArray[j].price,productArray[j].unit,productArray[j].promotion,productArray[j].number);
+  console.log("into create order");
+
+  if ( $("#deleted-product").length > 0 ) {
+    event.preventDefault();
+    $("#has-delete-product-msg").show();
+  }
+  else {
+    var email = $("#username").text();
+    $.ajax({
+      type : "POST",
+      url : "/getCalculateParams",
+      data :{"email": email},
+      dataType : "json",
+      success: function(data){
+        var products = [];
+        var productInCart = data.productInCart;
+        var productArray = data.productArray;
+        for(var i in productInCart){
+          var productId  = productInCart[i].product_id;
+          var pro = null;
+          for(var j in productArray){
+            if(productId == productArray[j].id){
+              pro = new product(productArray[j].id,productArray[j].name,productArray[j].price,productArray[j].unit,productArray[j].promotion,productArray[j].number);
+            }
+          }
+          if(pro != null){
+            pro.boughtNum = productInCart[i].number;
+            products.push(pro);
           }
         }
-        if(pro != null){
-          pro.boughtNum = productInCart[i].number;
-          products.push(pro);
+        for(var k in products){
+          products[k].freeNum = cartsHandle.getFreeNum(products[k].boughtNum);
+          products[k].subtotal = cartsHandle.calculateSubtotal(products[k].boughtNum,products[k].price,products[k].promotion);
         }
+        createOrder(products);
       }
-      for(var k in products){
-        products[k].freeNum = cartsHandle.getFreeNum(products[k].boughtNum);
-        products[k].subtotal = cartsHandle.calculateSubtotal(products[k].boughtNum,products[k].price,products[k].promotion);
-      }
-      createOrder(products);
+    });
   }
-});
 });
 var createOrder = function(details){
 var total = 0;
@@ -176,7 +195,6 @@ for(var k in details){
   total += details[k].subtotal;
 }
 var username = $("#username").text();
-console.log(username);
 var orderData={"order": {username: username, state: "待付款", totalcost:total }};
 orderData.detailsCount = details.length;
 
