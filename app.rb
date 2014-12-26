@@ -182,12 +182,19 @@ class POSApplication < Sinatra::Base
     post '/cartDelete' do
       deleteProductFromCart(params[:id],params[:email])
     end
+
     post '/getSubtotalParams' do
       getSubtotalParams(params[:productId],params[:email])
     end
+
     post '/getCalculateParams' do
       getCalculateParams(params[:email])
     end
+
+    post '/cleanUserCart' do
+      deleteAllFromCartAboutThisUser(params[:email])
+    end
+
     after do
       ActiveRecord::Base.connection.close
     end

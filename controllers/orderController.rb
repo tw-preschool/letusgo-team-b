@@ -53,6 +53,7 @@ def getUserOrders(email)
   @userOrders = Order.find_by_sql(['select * from orders where username=?',email])
   erb :orders
 end
+
 def deleteAllFromCartAboutThisUser(email)
   productInCart = Cart.find_by_sql(['select * from carts where email=?',email])
   for i in 0..(productInCart.length-1)
