@@ -47,7 +47,11 @@ end
 
 def deleteItem(id)
   Product.find(id).update(:state => "deleted")
-  [201, {:message => "delete"}.to_json]
+  carts = Cart.where(:product_id => id)
+  carts.each do |cart|
+    cart.update_attributes(:number => 0)
+  end
+  [201, {:message => carts}.to_json]
 end
 
 def editItem(id,item_info)
