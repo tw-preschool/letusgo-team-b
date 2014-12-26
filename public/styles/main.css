@@ -58,6 +58,14 @@ dd {
   margin-left: 20px;
 }
 
+.margin-left-forty {
+  margin-left: 40px;
+}
+
+.margin-right {
+  margin-right: 20px;
+}
+
 .width-forty-percent {
   width: 40%;
 }
@@ -154,6 +162,10 @@ dd {
 
 .flow-right {
   float:right;
+}
+
+.flow-left {
+  float:left;
 }
 
 #container-fluid ul li a:hover {
