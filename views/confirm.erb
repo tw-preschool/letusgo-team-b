@@ -32,7 +32,7 @@
           <td><%=@cartProducts[i].price%></td>
           <td><%=@cartProducts[i].unit%></td>
           <td><%=@userCart[i].number%></td>
-          <%if @cartProducts[i].promotion == "true" %>
+          <%if @cartProducts[i].promotion == "true" || @cartProducts[i].promotion === "买二送一"%>
           <td class="font-color-red">买二送一</td>
           <%else%>
           <td class="font-color-red"></td>
@@ -100,7 +100,7 @@
       </div>
       <div class="clearfix cart-summary-button-dir car-border-top">
         <div class="width-forty-percent flow-right margin-left">
-          <a href="/confirm" class="btn btn-warning btn-block flow-right" role="button">去付款</a>
+          <a href="#" class="btn btn-warning btn-block flow-right" role="button">去付款</a>
         </div>
       </div>
     </div>

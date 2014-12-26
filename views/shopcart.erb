@@ -1,10 +1,16 @@
- <div class="div-table" id="no-product">
+<div class="div-table" id="no-product">
   <div class="shop-cart" >
     <div class="empty" >
       <div class="empty-cart" >
         <h4 class="err-msg" id="none-msg">您没有需要付款的商品,请前往<a href="/products">商品列表</a>添加</h4>
       </div>
     </div>
+  </div>
+</div>
+<div class="div-table">
+  <div class="err-msg" id="has-delete-product-msg">
+    <button type="button" class="close" id="cancle-has-delete-product"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h5 id="excced-remind">亲,购物车里有失效商品，请删除后提交订单</h5>
   </div>
 </div>
 
@@ -40,7 +46,7 @@
         </thead>
         <tbody id="cart-table">
           <%for i in 0..(@cartProducts.length-1)%>
-          <% if @userCart[i].number == 0  %>
+          <% if @cartProducts[i].state == "nosale" || @cartProducts[i].state == "deleted" || @cartProducts[i].number < 1 %>
           <tr class="deleted-product" id = "productInCartId<%=@userCart[i].id%>">
           <% else %>
           <tr id = "productInCartId<%=@userCart[i].id%>">
@@ -50,7 +56,7 @@
             <td><%=@cartProducts[i].price%></td>
             <td><%=@cartProducts[i].unit%></td>
             <td>
-              <% if @userCart[i].number == 0 %>
+              <% if @cartProducts[i].state == "nosale" || @cartProducts[i].state == "deleted" || @cartProducts[i].number < 1%>
               <span id="deleted-product" class="deleted-product-font label label-default">商品失效，请删除</span>
               <% else %>
               <button type="button" class="reduce-cart">-</button>

@@ -119,6 +119,7 @@ var calculateShow = function(){
 var calculate = function(data){
   var totalNum = 0;
   var total = 0;
+  var hasProduct = 0;
   var productInCart = data.productInCart;
   var productArray = data.productArray;
   for(var i in productArray){
@@ -127,19 +128,18 @@ var calculate = function(data){
     var number= 0;
     for(var j in productInCart){
       if(productInCart[j].product_id == productId){
+        hasProduct = 1;
         number = productInCart[j].number;
       }
     }
     subtotal = cartsHandle.calculateSubtotal(number, productArray[i].price, productArray[i].promotion);
     totalNum += number;
     total += subtotal;
-    $("#subtotal-"+productId).text(subtotal);
-
-
+    $("#subtotal-"+productId).text(subtotal.toFixed(2));
   }
   $("#count").text(totalNum);
-  $("#totalPrice").text(total);
-  if(totalNum == 0 ){
+  $("#totalPrice").text(total.toFixed(2));
+  if(totalNum == 0 && hasProduct == 0){
     $("#no-product").show();
     $("#none-msg").show();
     $("#has-product").hide();
@@ -147,40 +147,47 @@ var calculate = function(data){
     $("#has-product").show();
     $("#no-product").hide();
   }
-
 };
+
 $("#create-order").on('click',function(){
   console.log("into create order");
-  var email = $("#username").text();
-  $.ajax({
-    type : "POST",
-    url : "/getCalculateParams",
-    data :{"email": email},
-    dataType : "json",
-    success: function(data){
-      var products = [];
-      var productInCart = data.productInCart;
-      var productArray = data.productArray;
-      for(var i in productInCart){
-        var productId  = productInCart[i].product_id;
-        var pro = null;
-        for(var j in productArray){
-          if(productId == productArray[j].id){
-            pro = new product(productArray[j].id,productArray[j].name,productArray[j].price,productArray[j].unit,productArray[j].promotion,productArray[j].number);
+
+  if ( $("#deleted-product").length > 0 ) {
+    event.preventDefault();
+    $("#has-delete-product-msg").show();
+  }
+  else {
+    var email = $("#username").text();
+    $.ajax({
+      type : "POST",
+      url : "/getCalculateParams",
+      data :{"email": email},
+      dataType : "json",
+      success: function(data){
+        var products = [];
+        var productInCart = data.productInCart;
+        var productArray = data.productArray;
+        for(var i in productInCart){
+          var productId  = productInCart[i].product_id;
+          var pro = null;
+          for(var j in productArray){
+            if(productId == productArray[j].id){
+              pro = new product(productArray[j].id,productArray[j].name,productArray[j].price,productArray[j].unit,productArray[j].promotion,productArray[j].number);
+            }
+          }
+          if(pro != null){
+            pro.boughtNum = productInCart[i].number;
+            products.push(pro);
           }
         }
-        if(pro != null){
-          pro.boughtNum = productInCart[i].number;
-          products.push(pro);
+        for(var k in products){
+          products[k].freeNum = cartsHandle.getFreeNum(products[k].boughtNum);
+          products[k].subtotal = cartsHandle.calculateSubtotal(products[k].boughtNum,products[k].price,products[k].promotion);
         }
+        createOrder(products);
       }
-      for(var k in products){
-        products[k].freeNum = cartsHandle.getFreeNum(products[k].boughtNum);
-        products[k].subtotal = cartsHandle.calculateSubtotal(products[k].boughtNum,products[k].price,products[k].promotion);
-      }
-      createOrder(products);
+    });
   }
-});
 });
 var createOrder = function(details){
 var total = 0;

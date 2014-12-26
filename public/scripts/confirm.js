@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
   var calculateShow = function(){
     var email = $("#username").text();
     $.ajax({
@@ -11,6 +12,7 @@ $(document).ready(function(){
       }
     });
   };
+
   var calculate = function(data){
     var totalNum = 0;
     var total = 0;
@@ -51,6 +53,16 @@ $(document).ready(function(){
     }
 
   };
-  
-calculateShow();
+
+  calculateShow();
+  var email = $("#username").text();
+  $.ajax({
+    type : "POST",
+    url : "/cleanUserCart",
+    data :{"email": email},
+    dataType : "json",
+    success: function(data){
+      $("#count").text(0);
+    }
+  });
 });
