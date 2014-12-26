@@ -28,12 +28,12 @@ $(document).ready(function(){
       subtotal = cartsHandle.calculateSubtotal(number, productArray[i].price, productArray[i].promotion);
       totalNum += number;
       total += subtotal;
-      $("#subtotal-"+productId).text(subtotal);
+    //  $("#subtotal-"+productId).text(subtotal.toFixed(2));
 
 
     }
     $("#count").text(totalNum);
-    $("#totalPrice").text(total);
+    $("#totalPrice").text(total.toFixed(2));
     if(totalNum == 0 ){
       $("#no-product").show();
       $("#none-msg").show();

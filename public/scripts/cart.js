@@ -77,34 +77,6 @@ $(document).ready(function(){
     addToTable(id, email);
     calculateShow();
   });
-
-  $("#create-order").on('click',function(){
-    //event.preventDefault();
-    $.ajax({
-      type : "POST",
-      url : "/confirm",
-      data :null,
-      dataType : "json",
-      success: function(data){
-        console.log(data);
-      // var flag = true;
-      //  for(var id in data){
-      //    var boughtNum = cartHandle.getItem(id).boughtNum;
-      //    if(boughtNum > data[id] && boughtNum != 0){
-      //      flag = false;
-      //      var name = cartHandle.getItem(id).name;
-      //      $("#wrong").text(name+"库存不足，无法提交订单！！！").show();
-      //      break;
-      //    }
-      //   }
-      // if(flag){
-      //   createOrder();
-      //   window.location.href = "/confirm";
-      // }
-    }
-  });
-});
-
   var createOrder = function(){
     var all = cartHandle.getAllItems();
     var details = getAllDetails(all);
@@ -190,18 +162,18 @@ $(document).ready(function(){
     });
   };
 
-  var calculateSubtotal = function(productId, email){
-    $.ajax({
-      type : "POST",
-      url : "/getSubtotalParams",
-      data :{"productId": productId, "email": email},
-      dataType : "json",
-      success: function(data){
-          var subtotal = cartsHandle.calculateSubtotal(data.number, data.price, data.promotion);
-
-        }
-    });
-  };
+  // var calculateSubtotal = function(productId, email){
+  //   $.ajax({
+  //     type : "POST",
+  //     url : "/getSubtotalParams",
+  //     data :{"productId": productId, "email": email},
+  //     dataType : "json",
+  //     success: function(data){
+  //         var subtotal = cartsHandle.calculateSubtotal(data.number, data.price, data.promotion);
+  //
+  //       }
+  //   });
+  // };
 var calculateShow = function(){
   var email = $("#username").text();
   $.ajax({

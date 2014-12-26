@@ -124,9 +124,9 @@ class POSApplication < Sinatra::Base
     goToConfirmPage
   end
 
-  get '/confirm/:user' do
-    getUserCart(params[:user])
-  end
+   get '/confirm/:user' do
+     getUserCartToConfirm(params[:user])
+   end
 
   post '/confirm' do
     returnCartInfo(params[:id],params[:email])

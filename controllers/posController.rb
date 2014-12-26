@@ -76,6 +76,15 @@ def getUserCart(user)
                                         email=?)',user])
   erb :shopcart
 end
+def getUserCartToConfirm(user)
+  content_type :html
+  # @cartProducts = Cart.find_by_user_id(id).products
+  @userCart = Cart.find_by_sql(['select * from carts where email=? order by product_id',user])
+  @cartProducts = Product.find_by_sql(['select * from products where id in
+                                        (select product_id from carts where
+                                        email=?)',user])
+  erb :confirm
+end
 
 def getSubtotalParams(productId,email)
   productInCart = Cart.find_by_sql(['select * from carts where product_id=? and email=?',productId,email]).first
