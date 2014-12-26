@@ -46,7 +46,7 @@
             <td><%=format("%0.2f",item.price)%></td>
             <td><%=item.unit%></td>
             <td><%=item.number%></td>
-            <%if item.promotion == "true" %>
+            <%if item.promotion == "true" || item.promotion == "买二送一"%>
             <td class="font-color-red">买二送一</td>
             <%else%>
             <td class="font-color-red"></td>

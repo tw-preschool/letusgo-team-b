@@ -34,7 +34,11 @@
             <td><%= format("%0.2f",detail.price)%></td>
             <td><%= detail.unit%></td>
             <td><%= detail.number%></td>
-            <td class="font-color-red"><%= detail.promotion%></td>
+            <% if detail.promotion === "true" || detail.promotion === "买二送一"%>
+              <td class="font-color-red">买二送一</td>
+            <% else %>
+              <td class="font-color-red"></td>
+            <% end %>
             <td><%= format("%0.2f",detail.totalcost)%></td>
           </tr>
           <% paymentTotle += detail.totalcost %>
@@ -61,7 +65,11 @@
           <% @details.each do |detail| %>
             <% if (!(detail.numberForFree === 0)) %>
               <tr data-id = "<%=detail.id%>">
-                <td class="font-color-red"><%= detail.promotion%></td>
+                <% if detail.promotion === "true" || detail.promotion === "买二送一"%>
+                  <td class="font-color-red">买二送一</td>
+                <% else %>
+                  <td class="font-color-red"></td>
+                <% end %>
                 <td><%= detail.name%></td>
                 <td><%= detail.numberForFree%></td>
               </tr>
@@ -100,7 +108,11 @@
       </div>
       <div class="clearfix cart-summary-button-dir car-border-top">
         <div class="width-forty-percent flow-right margin-left">
-          <a href="/orders" class="btn btn-warning btn-block flow-right" role="button">返回订单列表</a>
+          <% if session[:role] == "admin"%>
+            <a href="/orders" class="btn btn-warning btn-block flow-right" role="button">返回订单列表</a>
+          <% else %>
+            <a href="/orders/<%=session[:user]%>" class="btn btn-warning btn-block flow-right" role="button">返回订单列表</a>
+          <% end %>
         </div>
       </div>
     </div>

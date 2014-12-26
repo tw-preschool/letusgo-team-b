@@ -10,7 +10,9 @@ gem 'sinatra-contrib'
 gem 'rack-flash3'
 gem 'sinatra-authorize'
 gem 'test-unit'
+gem 'actionmailer'
 gem 'sinatra-activerecord'
+gem 'mail'
 
 group :development, :test do
   	gem 'rack-test'

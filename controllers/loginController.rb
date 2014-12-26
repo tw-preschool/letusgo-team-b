@@ -1,4 +1,6 @@
 require 'active_record'
+require 'action_mailer'
+require 'net/smtp'
 
 def loginConfig
   use Rack::Session::Pool, :expire_after => 60*60*24*7
@@ -12,7 +14,7 @@ def userLogin(email,password)
   user = User.find_by_sql(['select * from users where email=? and password=?',email,password])
   if user.count > 0
     session[:isLogin] = true
-    session[:user] = email
+    session[:user] = user.first.email
     session[:username] = user.first.name
     session[:role] = user.first.role
     session[:userId] = user.first.id
@@ -59,3 +61,7 @@ def userRegister(email,password,phone,name,address,role)
     [404,false.to_json]
   end
 end
+
+
+
+

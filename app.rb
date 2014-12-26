@@ -14,6 +14,8 @@ require './controllers/loginController'
 require './controllers/productController'
 require './controllers/posController'
 require './controllers/orderController'
+require 'action_mailer'
+require './controllers/mail_controller'
 require './controllers/permissionController.rb'
 
 class LoginHandle < Sinatra::Base
@@ -38,6 +40,10 @@ class LoginHandle < Sinatra::Base
   post '/register' do
     userRegister(params[:email],params[:password],params[:phone],
                  params[:name],params[:address],params[:role])
+  end
+
+  post '/mailsent' do
+    mailSender(params[:email], params[:name])
   end
 end
 
@@ -182,9 +188,11 @@ class POSApplication < Sinatra::Base
     post '/cartDelete' do
       deleteProductFromCart(params[:id],params[:email])
     end
+
     post '/getSubtotalParams' do
       getSubtotalParams(params[:productId],params[:email])
     end
+
     post '/getCalculateParams' do
       getCalculateParams(params[:email])
     end
@@ -193,6 +201,10 @@ class POSApplication < Sinatra::Base
     end
     post '/addToCartByInput' do
       updateCartNumberByInput(params[:email], params[:productId],params[:productNum])
+    end
+
+    post '/cleanUserCart' do
+      deleteAllFromCartAboutThisUser(params[:email])
     end
     after do
       ActiveRecord::Base.connection.close
