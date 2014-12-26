@@ -26,7 +26,6 @@ $(document).ready(function(){
         if(productInCart[j].product_id == productId){
           hasProduct = 1;
           number = productInCart[j].number;
-          console.log(productInCart[j]);
         }
       }
       subtotal = cartsHandle.calculateSubtotal(number, productArray[i].price, productArray[i].promotion);
