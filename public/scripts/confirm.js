@@ -51,6 +51,6 @@ $(document).ready(function(){
     }
 
   };
-  
+
 calculateShow();
 });

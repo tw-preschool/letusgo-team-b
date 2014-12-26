@@ -1,15 +1,4 @@
 $(document).ready(function(){
-
-  var getAllDetails = function(details){
-    var detail = [];
-    for(var i in details){
-      details[i].freeNum = cartHandle.getFreeNum(details[i].id);
-      details[i].subtotal = cartHandle.calculateSubtotal(details[i].id).toFixed(2);
-      detail.push(details[i]);
-    }
-    return detail;
-  };
-
   //"+" button on cart.erb
   $(".add-cart").on('click',function(){
     var email = $("#username").text();
@@ -133,12 +122,12 @@ var calculate = function(data){
     subtotal = cartsHandle.calculateSubtotal(number, productArray[i].price, productArray[i].promotion);
     totalNum += number;
     total += subtotal;
-    $("#subtotal-"+productId).text(subtotal);
+    $("#subtotal-"+productId).text(subtotal.toFixed(2));
 
 
   }
   $("#count").text(totalNum);
-  $("#totalPrice").text(total);
+  $("#totalPrice").text(total.toFixed(2));
   if(totalNum == 0 ){
     $("#no-product").show();
     $("#none-msg").show();
@@ -150,7 +139,6 @@ var calculate = function(data){
 
 };
 $("#create-order").on('click',function(){
-  console.log("into create order");
   var email = $("#username").text();
   $.ajax({
     type : "POST",
@@ -188,6 +176,7 @@ for(var k in details){
   total += details[k].subtotal;
 }
 var username = $("#username").text();
+console.log(username);
 var orderData={"order": {username: username, state: "待付款", totalcost:total }};
 orderData.detailsCount = details.length;
 

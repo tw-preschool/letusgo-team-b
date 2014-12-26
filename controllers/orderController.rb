@@ -1,6 +1,5 @@
 # encoding: UTF-8
 require 'active_record'
-
 def addOrder(order)
   order = Order.create(order)
   params.delete("order")
@@ -22,6 +21,7 @@ def addOrder(order)
     end
   }
   if (order.save || resultDetail.save)
+    deleteAllFromCartAboutThisUser(session[:user])
     [201,{:message => "success"}.to_json]
   else
     [404,{:message => "error"}.to_json]
@@ -52,4 +52,11 @@ def getUserOrders(email)
   content_type :html
   @userOrders = Order.find_by_sql(['select * from orders where username=?',email])
   erb :orders
+end
+def deleteAllFromCartAboutThisUser(email)
+  productInCart = Cart.find_by_sql(['select * from carts where email=?',email])
+  for i in 0..(productInCart.length-1)
+    productInCart[i].destroy
+  end
+  [200,{:key => "ok"}.to_json]
 end
