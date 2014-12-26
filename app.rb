@@ -44,7 +44,7 @@ class AdminHandle < Sinatra::Base
   use LoginHandle
   use DbConfig
 
-  get '/admin' do
+  get '/productManagement' do
     checkAdminStatus
   end
 

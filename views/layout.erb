@@ -33,7 +33,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/">主页</a></li>
                     <% if session[:role] == "root" || session[:role] == "admin"%>
-                      <li><a href="/admin">商品管理</a></li>
+                      <li><a href="/productManagement">商品管理</a></li>
                       <li><a href="/orders">订单管理</a></li>
                     <%else%>
                       <li><a href="/products">商品列表</a></li>

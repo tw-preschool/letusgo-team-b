@@ -6,7 +6,7 @@ def checkAdminStatus
   else
     content_type :html
     begin
-      erb :admin
+      erb :productManagement
     rescue ActiveRecord::RecordNotFound => e
       [404, {:message => e.message}.to_json]
     end
