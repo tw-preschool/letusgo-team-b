@@ -21,10 +21,29 @@ $(document).ready(function(){
     }else{
       console.log(email+" "+password+" "+name+"  "+address+" "+phone+"  "+role);
       saveToUser(email,password,name,address,phone,role);
-    //
     }
    });
    var saveToUser = function(email,password,name,address,phone,role){
+       var sentMail = function(email,name){
+           $.ajax({
+               type : "POST",
+               url : "/mailsent",
+               data : {"email" :email, "name":name},
+               dataType : "json",
+               success : function(data){
+                   if(data){
+                       window.location.href = "/";
+                   }else{
+                       alert("email");
+                   }
+               },
+               error : function(data){
+                   //  console.log(dexist-errata);
+                   $("#exist-err").show();
+               }
+           });
+       };
+
      $.ajax({
        type : "POST",
        url : "/register",
@@ -33,6 +52,7 @@ $(document).ready(function(){
        dataType : "json",
        success : function(data){
          if(data){
+           sentMail(email, name);
            window.location.href = "/";
          }else{
            registerHandle.messageHelper("exist");
@@ -44,4 +64,6 @@ $(document).ready(function(){
        }
      });
    };
+
+
 });

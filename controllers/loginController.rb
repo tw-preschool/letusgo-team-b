@@ -1,4 +1,6 @@
 require 'active_record'
+require 'action_mailer'
+
 
 def loginConfig
   use Rack::Session::Pool, :expire_after => 60*60*24*7
@@ -59,3 +61,7 @@ def userRegister(email,password,phone,name,address,role)
     [404,false.to_json]
   end
 end
+
+
+
+

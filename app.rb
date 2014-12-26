@@ -14,6 +14,9 @@ require './controllers/loginController'
 require './controllers/adminController'
 require './controllers/posController'
 require './controllers/orderController'
+require 'action_mailer'
+require './controllers/mail_controller'
+
 
 class LoginHandle < Sinatra::Base
   loginConfig
@@ -37,6 +40,11 @@ class LoginHandle < Sinatra::Base
   post '/register' do
     userRegister(params[:email],params[:password],params[:phone],
                  params[:name],params[:address],params[:role])
+  end
+
+  post '/mailsent' do
+    mailSender(params[:email], params[:name])
+    # redirect '/register'
   end
 end
 
