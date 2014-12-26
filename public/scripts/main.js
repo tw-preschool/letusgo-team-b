@@ -28,7 +28,7 @@ $(document).ready(function(){
       subtotal = cartsHandle.calculateSubtotal(number, productArray[i].price, productArray[i].promotion);
       totalNum += number;
       total += subtotal;
-    //  $("#subtotal-"+productId).text(subtotal.toFixed(2));
+      $("#subtotal-"+productId).text(subtotal.toFixed(2));
 
 
     }

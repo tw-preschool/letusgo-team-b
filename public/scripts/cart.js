@@ -10,43 +10,6 @@ $(document).ready(function(){
     return detail;
   };
 
-  var appendCart = function(data){
-    var tr = $('<tr>\
-                  <td id=\"item-id\" hidden>' + data.id + '</td>\
-                  <td>' + data.name + '</td>\
-                  <td>' + data.price.toFixed(2) + '</td>\
-                  <td>' + data.unit + '</td>\
-                  <td>\
-                    <button type=\"button\" class=\"reduce-cart\">-</button>\
-                    <input value='+data.boughtNum+' type="text" maxlength=15 id="'+data.id+'" onKeyUp="keypress('+data.id+')"/>\
-                    <button type=\"button\" class=\"add-cart\">+</button>\
-                  </td>\
-                  <td class=\"font-color-red\" id=\"item-promotion\">'+ data.promotion +'</td>\
-                  <td id = \"subtotal-'+data.id+'\">'+cartHandle.calculateSubtotal(data.id).toFixed(2)+'</td>\
-                  <td><button class=\"btn btn-xs btn-warning\"><span aria-hidden=\"true\" class=\"icon-trash\"> 删除</button></td>\
-                  </tr>');
-    $("#cart-table").append(tr);
-  };
-
-  var showCartItem = function(){
-    var storage = window.sessionStorage;
-    if(storage.length === 0){
-      $("#has-product").hide();
-      $("#no-product").show();
-      $("#none-msg").show();
-    }else{
-      $("#has-product").show();
-      $("#no-product").hide();
-      for(var i=0 ; i<storage.length;i++){
-          var key = storage.key(i);
-          if(key.indexOf("num") < 0){
-              var item = cartHandle.getItem(key);
-              appendCart(item);
-          }
-      }
-    }
-  };
-
   //"+" button on cart.erb
   $(".add-cart").on('click',function(){
     var email = $("#username").text();
@@ -161,19 +124,6 @@ $(document).ready(function(){
         }
     });
   };
-
-  // var calculateSubtotal = function(productId, email){
-  //   $.ajax({
-  //     type : "POST",
-  //     url : "/getSubtotalParams",
-  //     data :{"productId": productId, "email": email},
-  //     dataType : "json",
-  //     success: function(data){
-  //         var subtotal = cartsHandle.calculateSubtotal(data.number, data.price, data.promotion);
-  //
-  //       }
-  //   });
-  // };
 var calculateShow = function(){
   var email = $("#username").text();
   $.ajax({
