@@ -5,8 +5,8 @@ var cartsHandle = (function(){
       return this.getFreeNum(number) * price;
     },
     calculateSubtotal: function(number, price, promotion){
-      if(promotion == "true" && number > 2){
-        return price*(Math.ceil(number/3))*2;
+      if(promotion == "true" || promotion == "买二送一" && number > 2){
+        return price*(Math.floor(number/3))*2;
       }else{
         return price * number;
       }
