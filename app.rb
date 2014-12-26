@@ -126,11 +126,9 @@ class POSApplication < Sinatra::Base
     end
 
     get '/items' do
-      if isLogin && isAdmin
-        redirect '/login'
-      else
+
         goToItemsPage
-      end
+
     end
 
     get '/confirm' do

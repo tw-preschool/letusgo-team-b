@@ -23,12 +23,12 @@ def userLogin(email,password)
 end
 
 def checkLoginStatus
-  if session[:isLogin] === true
-    redirect '/admin'
-  else
+  # if session[:isLogin] === true
+  #   redirect '/admin'
+  # else
     content_type :html
     erb :login
-  end
+  # end
 end
 
 def userLogout
