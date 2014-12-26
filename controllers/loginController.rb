@@ -1,5 +1,5 @@
 require 'active_record'
-
+require 'net/smtp'
 def loginConfig
   use Rack::Session::Pool, :expire_after => 60*60*24*7
   configure do
