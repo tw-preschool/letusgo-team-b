@@ -19,7 +19,8 @@ def createProduct(name,price,unit,promotion,number,description)
                            :unit => unit,
                            :promotion => promotion,
                            :number => number,
-                           :description => description)
+                           :description => description,
+                           :state => "onsale")
   if product.save
     [201, {:message => "products/#{product.id}",:id => product.id }.to_json]
   else
@@ -45,7 +46,7 @@ def findProductByID(id)
 end
 
 def deleteItem(id)
-  Product.find(id).destroy
+  Product.find(id).update(:state => "deleted")
   [201, {:message => "delete"}.to_json]
 end
 
