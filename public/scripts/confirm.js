@@ -17,6 +17,7 @@ $(document).ready(function(){
     var totalNum = 0;
     var total = 0;
     var save = 0;
+    var hasProduct = 0;
     var productInCart = data.productInCart;
     var productArray = data.productArray;
     for(var i in productArray){
@@ -26,6 +27,7 @@ $(document).ready(function(){
 
       for(var j in productInCart){
         if(productInCart[j].product_id == productId){
+          hasProduct = 1;
           number = productInCart[j].number;
 
         }
@@ -43,7 +45,7 @@ $(document).ready(function(){
     $("#count").text(totalNum);
     $("#totalPrice").text(total.toFixed(2));
     $("#freeTotal").text(save.toFixed(2));
-    if(totalNum == 0 ){
+    if(totalNum == 0 && hasProduct == 0){
       $("#no-product").show();
       $("#none-msg").show();
       $("#has-product").hide();
